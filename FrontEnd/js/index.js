@@ -34,6 +34,7 @@ fetch('http://localhost:5678/api/works')
     const categories = [];
     const allWorksSpan = document.createElement('span');
     allWorksSpan.textContent = 'Tout';
+    allWorksSpan.classList.add('span__filter__global');
     objectsCategoryDiv.appendChild(allWorksSpan);
     works.forEach((work) => {
       const category = work.category;
@@ -45,6 +46,7 @@ fetch('http://localhost:5678/api/works')
 
         const objectsCategorySpan = document.createElement('span');
         objectsCategorySpan.textContent = categoryName;
+        objectsCategorySpan.classList.add('span__filter__global');
         objectsCategoryDiv.appendChild(objectsCategorySpan);
         objectsCategorySpan.setAttribute('id', categoryId);
         objectsCategorySpan.setAttribute('data-id', categoryId);
