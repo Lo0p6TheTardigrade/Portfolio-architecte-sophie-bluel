@@ -17,11 +17,11 @@ for (let index = 0; index < getLoginNavLink.length; index++) {
 }
 const loginNavLink = document.getElementById('login');
 const mainTag = document.querySelector('main');
-mainTag.setAttribute('id', 'mainSection');
 console.log(loginNavLink);
 
 loginNavLink.addEventListener('click', () => {
-  document.getElementById('mainSection').innerHTML = '';
+  mainTag.setAttribute('id', 'main__section');
+  document.getElementById('main__section').innerHTML = '';
 
   const loginSectionTitle = document.createElement('section');
   const articleLoginSectionTitle = document.createElement('article');
@@ -32,28 +32,34 @@ loginNavLink.addEventListener('click', () => {
   articleLoginSectionTitle.appendChild(h2LoginSectionTitle);
 
   const formLoginSectionTitle = document.createElement('form');
+  const divLabelInputPasswords = document.createElement('div');
+  const divLabelInputUser = document.createElement('div');
   mainTag.appendChild(formLoginSectionTitle);
+  formLoginSectionTitle.appendChild(divLabelInputUser);
+  formLoginSectionTitle.appendChild(divLabelInputPasswords);
 
   const labelUserLoginSectionTitle = document.createElement('label');
   labelUserLoginSectionTitle.textContent = 'E-mail';
   labelUserLoginSectionTitle.setAttribute('for', 'username');
-  formLoginSectionTitle.appendChild(labelUserLoginSectionTitle);
+  labelUserLoginSectionTitle.setAttribute('id', 'label__id__username');
+  divLabelInputUser.appendChild(labelUserLoginSectionTitle);
+
+  const inputUserLoginSectionTitle = document.createElement('input');
+  inputUserLoginSectionTitle.type = 'email';
+  inputUserLoginSectionTitle.setAttribute('id', 'username');
+  divLabelInputUser.appendChild(inputUserLoginSectionTitle);
 
   const labelPasswordLoginSectionTitle = document.createElement('label');
   labelPasswordLoginSectionTitle.textContent = 'Mot de passe';
   labelPasswordLoginSectionTitle.type = 'password';
   labelPasswordLoginSectionTitle.setAttribute('for', 'password');
-  formLoginSectionTitle.appendChild(labelPasswordLoginSectionTitle);
-
-  const inputUserLoginSectionTitle = document.createElement('input');
-  inputUserLoginSectionTitle.type = 'email';
-  inputUserLoginSectionTitle.setAttribute('id', 'username');
-  formLoginSectionTitle.appendChild(inputUserLoginSectionTitle);
+  labelPasswordLoginSectionTitle.setAttribute('id', 'label__id__password');
+  divLabelInputPasswords.appendChild(labelPasswordLoginSectionTitle);
 
   const inputPasswordLoginSectionTitle = document.createElement('input');
   inputPasswordLoginSectionTitle.type = 'password';
   inputPasswordLoginSectionTitle.setAttribute('id', 'password');
-  formLoginSectionTitle.appendChild(inputPasswordLoginSectionTitle);
+  divLabelInputPasswords.appendChild(inputPasswordLoginSectionTitle);
 
   const buttonLoginSectionTitle = document.createElement('button');
   buttonLoginSectionTitle.textContent = 'Se connecter';
