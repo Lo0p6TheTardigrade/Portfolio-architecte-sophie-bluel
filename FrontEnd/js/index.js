@@ -1,3 +1,32 @@
+// Get section portfolio tag from ID attribute
+const sectionPortfolio = document.getElementById('portfolio');
+const sectionPortfolioH2 = document.querySelector('#portfolio > h2');
+
+// Get gallery by css class
+const sectionPortfolioDivGallery = document.querySelector('.gallery');
+
+// Get section introduction tag from ID attribute
+const sectionIntroduction = document.getElementById('introduction');
+
+// get article tag by tag name
+const sectionArticle = document.querySelector('article');
+
+if (document.getElementById('main__section') === false) {
+} else {
+  // Find the list item with the following text fields
+  let getProjectNavLink = document.getElementsByTagName('*');
+  console.log(getProjectNavLink);
+  for (let index = 0; index < getProjectNavLink.length; index++) {
+    if (getProjectNavLink[index].textContent === 'projets') {
+      let project = getProjectNavLink[index];
+      console.log(project);
+      project.setAttribute('id', 'projets');
+      project.addEventListener('click', () => {
+        document.querySelector('main').innerHTML = '';
+      });
+    }
+  }
+}
 // Fetch works
 fetch('http://localhost:5678/api/works')
   .then((response) => response.json())
@@ -41,9 +70,11 @@ fetch('http://localhost:5678/api/works')
       const categoryName = category.name;
       const categoryId = category.id;
 
+      // Verify if the category is already get in the categories array
       if (!categories.includes(categoryName)) {
         categories.push(categoryName);
 
+        // Create the category section
         const objectsCategorySpan = document.createElement('span');
         objectsCategorySpan.textContent = categoryName;
         objectsCategorySpan.classList.add('span__filter__global');
@@ -51,6 +82,7 @@ fetch('http://localhost:5678/api/works')
         objectsCategorySpan.setAttribute('id', categoryId);
         objectsCategorySpan.setAttribute('data-id', categoryId);
 
+        // Get the category by click
         objectsCategorySpan.addEventListener('click', () => {
           const categoryId = parseInt(objectsCategorySpan.getAttribute('data-id'));
           const filteredWorks = works.filter((work) => work.category.id === categoryId);
@@ -103,19 +135,7 @@ fetch('http://localhost:5678/api/works')
       }
     });
 
+    // Insert the section category div
     sectionPortfolio.appendChild(objectsCategoryDiv);
     sectionPortfolio.insertBefore(objectsCategoryDiv, sectionPortfolioDivGallery);
   });
-
-// Get section portfolio tag from ID attribute
-const sectionPortfolio = document.getElementById('portfolio');
-const sectionPortfolioH2 = document.querySelector('#portfolio > h2');
-
-// Get gallery by css class
-const sectionPortfolioDivGallery = document.querySelector('.gallery');
-
-// Get section introduction tag from ID attribute
-const sectionIntroduction = document.getElementById('introduction');
-
-// get article tag by tag name
-const sectionArticle = document.querySelector('article');
