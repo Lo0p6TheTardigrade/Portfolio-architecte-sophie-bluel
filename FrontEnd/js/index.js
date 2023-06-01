@@ -22,7 +22,7 @@ if (document.getElementById('main__section') === false) {
       console.log(project);
       project.setAttribute('id', 'projets');
       project.addEventListener('click', () => {
-        document.querySelector('main').innerHTML = '';
+        window.location.href = '/FrontEnd';
       });
     }
   }
@@ -38,14 +38,14 @@ fetch('http://localhost:5678/api/works')
       const getImageUrl = work.imageUrl;
       const getTitleForFigcaption = work.title;
       const getTitleForAlt = work.title;
-      const getCategoryId = work.categoryId;
-      console.log(getCategoryId);
+      // const getCategoryId = work.categoryId;
+      // console.log(getCategoryId);
 
       // Create new elements for section portfolio
       const sectionPortfolioFigure = document.createElement('figure');
       const sectionPortfolioFigureImg = document.createElement('img');
       const sectionPortfolioFigcaption = document.createElement('figcaption');
-      const imageUrlId = parseInt(sectionPortfolioFigureImg.setAttribute('data-id', getCategoryId));
+      // const imageUrlId = parseInt(sectionPortfolioFigureImg.setAttribute('data-id', getCategoryId));
 
       // Append elements for the gallery section
       sectionPortfolioDivGallery.appendChild(sectionPortfolioFigure);
@@ -84,8 +84,8 @@ fetch('http://localhost:5678/api/works')
 
         // Get the category by click
         objectsCategorySpan.addEventListener('click', () => {
-          const categoryId = parseInt(objectsCategorySpan.getAttribute('data-id'));
-          const filteredWorks = works.filter((work) => work.category.id === categoryId);
+          // const categoryId = parseInt(objectsCategorySpan.getAttribute('data-id'));
+          const filteredWorks = works.filter((work) => work.category.name === categoryName);
 
           // Reset portfolio
           sectionPortfolioDivGallery.innerHTML = '';
