@@ -94,15 +94,20 @@ loginNavLink.addEventListener('click', () => {
         let getTokenResponse = JSON.stringify(data.token);
         sessionStorage.setItem('token', getTokenResponse);
         console.log(getTokenResponse);
-        alert('Utilisateur connecté !');
+        alert('Vous êtes connecté !');
 
         if (loginNavLink) {
           // Stockez toutes les informations de connexion dans localStorage
-          localStorage.setItem('email', inputUserLogin);
-          localStorage.setItem('password', inputPasswordLogin);
+          sessionStorage.setItem('email', inputUserLogin);
+          sessionStorage.setItem('password', inputPasswordLogin);
 
-          // window.location.href = '/FrontEnd';
-          loginNavLink.textContent = 'logout';
+          window.location.href = '/FrontEnd';
+          document.cookie = 'session=getTokenResponse' + 'expires=Thu' + ' 01 Jan 1970 00:00:00 UTC' + ' path=/';
+          // loginNavLink.textContent = 'logout';
+          // if (inputUserLogin === true && inputPasswordLogin === true) {
+          //   // window.location.href = '/FrontEnd';
+          //   loginNavLink.textContent = 'logout';
+          // }
         }
       } else {
         alert('Identifiant ou mot de passe incorrect.');

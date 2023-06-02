@@ -27,6 +27,25 @@ if (document.getElementById('main__section') === false) {
     }
   }
 }
+function ifPreviouslyConnected() {
+  sessionStorage.getItem('token');
+  console.log(sessionStorage.getItem('token'));
+  document.getElementById('loginNavigation').textContent = 'logout';
+}
+for (let i = 0; i < sessionStorage.length; i++) {
+  if (sessionStorage.key(i) === 'token') {
+    ifPreviouslyConnected();
+    const logoutNavigation = document.getElementById('loginNavigation');
+    logoutNavigation.setAttribute('id', 'logoutNavigation');
+    logoutNavigation.addEventListener('click', () => {
+      sessionStorage.clear();
+      logoutNavigation.setAttribute('id', 'loginNavigation');
+      logoutNavigation.textContent = 'login';
+      window.location.reload();
+    });
+  } else {
+  }
+}
 // Fetch works
 fetch('http://localhost:5678/api/works')
   .then((response) => response.json())
