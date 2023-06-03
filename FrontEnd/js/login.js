@@ -105,6 +105,7 @@ loginNavLink.addEventListener('click', () => {
 
           window.location.href = '/FrontEnd';
           cookieSessionCreate();
+          const userLoginTools = document.createElement('div');
         }
       } else {
         alert('Identifiant ou mot de passe incorrect.');
