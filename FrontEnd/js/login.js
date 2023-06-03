@@ -93,21 +93,18 @@ loginNavLink.addEventListener('click', () => {
 
         let getTokenResponse = JSON.stringify(data.token);
         sessionStorage.setItem('token', getTokenResponse);
+        function cookieSessionCreate() {
+          document.cookie = 'session=getTokenResponse; path=/';
+        }
         console.log(getTokenResponse);
         alert('Vous êtes connecté !');
 
-        if (loginNavLink) {
-          // Stockez toutes les informations de connexion dans localStorage
+        if (buttonLoginSectionTitle) {
           sessionStorage.setItem('email', inputUserLogin);
           sessionStorage.setItem('password', inputPasswordLogin);
 
           window.location.href = '/FrontEnd';
-          document.cookie = 'session=getTokenResponse' + 'expires=Thu' + ' 01 Jan 1970 00:00:00 UTC' + ' path=/';
-          // loginNavLink.textContent = 'logout';
-          // if (inputUserLogin === true && inputPasswordLogin === true) {
-          //   // window.location.href = '/FrontEnd';
-          //   loginNavLink.textContent = 'logout';
-          // }
+          cookieSessionCreate();
         }
       } else {
         alert('Identifiant ou mot de passe incorrect.');
