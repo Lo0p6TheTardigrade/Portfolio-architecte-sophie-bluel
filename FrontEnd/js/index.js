@@ -8,8 +8,6 @@ const sectionPortfolioDivGallery = document.querySelector('.gallery');
 // Get section introduction tag from ID attribute
 const sectionIntroduction = document.getElementById('introduction');
 
-const categoryDom = document.querySelector('.category');
-
 if (document.getElementById('main__section') === false) {
 } else {
   // Find the list item with the following text fields
@@ -32,8 +30,8 @@ function ifPreviouslyConnected() {
 
   document.getElementById('loginNavigation').textContent = 'logout';
 
-  sectionPortfolio.insertBefore(userEditionMode2, categoryDom);
-  console.log(userEditionMode2);
+  // sectionPortfolio.insertBefore(userEditionModeBox2, objectsCategoryDivRecall);
+  // console.log(objectsCategoryDivRecall);
 }
 for (let i = 0; i < sessionStorage.length; i++) {
   if (sessionStorage.key(i) === 'token') {
@@ -56,6 +54,7 @@ fetch('http://localhost:5678/api/works')
   .then((works) => {
     // Create categories div
     const objectsCategoryDiv = document.createElement('div');
+    objectsCategoryDiv.setAttribute('id', 'objectsCategory');
     works.forEach((work) => {
       // Const for get all value in work objects
       const getImageUrl = work.imageUrl;
