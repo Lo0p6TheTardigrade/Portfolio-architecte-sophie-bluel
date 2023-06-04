@@ -64,7 +64,6 @@ fetch('http://localhost:5678/api/works')
       const sectionPortfolioFigure = document.createElement('figure');
       const sectionPortfolioFigureImg = document.createElement('img');
       const sectionPortfolioFigcaption = document.createElement('figcaption');
-      // const imageUrlId = parseInt(sectionPortfolioFigureImg.setAttribute('data-id', getCategoryId));
 
       // Append elements for the gallery section
       sectionPortfolioDivGallery.appendChild(sectionPortfolioFigure);

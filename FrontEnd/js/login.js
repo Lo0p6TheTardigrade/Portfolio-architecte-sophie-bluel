@@ -8,10 +8,20 @@ for (let index = 0; index < getLoginNavLink.length; index++) {
     loginNavigation.setAttribute('id', 'loginNavigation');
   }
 }
+
+function cookieSessionCreate() {
+  document.cookie = 'session=getTokenResponse; path=/';
+}
+const h1Tile = document.querySelector('h1');
+
 // Select the list item login
 let loginNavLink = document.getElementById('loginNavigation');
 const mainTag = document.querySelector('main');
 console.log(loginNavLink);
+
+const userLoginTools = document.createElement('div');
+const userEditionMode = document.createElement('span');
+const publishChange = document.createElement('span');
 
 // Add event listener on login nav link click
 loginNavLink.addEventListener('click', () => {
@@ -93,9 +103,9 @@ loginNavLink.addEventListener('click', () => {
 
         let getTokenResponse = JSON.stringify(data.token);
         sessionStorage.setItem('token', getTokenResponse);
-        function cookieSessionCreate() {
-          document.cookie = 'session=getTokenResponse; path=/';
-        }
+        // function cookieSessionCreate() {
+        //   document.cookie = 'session=getTokenResponse; path=/';
+        // }
         console.log(getTokenResponse);
         alert('Vous êtes connecté !');
 
@@ -105,12 +115,6 @@ loginNavLink.addEventListener('click', () => {
 
           window.location.href = '/FrontEnd';
           cookieSessionCreate();
-          const userLoginTools = document.createElement('div');
-          userLoginTools.setAttribute('id', 'userLoginTools');
-          const userEditionMode = document.createElement('p');
-          userEditionMode.setAttribute('id', 'userEditionMode');
-          const publishChange = document.createElement('span');
-          publishChange.setAttribute('id', 'publishChange');
         }
       } else {
         alert('Identifiant ou mot de passe incorrect.');
