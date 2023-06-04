@@ -54,7 +54,7 @@ fetch('http://localhost:5678/api/works')
   .then((works) => {
     // Create categories div
     const objectsCategoryDiv = document.createElement('div');
-    objectsCategoryDiv.setAttribute('id', 'objectsCategory');
+
     works.forEach((work) => {
       // Const for get all value in work objects
       const getImageUrl = work.imageUrl;

@@ -8,8 +8,17 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
     getBody.insertBefore(userLoginTools, getHeader);
 
+    sectionPortfolio.insertBefore(userEditionModeBox2, sectionPortfolioH2);
+    userEditionModeBox2.appendChild(userEditionModeIcon2);
+    userEditionModeIcon2.setAttribute('id', 'userEditionModeIcon2');
+    userEditionModeIcon2.setAttribute('class', 'fa-regular');
+    userEditionModeIcon2.classList.add('fa-pen-to-square');
+
+    userEditionModeBox2.appendChild(userEditionMode2);
+
     userEditionMode.setAttribute('id', 'userEditionMode');
     userEditionMode2.setAttribute('id', 'userEditionMode2');
+    userEditionModeBox2.setAttribute('id', 'userEditionModeBox2');
     userEditionMode3.setAttribute('id', 'userEditionMode3');
 
     publishChange.setAttribute('id', 'publishChange');
