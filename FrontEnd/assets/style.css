@@ -271,6 +271,42 @@ li:hover {
 
 /* End login */
 
+/* Modal */
+#userLoginTools {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 21px;
+  background-color: #000000;
+  height: 59px;
+}
+.fa-regular,
+.fa-pen-to-square {
+  color: #ffff;
+}
+#userEditionModeBox {
+  display: flex;
+  gap: 13px;
+}
+#userEditionMode {
+  color: #ffff;
+}
+#publishChange {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Work Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 60px;
+  width: 216px;
+  height: 38px;
+}
+
 #introduction {
   display: flex;
   align-items: center;

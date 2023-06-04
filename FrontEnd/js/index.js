@@ -8,8 +8,7 @@ const sectionPortfolioDivGallery = document.querySelector('.gallery');
 // Get section introduction tag from ID attribute
 const sectionIntroduction = document.getElementById('introduction');
 
-// get article tag by tag name
-const sectionArticle = document.querySelector('article');
+const categoryDom = document.querySelector('.category');
 
 if (document.getElementById('main__section') === false) {
 } else {
@@ -30,13 +29,18 @@ if (document.getElementById('main__section') === false) {
 function ifPreviouslyConnected() {
   sessionStorage.getItem('token');
   console.log(sessionStorage.getItem('token'));
+
   document.getElementById('loginNavigation').textContent = 'logout';
+
+  sectionPortfolio.insertBefore(userEditionMode2, categoryDom);
+  console.log(userEditionMode2);
 }
 for (let i = 0; i < sessionStorage.length; i++) {
   if (sessionStorage.key(i) === 'token') {
     ifPreviouslyConnected();
     const logoutNavigation = document.getElementById('loginNavigation');
     logoutNavigation.setAttribute('id', 'logoutNavigation');
+
     logoutNavigation.addEventListener('click', () => {
       sessionStorage.clear();
       logoutNavigation.setAttribute('id', 'loginNavigation');
