@@ -93,9 +93,10 @@ for (let i = 0; i < sessionStorage.length; i++) {
         modalCrossBox.classList.add('modalCrossBox');
         modal.appendChild(modalCrossBox);
 
-        const modalCross = document.createElement('p');
-        modalCross.classList.add('modalCross');
-        modalCross.textContent = 'X';
+        const modalCross = document.createElement('i');
+        modalCross.setAttribute('id', 'modalCross');
+        modalCross.setAttribute('class', 'fa-solid');
+        modalCross.classList.add('fa-xmark');
         modalCrossBox.appendChild(modalCross);
 
         const modalTitleBox = document.createElement('div');
@@ -128,23 +129,50 @@ for (let i = 0; i < sessionStorage.length; i++) {
               const modalFigureTextBox = document.createElement('p');
               modalFigureTextBox.textContent = 'éditer';
               modalFigureTextBox.classList.add('modalFigureTextBox');
+              modalFigure.appendChild(modalFigureTextBox);
 
-              const modalCheckbox = document.createElement('input');
-              modalCheckbox.type = 'checkbox';
-              modalCheckbox.classList.add('modalCheckbox');
-              modalFigure.appendChild(modalCheckbox);
+              const modalTrasCanBox = document.createElement('div');
+              modalTrasCanBox.classList.add('modalTrasCanBox');
+              modalFigure.appendChild(modalTrasCanBox);
+
+              const modalTrasCan = document.createElement('i');
+              modalTrasCan.setAttribute('id', 'modalTrasCan');
+              modalTrasCan.setAttribute('class', 'fa-solid');
+              modalTrasCan.classList.add('fa-trash-can');
+              modalTrasCanBox.appendChild(modalTrasCan);
+
+              const modalZoomSelectedIconBox = document.createElement('div');
+              modalZoomSelectedIconBox.classList.add('modalZoomSelectedIconBox');
+              modalTrasCanBox.appendChild(modalZoomSelectedIconBox);
+
+              const modalZoomSelectedIcon = document.createElement('i');
+              modalZoomSelectedIcon.setAttribute('id', 'modalZoomSelectedIcon');
+              modalZoomSelectedIcon.setAttribute('class', 'fa-solid');
+              modalZoomSelectedIcon.classList.add('fa-maximize');
+              modalZoomSelectedIconBox.appendChild(modalZoomSelectedIcon);
+
+              let modalZoomSelectedIconState = true;
+              if (!modalZoomSelectedIconState === true) {
+              } else {
+                modalZoomSelectedIconState = false;
+              }
             });
             const modalSeparator = document.createElement('div');
+            modalSeparator.classList.add('modalSeparator');
+            modal.appendChild(modalSeparator);
 
+            const modalButtonBox = document.createElement('div');
+            modalButtonBox.classList.add('modalButtonBox');
+            modal.appendChild(modalButtonBox);
             const modalButton = document.createElement('span');
             modalButton.classList.add('modalButton');
             modalButton.textContent = 'Ajouter une photo';
-            modal.appendChild(modalButton);
+            modalButtonBox.appendChild(modalButton);
 
             const modalButton2 = document.createElement('span');
             modalButton2.classList.add('modalButton2');
             modalButton2.textContent = 'Supprimer la galerie';
-            modal.appendChild(modalButton2);
+            modalButtonBox.appendChild(modalButton2);
           });
 
         modalCreated = true;
