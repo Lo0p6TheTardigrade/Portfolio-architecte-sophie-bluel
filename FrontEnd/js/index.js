@@ -8,6 +8,9 @@ const sectionPortfolioDivGallery = document.querySelector('.gallery');
 // Get section introduction tag from ID attribute
 const sectionIntroduction = document.getElementById('introduction');
 
+sectionIntroduction.querySelector('figure').setAttribute('id', 'introductionFigure');
+const introductionFigure = document.getElementById('introductionFigure');
+
 if (document.getElementById('main__section') === false) {
 } else {
   // Find the list item with the following text fields
