@@ -139,7 +139,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalTrasCanBox.classList.add('modalTrashCanBox');
               modalIconBox.appendChild(modalTrasCanBox);
 
-              const modalTrasCan = document.createElement('i');
+              const modalTrashCan = document.createElement('i');
               modalTrashCan.setAttribute('id', 'modalTrashCan');
               modalTrashCan.setAttribute('class', 'fa-solid');
               modalTrashCan.classList.add('fa-trash-can');
