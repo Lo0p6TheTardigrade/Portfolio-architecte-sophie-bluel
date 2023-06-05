@@ -392,20 +392,32 @@ modal img {
   margin-right: 105px;
   margin-bottom: 42px;
 }
-.modalTrasCanBox {
+.modalIconBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  border-radius: 2px;
+  position: relative;
+  top: -112px;
+  right: -10px;
+  /* width: 20px;
+  height: 20px; */
+}
+.modalZoomSelectedIconBox,
+.modalTrashCanBox {
   display: flex;
   justify-content: center;
   align-items: center;
   background: #000;
-  border-radius: 2px;
-  position: relative;
-  top: -112px;
-  right: -50px;
   width: 20px;
   height: 20px;
 }
+#modalZoomSelectedIcon,
 #modalTrasCan {
   color: #ffff;
+  width: 9px;
+  height: 9px;
 }
 .modalSeparator {
   margin: auto;

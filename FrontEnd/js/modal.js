@@ -131,19 +131,23 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalFigureTextBox.classList.add('modalFigureTextBox');
               modalFigure.appendChild(modalFigureTextBox);
 
+              const modalIconBox = document.createElement('div');
+              modalIconBox.classList.add('modalIconBox');
+              modalFigure.appendChild(modalIconBox);
+
               const modalTrasCanBox = document.createElement('div');
-              modalTrasCanBox.classList.add('modalTrasCanBox');
-              modalFigure.appendChild(modalTrasCanBox);
+              modalTrasCanBox.classList.add('modalTrashCanBox');
+              modalIconBox.appendChild(modalTrasCanBox);
 
               const modalTrasCan = document.createElement('i');
-              modalTrasCan.setAttribute('id', 'modalTrasCan');
-              modalTrasCan.setAttribute('class', 'fa-solid');
-              modalTrasCan.classList.add('fa-trash-can');
-              modalTrasCanBox.appendChild(modalTrasCan);
+              modalTrashCan.setAttribute('id', 'modalTrashCan');
+              modalTrashCan.setAttribute('class', 'fa-solid');
+              modalTrashCan.classList.add('fa-trash-can');
+              modalTrasCanBox.appendChild(modalTrashCan);
 
               const modalZoomSelectedIconBox = document.createElement('div');
               modalZoomSelectedIconBox.classList.add('modalZoomSelectedIconBox');
-              modalTrasCanBox.appendChild(modalZoomSelectedIconBox);
+              modalIconBox.appendChild(modalZoomSelectedIconBox);
 
               const modalZoomSelectedIcon = document.createElement('i');
               modalZoomSelectedIcon.setAttribute('id', 'modalZoomSelectedIcon');
