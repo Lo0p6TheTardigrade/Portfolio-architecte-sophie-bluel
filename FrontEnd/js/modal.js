@@ -153,7 +153,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
               const modalFigureImg = document.createElement('img');
               modalFigureImg.setAttribute('src', getImageUrl);
-              modalFigureImg.setAttribute('id', modalFigureImg);
+              modalFigureImg.setAttribute('id', work.id);
               modalFigureImg.classList.add('modalFigureImg');
               modalFigureImg.style.cursor = 'pointer';
               modalFigure.appendChild(modalFigureImg);
@@ -168,7 +168,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalIconBox.classList.add('modalIconBox');
               modalFigure.appendChild(modalIconBox);
 
-              const modalTrashCanBox = document.createElement('div');
+              let modalTrashCanBox = document.createElement('div');
               modalTrashCanBox.classList.add('modalTrashCanBox');
               modalIconBox.appendChild(modalTrashCanBox);
 
@@ -178,6 +178,28 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalTrashCan.classList.add('fa-trash-can');
               modalTrashCan.style.cursor = 'pointer';
               modalTrashCanBox.appendChild(modalTrashCan);
+
+              console.log(sessionStorage.token);
+              modalTrashCanBox.addEventListener('click', async () => {
+                let workId = work.id;
+                console.log(work.id);
+                try {
+                  const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
+                    method: 'DELETE',
+                    headers: {
+                      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                    },
+                  });
+
+                  if (response.ok) {
+                    alert('Travail supprimé avec succès !');
+                  } else {
+                    alert('Erreur lors de la suppression du travail');
+                  }
+                } catch (error) {
+                  console.error(error);
+                }
+              });
 
               const modalZoomSelectedIconBox = document.createElement('div');
               modalZoomSelectedIconBox.classList.add('modalZoomSelectedIconBox');
