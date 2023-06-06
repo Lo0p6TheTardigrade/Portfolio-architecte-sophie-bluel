@@ -206,15 +206,35 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalTitle.textContent = 'Ajout photo';
                 modalFigureImgBox.innerHTML = '';
                 const modalFigureImgDownload = document.createElement('a');
-                modalFigureImgDownload.setAttribute('href', 'http://localhost:/Frontend/assets/images/');
-                modalFigureImgDownload.setAttribute('download', '');
+                const modalFigureImgDownloadIcon = document.createElement('i');
+                const modalFigureImgDownloadText = document.createElement('span');
+                const modalFigureImgDownloadFileType = document.createElement('span');
+
+                modalFigureImgDownload.setAttribute('href', '/Frontend/assets/images/');
+                modalFigureImgDownload.setAttribute('upload', '');
                 modalFigureImgDownload.setAttribute('class', 'modalFigureImgDownload');
+
+                modalFigureImgDownloadIcon.setAttribute('id', 'modalFigureImgDownloadIcon');
+                modalFigureImgDownloadIcon.setAttribute('class', 'fa-regular');
+                modalFigureImgDownloadIcon.classList.add('fa-image');
+
+                modalFigureImgDownloadText.setAttribute('id', 'modalFigureImgDownloadText');
+                modalFigureImgDownloadText.textContent = '+ Ajouter photo';
+                modalFigureImgDownloadFileType.setAttribute('id', 'modalFigureImgDownloadFileType');
+                modalFigureImgDownloadFileType.textContent = 'jpg, png: 4mo max';
+
                 let modalFigureImgDownloadArray = [];
-                modalFigureImgDownloadArray.push(modalFigureImgDownload);
-                if (!modalFigureImgDownloadArray === modalFigureImgDownload) {
-                  modalFigureImgDownloadArray.pop(modalFigureImgDownload);
+                modalFigureImgDownloadArray.push(modalFigureImgDownload && modalFigureImgDownloadIcon);
+                if (!modalFigureImgDownloadArray === modalFigureImgDownload && !modalFigureImgDownloadArray === modalFigureImgDownloadIcon) {
+                  modalFigureImgDownloadArray.pop(modalFigureImgDownload && modalFigureImgDownloadIcon);
                 } else {
                   modalFigureImgBox.appendChild(modalFigureImgDownload);
+
+                  modalFigureImgDownload.appendChild(modalFigureImgDownloadIcon);
+
+                  modalFigureImgDownload.appendChild(modalFigureImgDownloadText);
+
+                  modalFigureImgDownload.appendChild(modalFigureImgDownloadFileType);
                 }
               });
             });
