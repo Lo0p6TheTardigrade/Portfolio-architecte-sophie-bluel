@@ -19,25 +19,6 @@ let loginNavLink = document.getElementById('loginNavigation');
 const mainTag = document.querySelector('main');
 console.log(loginNavLink);
 
-const headTarget = document.querySelector('head');
-const fontAwesomeScript = document.createElement('script');
-
-const userLoginTools = document.createElement('div');
-const userEditionModeBox = document.createElement('div');
-const userEditionModeIcon = document.createElement('i');
-
-const userEditionModeBox2 = document.createElement('div');
-const userEditionModeIcon2 = document.createElement('i');
-
-const userEditionModeBox3 = document.createElement('div');
-const userEditionModeIcon3 = document.createElement('i');
-
-const userEditionMode = document.createElement('span');
-const userEditionMode2 = document.createElement('span');
-const userEditionMode3 = document.createElement('span');
-
-const publishChange = document.createElement('span');
-
 // Add event listener on login nav link click
 loginNavLink.addEventListener('click', () => {
   mainTag.setAttribute('id', 'main__section');

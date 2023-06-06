@@ -419,6 +419,7 @@ modal img {
 #modalZoomSelectedIcon,
 #modalTrashCan {
   color: #ffff;
+  cursor: pointer;
 }
 .modalSeparator {
   margin: auto;
@@ -447,6 +448,10 @@ modal img {
 .modalButton2 {
   color: red;
 }
+.cursorPointer {
+  cursor: pointer;
+}
+/* End CSS */
 
 #introduction {
   display: flex;
