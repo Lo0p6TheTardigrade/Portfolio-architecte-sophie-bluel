@@ -169,6 +169,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalFigure.appendChild(modalIconBox);
 
               let modalTrashCanBox = document.createElement('div');
+              modalTrashCanBox.setAttribute('id', modalFigureImg.id);
               modalTrashCanBox.classList.add('modalTrashCanBox');
               modalIconBox.appendChild(modalTrashCanBox);
 
@@ -179,18 +180,22 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalTrashCan.style.cursor = 'pointer';
               modalTrashCanBox.appendChild(modalTrashCan);
 
-              console.log(sessionStorage.token);
               modalTrashCanBox.addEventListener('click', async () => {
-                let workId = work.id;
-                console.log(work.id);
+                const token = 'Bearer ' + sessionStorage.getItem('token');
+                const tokenWithoutQuotes = token.replace(/"/g, '');
+                console.log(tokenWithoutQuotes);
+                console.log(modalFigureImg.id);
+
+                let workId = parseInt(modalTrashCanBox.id);
+                // console.log(e);
+
                 try {
-                  const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
+                  let response = await fetch(`http://localhost:5678/api/works/${workId}`, {
                     method: 'DELETE',
                     headers: {
-                      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+                      Authorization: tokenWithoutQuotes,
                     },
                   });
-
                   if (response.ok) {
                     alert('Travail supprimé avec succès !');
                   } else {
@@ -224,7 +229,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalZoomSelectedIconBox.style.display = 'none';
               });
 
-              modalButton.addEventListener('click', () => {
+              modalButton.addEventListener('click', async () => {
                 modalTitle.textContent = 'Ajout photo';
                 modalFigureImgBox.innerHTML = '';
                 const modalFigureImgDownload = document.createElement('a');
@@ -257,6 +262,30 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   modalFigureImgDownload.appendChild(modalFigureImgDownloadText);
 
                   modalFigureImgDownload.appendChild(modalFigureImgDownloadFileType);
+                }
+
+                const work = {
+                  title: 'Titre du travail',
+                  description: 'Description du travail',
+                };
+
+                try {
+                  const response = await fetch('http://localhost:5678/api/works', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: 'Bearer votre_token_d_authentification',
+                    },
+                    body: JSON.stringify(work),
+                  });
+
+                  if (response.ok) {
+                    alert('Travail envoyé avec succès !');
+                  } else {
+                    alert("Erreur lors de l'envoi du travail");
+                  }
+                } catch (error) {
+                  console.error(error);
                 }
               });
             });

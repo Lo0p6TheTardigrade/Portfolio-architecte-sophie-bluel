@@ -99,9 +99,7 @@ loginNavLink.addEventListener('click', () => {
 
         let getTokenResponse = JSON.stringify(data.token);
         sessionStorage.setItem('token', getTokenResponse);
-        // function cookieSessionCreate() {
-        //   document.cookie = 'session=getTokenResponse; path=/';
-        // }
+
         console.log(getTokenResponse);
         alert('Vous êtes connecté !');
 
