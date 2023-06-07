@@ -1,4 +1,5 @@
-// if (document.cookie === 'session=getTokenResponse') {
+const token = 'Bearer ' + sessionStorage.getItem('token');
+const tokenWithoutQuotes = token.replace(/"/g, '');
 for (let i = 0; i < sessionStorage.length; i++) {
   if (sessionStorage.key(i) === 'token') {
     const getHeader = document.querySelector('header');
@@ -181,8 +182,6 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalTrashCanBox.appendChild(modalTrashCan);
 
               modalTrashCanBox.addEventListener('click', async () => {
-                const token = 'Bearer ' + sessionStorage.getItem('token');
-                const tokenWithoutQuotes = token.replace(/"/g, '');
                 console.log(tokenWithoutQuotes);
                 console.log(modalFigureImg.id);
 
@@ -229,21 +228,44 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalZoomSelectedIconBox.style.display = 'none';
               });
 
-              modalButton.addEventListener('click', async () => {
+              modalButton.addEventListener('click', (e) => {
+                modalButtonBox.innerHTML = '';
+                const modalButtonSend = document.createElement('span');
+                modalButtonSend.classList.add('modalButton');
+                modalButtonSend.style.cursor = 'pointer';
+                modalButtonSend.setAttribute('id', 'send');
+                modalButtonSend.textContent = 'Ajout photo';
+                modalButtonBox.appendChild(modalButtonSend);
+
                 modalTitle.textContent = 'Ajout photo';
                 modalFigureImgBox.innerHTML = '';
-                const modalFigureImgDownload = document.createElement('a');
-                const modalFigureImgDownloadIcon = document.createElement('i');
+                const modalFigureImgDownload = document.createElement('label');
+                const modalFigureImgDownloadInput = document.createElement('input');
+                modalFigureImgDownloadInput.setAttribute('id', 'modalFigureImgDownloadIcon');
+                modalFigureImgDownloadInput.setAttribute('class', 'fa-regular');
+                modalFigureImgDownloadInput.classList.add('fa-image');
+                modalFigureImgDownloadInput.type = 'file';
+
+                console.log(e);
+                const imagePreview = document.createElement('img');
+                modalFigureImgDownloadInput.addEventListener('change', (e) => {
+                  // const modalFigureImgDownloadIcon = document.querySelector('#modalFigureImgDownloadIcon');
+                  let modalFigureImgDownloadIconValuePath = 'C:\\fakepath\\' + e.target.value;
+                  let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.replace(/^.*[\\\/]/, '');
+                  let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
+                  let modalFigureImgDownloadInputPreview = e.view.location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
+                  modalFigureImgDownloadInput.addEventListener('change', (e) => {
+                    imagePreview.setAttribute('src', modalFigureImgDownloadInputPreview);
+                    console.log(e.target.value);
+                    imagePreview.setAttribute('id', 'imagePreview');
+                  });
+                });
+
                 const modalFigureImgDownloadText = document.createElement('span');
                 const modalFigureImgDownloadFileType = document.createElement('span');
 
-                modalFigureImgDownload.setAttribute('href', '/Frontend/assets/images/');
-                modalFigureImgDownload.setAttribute('upload', '');
+                modalFigureImgDownload.setAttribute('for', 'modalFigureImgDownloadIcon');
                 modalFigureImgDownload.setAttribute('class', 'modalFigureImgDownload');
-
-                modalFigureImgDownloadIcon.setAttribute('id', 'modalFigureImgDownloadIcon');
-                modalFigureImgDownloadIcon.setAttribute('class', 'fa-regular');
-                modalFigureImgDownloadIcon.classList.add('fa-image');
 
                 modalFigureImgDownloadText.setAttribute('id', 'modalFigureImgDownloadText');
                 modalFigureImgDownloadText.textContent = '+ Ajouter photo';
@@ -251,42 +273,53 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalFigureImgDownloadFileType.textContent = 'jpg, png: 4mo max';
 
                 let modalFigureImgDownloadArray = [];
-                modalFigureImgDownloadArray.push(modalFigureImgDownload && modalFigureImgDownloadIcon);
-                if (!modalFigureImgDownloadArray === modalFigureImgDownload && !modalFigureImgDownloadArray === modalFigureImgDownloadIcon) {
-                  modalFigureImgDownloadArray.pop(modalFigureImgDownload && modalFigureImgDownloadIcon);
+
+                modalFigureImgDownloadArray.push(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview);
+
+                if (!modalFigureImgDownloadArray === modalFigureImgDownload && !modalFigureImgDownloadArray === modalFigureImgDownloadInput && !modalFigureImgDownloadArray === imagePreview) {
+                  modalFigureImgDownloadArray.pop(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview);
                 } else {
                   modalFigureImgBox.appendChild(modalFigureImgDownload);
 
-                  modalFigureImgDownload.appendChild(modalFigureImgDownloadIcon);
+                  modalFigureImgDownload.appendChild(modalFigureImgDownloadInput);
+
+                  modalFigureImgDownload.appendChild(imagePreview);
 
                   modalFigureImgDownload.appendChild(modalFigureImgDownloadText);
 
                   modalFigureImgDownload.appendChild(modalFigureImgDownloadFileType);
                 }
 
-                const work = {
-                  title: 'Titre du travail',
-                  description: 'Description du travail',
-                };
-
-                try {
-                  const response = await fetch('http://localhost:5678/api/works', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      Authorization: 'Bearer votre_token_d_authentification',
+                modalButtonSend.addEventListener('click', async () => {
+                  let work = {
+                    title: 'Abajour Tahina',
+                    imageUrl: 'http://localhost:5678/images/abajour-tahina1651286843956.png',
+                    category: {
+                      id: 1,
+                      name: 'Objets',
                     },
-                    body: JSON.stringify(work),
-                  });
+                  };
 
-                  if (response.ok) {
-                    alert('Travail envoyé avec succès !');
-                  } else {
-                    alert("Erreur lors de l'envoi du travail");
+                  try {
+                    const response = await fetch('http://localhost:5678/api/works', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: tokenWithoutQuotes,
+                      },
+                      body: JSON.stringify(work),
+                    });
+
+                    if (response.ok) {
+                      alert('Travail envoyé avec succès !');
+                    } else {
+                      alert("Erreur lors de l'envoi du travail");
+                    }
+                  } catch (error) {
+                    console.error(error);
                   }
-                } catch (error) {
-                  console.error(error);
-                }
+                });
               });
             });
           });
