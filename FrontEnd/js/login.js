@@ -77,6 +77,8 @@ loginNavLink.addEventListener('click', () => {
   // buttonLoginSectionTitle.type = 'submit';
   buttonLoginSectionTitle.style.cursor = 'pointer';
   formLoginSectionTitle.appendChild(buttonLoginSectionTitle);
+
+  // Click event for fetch login section
   buttonLoginSectionTitle.addEventListener('click', async () => {
     try {
       let inputUserLogin = inputUserLoginSectionTitle.value;
@@ -109,11 +111,11 @@ loginNavLink.addEventListener('click', () => {
 
           window.location.href = '/FrontEnd';
           cookieSessionCreate();
-          if (document.cookie === 'session') {
-            const categoryHidden = document.querySelector('.category');
-            console.log(categoryHidden);
-            categoryHidden.classList.add('displayElementFalse');
-          }
+          // if (document.cookie === 'session') {
+          //   const categoryHidden = document.querySelector('.category');
+          //   console.log(categoryHidden);
+          //   categoryHidden.classList.add('displayElementFalse');
+          // }
         }
       } else {
         alert('Identifiant ou mot de passe incorrect.');

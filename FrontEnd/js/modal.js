@@ -149,9 +149,11 @@ for (let i = 0; i < sessionStorage.length; i++) {
               const getImageUrl = work.imageUrl;
 
               // Create new elements for modal edit
+              // Create figure tag
               const modalFigure = document.createElement('figure');
               modalFigureImgBox.appendChild(modalFigure);
 
+              // Create img tag
               const modalFigureImg = document.createElement('img');
               modalFigureImg.setAttribute('src', getImageUrl);
               modalFigureImg.setAttribute('id', work.id);
@@ -159,12 +161,14 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalFigureImg.style.cursor = 'pointer';
               modalFigure.appendChild(modalFigureImg);
 
+              // Create text under img
               const modalFigureTextBox = document.createElement('p');
               modalFigureTextBox.textContent = 'éditer';
               modalFigureTextBox.classList.add('modalFigureTextBox');
               modalFigureTextBox.style.cursor = 'pointer';
               modalFigure.appendChild(modalFigureTextBox);
 
+              // Create box for Font Awesome
               const modalIconBox = document.createElement('div');
               modalIconBox.classList.add('modalIconBox');
               modalFigure.appendChild(modalIconBox);
@@ -181,13 +185,16 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalTrashCan.style.cursor = 'pointer';
               modalTrashCanBox.appendChild(modalTrashCan);
 
+              // Event click for trash work
               modalTrashCanBox.addEventListener('click', async () => {
                 console.log(tokenWithoutQuotes);
                 console.log(modalFigureImg.id);
 
+                // Variable get id from trash box
                 let workId = parseInt(modalTrashCanBox.id);
                 // console.log(e);
 
+                // Fetch for delete work
                 try {
                   let response = await fetch(`http://localhost:5678/api/works/${workId}`, {
                     method: 'DELETE',
@@ -205,6 +212,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 }
               });
 
+              // Font Awesome zoom selection
               const modalZoomSelectedIconBox = document.createElement('div');
               modalZoomSelectedIconBox.classList.add('modalZoomSelectedIconBox');
               modalIconBox.appendChild(modalZoomSelectedIconBox);
@@ -215,6 +223,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalZoomSelectedIcon.classList.add('fa-maximize');
               modalZoomSelectedIcon.style.cursor = 'pointer';
 
+              // Array for stopping miltiple icon + Event listener mouse events (Enter and Leave)
               let modalZoomSelectedIconArray = [];
               modalZoomSelectedIconBox.style.display = 'none';
               modalFigure.addEventListener('mouseenter', () => {
@@ -228,6 +237,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalZoomSelectedIconBox.style.display = 'none';
               });
 
+              // Button for add work section
               modalButton.addEventListener('click', (e) => {
                 modalButtonBox.innerHTML = '';
                 const modalButtonSend = document.createElement('span');
@@ -263,13 +273,18 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                 const imagePreview = document.createElement('img');
                 imagePreview.setAttribute('class', 'displayElementFalse');
+
+                // Get the image path for the download preview
                 modalFigureImgDownloadInput.addEventListener('click', (e) => {
                   // const modalFigureImgDownloadIcon = document.querySelector('#modalFigureImgDownloadIcon');
-                  let modalFigureImgDownloadIconValuePath = e.target.value;
-                  let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
-                  let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
-                  let modalFigureImgDownloadInputPreview = e.view.location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
+
+                  // On change event after work is in input
                   modalFigureImgDownloadInput.addEventListener('change', (e) => {
+                    let modalFigureImgDownloadIconValuePath = e.target.value;
+                    console.log('ici' + modalFigureImgDownloadIconValuePath);
+                    let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
+                    let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
+                    let modalFigureImgDownloadInputPreview = location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
                     modalFigureImgDownloadInput.setAttribute('class', 'displayElementFalse');
 
                     imagePreview.setAttribute('src', modalFigureImgDownloadInputPreview);
@@ -286,6 +301,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   });
                 });
 
+                // Input element for the new work item (SEND)
                 const modalFigureImgDownloadInputWorkName = document.createElement('input');
                 modalFigureImgDownloadInputWorkName.type = 'text';
                 modalFigureImgDownloadInputWorkName.classList.add('modalFigureImgDownloadInputWorkName');
@@ -298,10 +314,12 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalFigureImgDownloadInputWorkName.classList.add('InputWorkCategory');
                 modalFigureImgDownloadInputWorkSelect.classList.add('InputWorkCategory');
 
+                // Array for avoid multiplication
                 let modalFigureImgDownloadArray = [];
 
                 modalFigureImgDownloadArray.push(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect && modalFigureImgDownloadInputWorkOption);
 
+                // Verification
                 if (!modalFigureImgDownloadArray === modalFigureImgDownload && !modalFigureImgDownloadArray === modalFigureImgDownloadInput && !modalFigureImgDownloadArray === imagePreview && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkCategory && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkName && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkSelect && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkOption) {
                   modalFigureImgDownloadArray.pop(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect && modalFigureImgDownloadInputWorkOption);
                 } else {
@@ -318,12 +336,22 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   modalFigureImgBox.appendChild(modalFigureImgDownloadInputWorkCategory);
 
                   modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkName);
+                  console.log(modalFigureImgDownloadInputWorkName);
+                  let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
 
                   modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
+                  console.log(modalFigureImgDownloadInputWorkSelect);
+                  let modalFigureImgDownloadInputWorkSelectValue = modalFigureImgDownloadInputWorkSelect.value;
 
                   modalFigureImgDownloadInputWorkSelect.appendChild(modalFigureImgDownloadInputWorkOption);
+                  console.log(modalFigureImgDownloadInputWorkOption);
+                  let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
                 }
 
+                let workFormData = new FormData();
+                workFormData.append('title', 'Download');
+
+                // Fetch for sending data
                 modalButtonSend.addEventListener('click', async () => {
                   let work = {
                     title: 'Abajour Tahina',
