@@ -239,27 +239,16 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                 modalTitle.textContent = 'Ajout photo';
                 modalFigureImgBox.innerHTML = '';
+                modalFigureImgBox.classList.replace('modalFigureImgBox', 'modalFigureImgBoxChangeToSendWork');
                 const modalFigureImgDownload = document.createElement('label');
                 const modalFigureImgDownloadInput = document.createElement('input');
                 modalFigureImgDownloadInput.setAttribute('id', 'modalFigureImgDownloadIcon');
                 modalFigureImgDownloadInput.setAttribute('class', 'fa-regular');
                 modalFigureImgDownloadInput.classList.add('fa-image');
                 modalFigureImgDownloadInput.type = 'file';
+                // modalFigureImgDownloadInput.style.visibility = 'hidden';
 
                 console.log(e);
-                const imagePreview = document.createElement('img');
-                modalFigureImgDownloadInput.addEventListener('change', (e) => {
-                  // const modalFigureImgDownloadIcon = document.querySelector('#modalFigureImgDownloadIcon');
-                  let modalFigureImgDownloadIconValuePath = 'C:\\fakepath\\' + e.target.value;
-                  let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.replace(/^.*[\\\/]/, '');
-                  let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
-                  let modalFigureImgDownloadInputPreview = e.view.location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
-                  modalFigureImgDownloadInput.addEventListener('change', (e) => {
-                    imagePreview.setAttribute('src', modalFigureImgDownloadInputPreview);
-                    console.log(e.target.value);
-                    imagePreview.setAttribute('id', 'imagePreview');
-                  });
-                });
 
                 const modalFigureImgDownloadText = document.createElement('span');
                 const modalFigureImgDownloadFileType = document.createElement('span');
@@ -272,12 +261,46 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalFigureImgDownloadFileType.setAttribute('id', 'modalFigureImgDownloadFileType');
                 modalFigureImgDownloadFileType.textContent = 'jpg, png: 4mo max';
 
+                const imagePreview = document.createElement('img');
+                imagePreview.setAttribute('class', 'displayElementFalse');
+                modalFigureImgDownloadInput.addEventListener('click', (e) => {
+                  // const modalFigureImgDownloadIcon = document.querySelector('#modalFigureImgDownloadIcon');
+                  let modalFigureImgDownloadIconValuePath = e.target.value;
+                  let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
+                  let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
+                  let modalFigureImgDownloadInputPreview = e.view.location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
+                  modalFigureImgDownloadInput.addEventListener('change', (e) => {
+                    modalFigureImgDownloadInput.setAttribute('class', 'displayElementFalse');
+
+                    imagePreview.setAttribute('src', modalFigureImgDownloadInputPreview);
+                    imagePreview.classList.replace('displayElementFalse', 'displayElementTrue');
+                    console.log(e.target.value);
+                    imagePreview.setAttribute('id', 'imagePreview');
+                    imagePreview.classList.add('imagePreview');
+
+                    modalFigureImgDownloadText.textContent = '';
+                    modalFigureImgDownloadText.setAttribute('class', 'displayElementFalse');
+
+                    modalFigureImgDownloadFileType.textContent = '';
+                    modalFigureImgDownloadFileType.setAttribute('class', 'displayElementFalse');
+                  });
+                });
+
+                const modalFigureImgDownloadInputWorkName = document.createElement('input');
+                modalFigureImgDownloadInputWorkName.type = 'text';
+
+                const modalFigureImgDownloadInputWorkCategory = document.createElement('div');
+                const modalFigureImgDownloadInputWorkSelect = document.createElement('select');
+                const modalFigureImgDownloadInputWorkOption = document.createElement('option');
+
+                modalFigureImgDownloadInputWorkCategory.classList.add('modalFigureImgDownloadInputWorkCategory');
+
                 let modalFigureImgDownloadArray = [];
 
-                modalFigureImgDownloadArray.push(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview);
+                modalFigureImgDownloadArray.push(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect && modalFigureImgDownloadInputWorkOption);
 
-                if (!modalFigureImgDownloadArray === modalFigureImgDownload && !modalFigureImgDownloadArray === modalFigureImgDownloadInput && !modalFigureImgDownloadArray === imagePreview) {
-                  modalFigureImgDownloadArray.pop(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview);
+                if (!modalFigureImgDownloadArray === modalFigureImgDownload && !modalFigureImgDownloadArray === modalFigureImgDownloadInput && !modalFigureImgDownloadArray === imagePreview && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkCategory && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkName && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkSelect && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkOption) {
+                  modalFigureImgDownloadArray.pop(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect && modalFigureImgDownloadInputWorkOption);
                 } else {
                   modalFigureImgBox.appendChild(modalFigureImgDownload);
 
@@ -288,6 +311,14 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   modalFigureImgDownload.appendChild(modalFigureImgDownloadText);
 
                   modalFigureImgDownload.appendChild(modalFigureImgDownloadFileType);
+
+                  modalFigureImgBox.appendChild(modalFigureImgDownloadInputWorkCategory);
+
+                  modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkName);
+
+                  modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
+
+                  modalFigureImgDownloadInputWorkSelect.appendChild(modalFigureImgDownloadInputWorkOption);
                 }
 
                 modalButtonSend.addEventListener('click', async () => {

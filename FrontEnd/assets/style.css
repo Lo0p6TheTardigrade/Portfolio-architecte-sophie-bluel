@@ -386,6 +386,13 @@ modal img {
   margin-right: 105px;
   margin-bottom: 42px;
 }
+.modalFigureImgBoxChangeToSendWork {
+  display: flex;
+  flex-flow: column;
+  margin-left: 105px;
+  margin-right: 105px;
+  margin-bottom: 42px;
+}
 .modalIconBox {
   display: flex;
   justify-content: flex-end;
@@ -470,15 +477,40 @@ modal img {
   background: #cbd6dc;
   border-radius: 50px;
 }
+/* .modalFigureImgDownloadText {
+  margin: 0;
+  height: 0;
+} */
 #modalFigureImgDownloadText {
   color: #306685;
 }
 #modalFigureImgDownloadFileType {
   color: #444444;
 }
+/* .modalFigureImgDownloadFileType {
+  height: 0;
+} */
+.imagePreview {
+  height: 193px;
+  width: 129px;
+  object-fit: cover;
+}
+.modalFigureImgDownloadInputWorkCategory {
+  display: flex;
+  flex-flow: column;
+  gap: 13px;
+  width: 100%;
+}
 .modalButton2 {
   color: red;
 }
+.displayElementTrue {
+  display: flex !important;
+}
+.displayElementFalse {
+  display: none !important;
+}
+
 /* End CSS */
 
 #introduction {
