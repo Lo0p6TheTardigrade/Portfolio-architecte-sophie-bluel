@@ -337,19 +337,22 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                   modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkName);
                   console.log(modalFigureImgDownloadInputWorkName);
-                  let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
 
                   modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
                   console.log(modalFigureImgDownloadInputWorkSelect);
-                  let modalFigureImgDownloadInputWorkSelectValue = modalFigureImgDownloadInputWorkSelect.value;
 
                   modalFigureImgDownloadInputWorkSelect.appendChild(modalFigureImgDownloadInputWorkOption);
                   console.log(modalFigureImgDownloadInputWorkOption);
-                  let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
                 }
 
+                let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
+                let modalFigureImgDownloadInputWorkSelectValue = modalFigureImgDownloadInputWorkSelect.value;
+                let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
                 let workFormData = new FormData();
-                workFormData.append('title', 'Download');
+                workFormData.append('title', modalFigureImgDownloadInputWorkNameValue);
+                workFormData.append('imageUrl');
+                workFormData.append('category', modalFigureImgDownloadInputWorkOptionValue);
+                workFormData.append('category');
 
                 // Fetch for sending data
                 modalButtonSend.addEventListener('click', async () => {
