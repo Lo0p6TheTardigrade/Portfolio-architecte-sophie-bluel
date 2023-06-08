@@ -15,11 +15,11 @@ if (document.getElementById('main__section') === false) {
 } else {
   // Find the list item with the following text fields
   let getProjectNavLink = document.getElementsByTagName('*');
-  console.log(getProjectNavLink);
+  // console.log(getProjectNavLink);
   for (let index = 0; index < getProjectNavLink.length; index++) {
     if (getProjectNavLink[index].textContent === 'projets') {
       let project = getProjectNavLink[index];
-      console.log(project);
+      // console.log(project);
       project.setAttribute('id', 'projets');
       project.addEventListener('click', () => {
         window.location.href = '/FrontEnd';

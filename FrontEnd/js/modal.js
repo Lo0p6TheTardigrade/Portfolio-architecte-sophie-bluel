@@ -288,12 +288,15 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                 const modalFigureImgDownloadInputWorkName = document.createElement('input');
                 modalFigureImgDownloadInputWorkName.type = 'text';
+                modalFigureImgDownloadInputWorkName.classList.add('modalFigureImgDownloadInputWorkName');
 
                 const modalFigureImgDownloadInputWorkCategory = document.createElement('div');
                 const modalFigureImgDownloadInputWorkSelect = document.createElement('select');
                 const modalFigureImgDownloadInputWorkOption = document.createElement('option');
 
                 modalFigureImgDownloadInputWorkCategory.classList.add('modalFigureImgDownloadInputWorkCategory');
+                modalFigureImgDownloadInputWorkName.classList.add('InputWorkCategory');
+                modalFigureImgDownloadInputWorkSelect.classList.add('InputWorkCategory');
 
                 let modalFigureImgDownloadArray = [];
 

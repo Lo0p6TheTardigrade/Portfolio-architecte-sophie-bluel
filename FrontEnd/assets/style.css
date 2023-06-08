@@ -498,8 +498,11 @@ modal img {
 .modalFigureImgDownloadInputWorkCategory {
   display: flex;
   flex-flow: column;
-  gap: 13px;
+  gap: 47px;
   width: 100%;
+}
+.InputWorkCategory {
+  height: 41px;
 }
 .modalButton2 {
   color: red;

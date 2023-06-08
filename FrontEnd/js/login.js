@@ -1,10 +1,10 @@
 // Find the list item with the following text fields
 let getLoginNavLink = document.getElementsByTagName('*');
-console.log(getLoginNavLink);
+// console.log(getLoginNavLink);
 for (let index = 0; index < getLoginNavLink.length; index++) {
   if (getLoginNavLink[index].textContent === 'login') {
     let loginNavigation = getLoginNavLink[index];
-    console.log(loginNavigation);
+    // console.log(loginNavigation);
     loginNavigation.setAttribute('id', 'loginNavigation');
   }
 }
@@ -17,7 +17,7 @@ const h1Tile = document.querySelector('h1');
 // Select the list item login
 let loginNavLink = document.getElementById('loginNavigation');
 const mainTag = document.querySelector('main');
-console.log(loginNavLink);
+// console.log(loginNavLink);
 
 // Add event listener on login nav link click
 loginNavLink.addEventListener('click', () => {
@@ -109,6 +109,11 @@ loginNavLink.addEventListener('click', () => {
 
           window.location.href = '/FrontEnd';
           cookieSessionCreate();
+          if (document.cookie === 'session') {
+            const categoryHidden = document.querySelector('.category');
+            console.log(categoryHidden);
+            categoryHidden.classList.add('displayElementFalse');
+          }
         }
       } else {
         alert('Identifiant ou mot de passe incorrect.');
