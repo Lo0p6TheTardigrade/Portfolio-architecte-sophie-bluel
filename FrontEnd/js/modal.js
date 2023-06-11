@@ -90,11 +90,11 @@ for (let i = 0; i < sessionStorage.length; i++) {
         const modalBox = document.createElement('form');
 
         createModal.push(modal);
-        console.log(createModal);
+        // console.log(createModal);
 
         getBody.appendChild(modalBox);
         modalBox.appendChild(modal);
-        console.log('userEditionMode');
+        // console.log('userEditionMode');
         modalBox.classList.add('modalBoxModal');
 
         const modalCrossBox = document.createElement('div');
@@ -187,8 +187,8 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
               // Event click for trash work
               modalTrashCanBox.addEventListener('click', async () => {
-                console.log(tokenWithoutQuotes);
-                console.log(modalFigureImg.id);
+                // console.log(tokenWithoutQuotes);
+                // console.log(modalFigureImg.id);
 
                 // Variable get id from trash box
                 let workId = parseInt(modalTrashCanBox.id);
@@ -237,6 +237,29 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalZoomSelectedIconBox.style.display = 'none';
               });
 
+              const modalFigureImgDownloadInputWorkCategory = document.createElement('div');
+              const modalFigureImgDownloadInputWorkSelect = document.createElement('select');
+              const modalFigureImgDownloadInputWorkOption = document.createElement('option');
+
+              const userId = work.userId;
+              console.log(userId);
+
+              const uniqueCategories = new Set();
+
+              works.forEach((work) => {
+                uniqueCategories.add(work.categoryId);
+              });
+
+              uniqueCategories.forEach((categoryId) => {
+                const matchingWork = works.find((work) => work.categoryId === categoryId);
+                const option = modalFigureImgDownloadInputWorkOption.cloneNode(); // Cloner l'option pour chaque itération
+                option.value = matchingWork.categoryId; // Utiliser l'identifiant de catégorie spécifique ici
+                option.textContent = matchingWork.category.name; // Assurez-vous d'utiliser la propriété appropriée pour le nom de catégorie
+                modalFigureImgDownloadInputWorkSelect.appendChild(option);
+              });
+
+              modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
+
               // Button for add work section
               modalButton.addEventListener('click', (e) => {
                 modalButtonBox.innerHTML = '';
@@ -258,7 +281,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalFigureImgDownloadInput.type = 'file';
                 // modalFigureImgDownloadInput.style.visibility = 'hidden';
 
-                console.log(e);
+                // console.log(e);
 
                 const modalFigureImgDownloadText = document.createElement('span');
                 const modalFigureImgDownloadFileType = document.createElement('span');
@@ -281,7 +304,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   // On change event after work is in input
                   modalFigureImgDownloadInput.addEventListener('change', (e) => {
                     let modalFigureImgDownloadIconValuePath = e.target.value;
-                    console.log('ici' + modalFigureImgDownloadIconValuePath);
+                    // console.log('ici' + modalFigureImgDownloadIconValuePath);
                     let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
                     let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
                     let modalFigureImgDownloadInputPreview = location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
@@ -289,7 +312,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                     imagePreview.setAttribute('src', modalFigureImgDownloadInputPreview);
                     imagePreview.classList.replace('displayElementFalse', 'displayElementTrue');
-                    console.log(e.target.value);
+                    // console.log(e.target.value);
                     imagePreview.setAttribute('id', 'imagePreview');
                     imagePreview.classList.add('imagePreview');
 
@@ -306,10 +329,6 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalFigureImgDownloadInputWorkName.type = 'text';
                 modalFigureImgDownloadInputWorkName.classList.add('modalFigureImgDownloadInputWorkName');
 
-                const modalFigureImgDownloadInputWorkCategory = document.createElement('div');
-                const modalFigureImgDownloadInputWorkSelect = document.createElement('select');
-                const modalFigureImgDownloadInputWorkOption = document.createElement('option');
-
                 modalFigureImgDownloadInputWorkCategory.classList.add('modalFigureImgDownloadInputWorkCategory');
                 modalFigureImgDownloadInputWorkName.classList.add('InputWorkCategory');
                 modalFigureImgDownloadInputWorkSelect.classList.add('InputWorkCategory');
@@ -317,11 +336,12 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 // Array for avoid multiplication
                 let modalFigureImgDownloadArray = [];
 
-                modalFigureImgDownloadArray.push(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect && modalFigureImgDownloadInputWorkOption);
+                modalFigureImgDownloadArray.push(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect);
 
-                // Verification
-                if (!modalFigureImgDownloadArray === modalFigureImgDownload && !modalFigureImgDownloadArray === modalFigureImgDownloadInput && !modalFigureImgDownloadArray === imagePreview && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkCategory && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkName && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkSelect && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkOption) {
-                  modalFigureImgDownloadArray.pop(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect && modalFigureImgDownloadInputWorkOption);
+                if (!modalFigureImgDownloadArray) {
+                  // Verification
+                  // if (!modalFigureImgDownloadArray === modalFigureImgDownload && !modalFigureImgDownloadArray === modalFigureImgDownloadInput && !modalFigureImgDownloadArray === imagePreview && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkCategory && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkName && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkSelect) {
+                  modalFigureImgDownloadArray.pop(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect);
                 } else {
                   modalFigureImgBox.appendChild(modalFigureImgDownload);
 
@@ -336,54 +356,55 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   modalFigureImgBox.appendChild(modalFigureImgDownloadInputWorkCategory);
 
                   modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkName);
-                  console.log(modalFigureImgDownloadInputWorkName);
+                  // console.log(modalFigureImgDownloadInputWorkName);
 
                   modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
-                  console.log(modalFigureImgDownloadInputWorkSelect);
+                  // console.log(modalFigureImgDownloadInputWorkSelect);
 
-                  modalFigureImgDownloadInputWorkSelect.appendChild(modalFigureImgDownloadInputWorkOption);
-                  console.log(modalFigureImgDownloadInputWorkOption);
+                  // modalFigureImgDownloadInputWorkSelect.appendChild(modalFigureImgDownloadInputWorkOption);
+                  // console.log(modalFigureImgDownloadInputWorkOption);
                 }
-
-                let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
                 let modalFigureImgDownloadInputWorkSelectValue = modalFigureImgDownloadInputWorkSelect.value;
                 let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
-                let workFormData = new FormData();
-                workFormData.append('title', modalFigureImgDownloadInputWorkNameValue);
-                workFormData.append('imageUrl');
-                workFormData.append('category', modalFigureImgDownloadInputWorkOptionValue);
-                workFormData.append('category');
+                modalFigureImgDownloadInput.addEventListener('change', (e) => {
+                  let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
+                  let modalFigureImgDownloadIconValuePath = e.target.value;
+                  let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
+                  let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
+                  let modalFigureImgDownloadInputPreview = location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
+                  // let imagePreviewValue = imagePreview.src;
+                  console.log(modalFigureImgDownloadInputWorkOptionValue);
+                  console.log(modalFigureImgDownloadInputWorkNameValue);
+                  // function imagePreviewValueFunction() {}
+                  // imagePreviewValueFunction();
 
-                // Fetch for sending data
-                modalButtonSend.addEventListener('click', async () => {
-                  let work = {
-                    title: 'Abajour Tahina',
-                    imageUrl: 'http://localhost:5678/images/abajour-tahina1651286843956.png',
-                    category: {
-                      id: 1,
-                      name: 'Objets',
-                    },
-                  };
+                  let workFormData = new FormData();
+                  workFormData.append('title', modalFigureImgDownloadInputWorkNameValue);
+                  workFormData.append('imageUrl', modalFigureImgDownloadInputPreview);
+                  workFormData.append('category', modalFigureImgDownloadInputWorkOptionValue);
+                  workFormData.append('userId', userId);
+                  console.log(workFormData.values());
 
-                  try {
-                    const response = await fetch('http://localhost:5678/api/works', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                        'Content-Type': 'multipart/form-data',
-                        Authorization: tokenWithoutQuotes,
-                      },
-                      body: JSON.stringify(work),
-                    });
+                  // Fetch for sending data
+                  modalButtonSend.addEventListener('click', async () => {
+                    try {
+                      const response = await fetch('http://localhost:5678/api/works', {
+                        method: 'POST',
+                        headers: {
+                          Authorization: tokenWithoutQuotes,
+                        },
+                        body: workFormData,
+                      });
 
-                    if (response.ok) {
-                      alert('Travail envoyé avec succès !');
-                    } else {
-                      alert("Erreur lors de l'envoi du travail");
+                      if (response.ok) {
+                        alert('Travail envoyé avec succès !');
+                      } else {
+                        alert("Erreur lors de l'envoi du travail");
+                      }
+                    } catch (error) {
+                      console.error(error);
                     }
-                  } catch (error) {
-                    console.error(error);
-                  }
+                  });
                 });
               });
             });

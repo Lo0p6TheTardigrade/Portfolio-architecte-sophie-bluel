@@ -51,6 +51,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
   } else {
   }
 }
+const categories = [];
 // Fetch works
 fetch('http://localhost:5678/api/works')
   .then((response) => response.json())
@@ -84,7 +85,7 @@ fetch('http://localhost:5678/api/works')
     objectsCategoryDiv.classList.add('category');
 
     // Create category elements and append to category div
-    const categories = [];
+    // const categories = [];
     const allWorksSpan = document.createElement('span');
     allWorksSpan.textContent = 'Tout';
     allWorksSpan.classList.add('span__filter__global');
