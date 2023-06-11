@@ -90,11 +90,9 @@ for (let i = 0; i < sessionStorage.length; i++) {
         const modalBox = document.createElement('form');
 
         createModal.push(modal);
-        // console.log(createModal);
 
         getBody.appendChild(modalBox);
         modalBox.appendChild(modal);
-        // console.log('userEditionMode');
         modalBox.classList.add('modalBoxModal');
 
         const modalCrossBox = document.createElement('div');
@@ -187,12 +185,8 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
               // Event click for trash work
               modalTrashCanBox.addEventListener('click', async () => {
-                // console.log(tokenWithoutQuotes);
-                // console.log(modalFigureImg.id);
-
                 // Variable get id from trash box
                 let workId = parseInt(modalTrashCanBox.id);
-                // console.log(e);
 
                 // Fetch for delete work
                 try {
@@ -279,9 +273,6 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalFigureImgDownloadInput.setAttribute('class', 'fa-regular');
                 modalFigureImgDownloadInput.classList.add('fa-image');
                 modalFigureImgDownloadInput.type = 'file';
-                // modalFigureImgDownloadInput.style.visibility = 'hidden';
-
-                // console.log(e);
 
                 const modalFigureImgDownloadText = document.createElement('span');
                 const modalFigureImgDownloadFileType = document.createElement('span');
@@ -299,12 +290,9 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                 // Get the image path for the download preview
                 modalFigureImgDownloadInput.addEventListener('click', (e) => {
-                  // const modalFigureImgDownloadIcon = document.querySelector('#modalFigureImgDownloadIcon');
-
                   // On change event after work is in input
                   modalFigureImgDownloadInput.addEventListener('change', (e) => {
                     let modalFigureImgDownloadIconValuePath = e.target.value;
-                    // console.log('ici' + modalFigureImgDownloadIconValuePath);
                     let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
                     let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
                     let modalFigureImgDownloadInputPreview = location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
@@ -312,7 +300,6 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                     imagePreview.setAttribute('src', modalFigureImgDownloadInputPreview);
                     imagePreview.classList.replace('displayElementFalse', 'displayElementTrue');
-                    // console.log(e.target.value);
                     imagePreview.setAttribute('id', 'imagePreview');
                     imagePreview.classList.add('imagePreview');
 
@@ -338,9 +325,8 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                 modalFigureImgDownloadArray.push(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect);
 
+                // Verification
                 if (!modalFigureImgDownloadArray) {
-                  // Verification
-                  // if (!modalFigureImgDownloadArray === modalFigureImgDownload && !modalFigureImgDownloadArray === modalFigureImgDownloadInput && !modalFigureImgDownloadArray === imagePreview && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkCategory && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkName && !modalFigureImgDownloadArray === modalFigureImgDownloadInputWorkSelect) {
                   modalFigureImgDownloadArray.pop(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect);
                 } else {
                   modalFigureImgBox.appendChild(modalFigureImgDownload);
@@ -356,54 +342,68 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   modalFigureImgBox.appendChild(modalFigureImgDownloadInputWorkCategory);
 
                   modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkName);
-                  // console.log(modalFigureImgDownloadInputWorkName);
 
                   modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
-                  // console.log(modalFigureImgDownloadInputWorkSelect);
-
-                  // modalFigureImgDownloadInputWorkSelect.appendChild(modalFigureImgDownloadInputWorkOption);
-                  // console.log(modalFigureImgDownloadInputWorkOption);
                 }
-                let modalFigureImgDownloadInputWorkSelectValue = modalFigureImgDownloadInputWorkSelect.value;
-                let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
-                modalFigureImgDownloadInput.addEventListener('change', (e) => {
-                  let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
-                  let modalFigureImgDownloadIconValuePath = e.target.value;
-                  let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
-                  let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
-                  let modalFigureImgDownloadInputPreview = location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
-                  // let imagePreviewValue = imagePreview.src;
-                  console.log(modalFigureImgDownloadInputWorkOptionValue);
-                  console.log(modalFigureImgDownloadInputWorkNameValue);
-                  // function imagePreviewValueFunction() {}
-                  // imagePreviewValueFunction();
 
-                  let workFormData = new FormData();
-                  workFormData.append('title', modalFigureImgDownloadInputWorkNameValue);
-                  workFormData.append('imageUrl', modalFigureImgDownloadInputPreview);
-                  workFormData.append('category', modalFigureImgDownloadInputWorkOptionValue);
-                  workFormData.append('userId', userId);
-                  console.log(workFormData.values());
+                let allInputsForSend = [];
+                allInputsForSend.push(modalFigureImgDownloadInput, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkOption);
 
-                  // Fetch for sending data
-                  modalButtonSend.addEventListener('click', async () => {
-                    try {
-                      const response = await fetch('http://localhost:5678/api/works', {
-                        method: 'POST',
-                        headers: {
-                          Authorization: tokenWithoutQuotes,
-                        },
-                        body: workFormData,
-                      });
+                // console.log(allInputsForSend);
+                let getOption = document.querySelector('option');
+                // let getAllOptions = document.querySelectorAll('option[value=""]:selected');
 
-                      if (response.ok) {
-                        alert('Travail envoyé avec succès !');
-                      } else {
-                        alert("Erreur lors de l'envoi du travail");
+                allInputsForSend.forEach((input) => {
+                  input.addEventListener('change', (e) => {
+                    console.log(getOption);
+
+                    let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
+                    let modalFigureImgDownloadIconValuePath = e.target.value;
+                    let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
+                    let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
+                    let modalFigureImgDownloadInputPreview = location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
+
+                    let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
+
+                    const modalFigureImgDownloadInputWorkOptionValueFunc = function getOptionFunction() {
+                      for (let i = 0; i < getOption.length; i++) {
+                        // const element = array[i];
+
+                        getOption[i].value;
                       }
-                    } catch (error) {
-                      console.error(error);
+                    };
+
+                    let workFormData = new FormData();
+                    workFormData.append('title', modalFigureImgDownloadInputWorkNameValue);
+                    workFormData.append('imageUrl', 'http://localhost:5678/images/' + modalFigureImgDownloadIconValue);
+                    workFormData.append('category', getOption.value);
+                    workFormData.append('userId', userId);
+
+                    for (let pair of workFormData.entries('title', 'imageUrl', 'category', 'userId')) {
+                      console.log(pair[0] + ':', pair[1]);
                     }
+                    console.log(tokenWithoutQuotes);
+
+                    // Fetch for sending data
+                    modalButtonSend.addEventListener('click', async () => {
+                      try {
+                        const response = await fetch('http://localhost:5678/api/works', {
+                          method: 'POST',
+                          headers: {
+                            Authorization: sessionStorage.getItem('token'),
+                          },
+                          body: workFormData,
+                        });
+
+                        if (response.ok) {
+                          alert('Travail envoyé avec succès !');
+                        } else {
+                          alert("Erreur lors de l'envoi du travail");
+                        }
+                      } catch (error) {
+                        console.error(error);
+                      }
+                    });
                   });
                 });
               });
