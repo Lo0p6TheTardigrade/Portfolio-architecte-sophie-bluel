@@ -1,5 +1,7 @@
 const token = 'Bearer ' + sessionStorage.getItem('token');
 const tokenWithoutQuotes = token.replace(/"/g, '');
+let workFormData = new FormData();
+const modalButtonSend = document.createElement('span');
 for (let i = 0; i < sessionStorage.length; i++) {
   if (sessionStorage.key(i) === 'token') {
     const getHeader = document.querySelector('header');
@@ -238,26 +240,10 @@ for (let i = 0; i < sessionStorage.length; i++) {
               const userId = work.userId;
               console.log(userId);
 
-              const uniqueCategories = new Set();
-
-              works.forEach((work) => {
-                uniqueCategories.add(work.categoryId);
-              });
-
-              uniqueCategories.forEach((categoryId) => {
-                const matchingWork = works.find((work) => work.categoryId === categoryId);
-                const option = modalFigureImgDownloadInputWorkOption.cloneNode(); // Cloner l'option pour chaque itération
-                option.value = matchingWork.categoryId; // Utiliser l'identifiant de catégorie spécifique ici
-                option.textContent = matchingWork.category.name; // Assurez-vous d'utiliser la propriété appropriée pour le nom de catégorie
-                modalFigureImgDownloadInputWorkSelect.appendChild(option);
-              });
-
-              modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
-
               // Button for add work section
               modalButton.addEventListener('click', (e) => {
                 modalButtonBox.innerHTML = '';
-                const modalButtonSend = document.createElement('span');
+                modalButtonSend;
                 modalButtonSend.classList.add('modalButton');
                 modalButtonSend.style.cursor = 'pointer';
                 modalButtonSend.setAttribute('id', 'send');
@@ -289,7 +275,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 imagePreview.setAttribute('class', 'displayElementFalse');
 
                 // Get the image path for the download preview
-                modalFigureImgDownloadInput.addEventListener('click', (e) => {
+                modalFigureImgDownloadInput.addEventListener('click', () => {
                   // On change event after work is in input
                   modalFigureImgDownloadInput.addEventListener('change', (e) => {
                     let modalFigureImgDownloadIconValuePath = e.target.value;
@@ -323,11 +309,16 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 // Array for avoid multiplication
                 let modalFigureImgDownloadArray = [];
 
-                modalFigureImgDownloadArray.push(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect);
+                modalFigureImgDownloadArray.push(modalFigureImgDownload);
+                modalFigureImgDownloadArray.push(modalFigureImgDownloadInput);
+                modalFigureImgDownloadArray.push(imagePreview);
+                modalFigureImgDownloadArray.push(modalFigureImgDownloadInputWorkCategory);
+                modalFigureImgDownloadArray.push(modalFigureImgDownloadInputWorkName);
+                modalFigureImgDownloadArray.push(modalFigureImgDownloadInputWorkSelect);
 
                 // Verification
                 if (!modalFigureImgDownloadArray) {
-                  modalFigureImgDownloadArray.pop(modalFigureImgDownload && modalFigureImgDownloadInput && imagePreview && modalFigureImgDownloadInputWorkCategory && modalFigureImgDownloadInputWorkName && modalFigureImgDownloadInputWorkSelect);
+                  modalFigureImgDownloadArray.pop();
                 } else {
                   modalFigureImgBox.appendChild(modalFigureImgDownload);
 
@@ -346,66 +337,68 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
                 }
 
-                let allInputsForSend = [];
-                allInputsForSend.push(modalFigureImgDownloadInput, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkOption);
+                // let allInputsForSend = [modalFigureImgDownloadInput, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkOption];
 
-                // console.log(allInputsForSend);
-                let getOption = document.querySelector('option');
-                // let getAllOptions = document.querySelectorAll('option[value=""]:selected');
+                let allInputsForSend = [];
+                allInputsForSend.push(modalFigureImgDownloadInput);
+                allInputsForSend.push(modalFigureImgDownloadInputWorkName);
+                allInputsForSend.push(modalFigureImgDownloadInputWorkCategory);
+                allInputsForSend.push(modalFigureImgDownloadInputWorkOption);
+
+                const uniqueCategories = new Set();
+
+                works.forEach((work) => {
+                  uniqueCategories.add(work.categoryId);
+                });
+
+                let matchingWork;
+                let option;
+                uniqueCategories.forEach((categoryId) => {
+                  matchingWork = works.find((work) => work.categoryId === categoryId);
+                  option = modalFigureImgDownloadInputWorkOption.cloneNode(); // Cloner l'option pour chaque itération
+                  option.setAttribute('id', matchingWork.categoryId); // Utiliser l'identifiant de catégorie spécifique ici
+                  // option.value = matchingWork.categoryId; // Utiliser l'identifiant de catégorie spécifique ici
+                  option.textContent = matchingWork.category.name; // Assurez-vous d'utiliser la propriété appropriée pour le nom de catégorie
+                  // option.textContent = matchingWork.category.name; // Assurez-vous d'utiliser la propriété appropriée pour le nom de catégorie
+                  modalFigureImgDownloadInputWorkSelect.appendChild(option);
+                });
+
+                modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
 
                 allInputsForSend.forEach((input) => {
                   input.addEventListener('change', (e) => {
-                    console.log(getOption);
-
+                    modalFigureImgDownloadInputWorkOption.setAttribute('checked', 'checked');
+                    modalFigureImgDownloadInputWorkOption.setAttribute('value', modalFigureImgDownloadInputWorkName.value);
+                    modalFigureImgDownloadInputWorkOption.setAttribute('id', matchingWork.categoryId);
                     let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
+
                     let modalFigureImgDownloadIconValuePath = e.target.value;
                     let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
+
                     let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
-                    let modalFigureImgDownloadInputPreview = location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
+
+                    let modalFigureImgDownloadInputPreview = 'http://localhost:5678/images/' + modalFigureImgDownloadIconValue;
 
                     let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
 
-                    const modalFigureImgDownloadInputWorkOptionValueFunc = function getOptionFunction() {
-                      for (let i = 0; i < getOption.length; i++) {
-                        // const element = array[i];
+                    // Afficher les options sélectionnées
+                    let selectedOption = modalFigureImgDownloadInputWorkOption.querySelector('option:checked');
+                    let selectedOptionValue = modalFigureImgDownloadInputWorkOption.id;
+                    let selectedOptionText = matchingWork.category.name;
+                    console.log(modalFigureImgDownloadInputWorkNameValue);
+                    console.log(selectedOptionValue);
+                    console.log(selectedOptionText);
+                    // console.log('Option sélectionnée :', selectedOptionValue, '-', selectedOptionText);
 
-                        getOption[i].value;
-                      }
-                    };
-
-                    let workFormData = new FormData();
+                    workFormData.append('id', selectedOptionValue);
                     workFormData.append('title', modalFigureImgDownloadInputWorkNameValue);
-                    workFormData.append('imageUrl', 'http://localhost:5678/images/' + modalFigureImgDownloadIconValue);
-                    workFormData.append('category', getOption.value);
+                    workFormData.append('imageUrl', modalFigureImgDownloadInputPreview);
+                    workFormData.append('category', selectedOptionText);
                     workFormData.append('userId', userId);
-
-                    for (let pair of workFormData.entries('title', 'imageUrl', 'category', 'userId')) {
-                      console.log(pair[0] + ':', pair[1]);
-                    }
-                    console.log(tokenWithoutQuotes);
-
-                    // Fetch for sending data
-                    modalButtonSend.addEventListener('click', async () => {
-                      try {
-                        const response = await fetch('http://localhost:5678/api/works', {
-                          method: 'POST',
-                          headers: {
-                            Authorization: sessionStorage.getItem('token'),
-                          },
-                          body: workFormData,
-                        });
-
-                        if (response.ok) {
-                          alert('Travail envoyé avec succès !');
-                        } else {
-                          alert("Erreur lors de l'envoi du travail");
-                        }
-                      } catch (error) {
-                        console.error(error);
-                      }
-                    });
                   });
                 });
+
+                // Fetch pour l'envoi des données
               });
             });
           });
@@ -416,6 +409,33 @@ for (let i = 0; i < sessionStorage.length; i++) {
     console.log(userEditionMode);
   }
 }
+modalButtonSend.addEventListener('click', async () => {
+  // Afficher les données du FormData
+  // for (let pair of workFormData.entries()) {
+  //   console.log(pair[0] + ':', pair[1]);
+  // }
+  console.log(JSON.stringify(workFormData.entries()));
+  console.log(token);
+
+  try {
+    const response = await fetch('http://localhost:5678/api/works/', {
+      method: 'POST',
+      headers: {
+        Authorization: tokenWithoutQuotes,
+        'Content-Type': 'application/json', // Ajoutez le type de contenu
+      },
+      body: JSON.stringify(Object.fromEntries(workFormData)), // Convertir le FormData en objet JSON
+    });
+
+    if (response.ok) {
+      alert('Travail envoyé avec succès !');
+    } else {
+      alert("Erreur lors de l'envoi du travail");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 console.log(document.cookie);
 console.log(localStorage);
