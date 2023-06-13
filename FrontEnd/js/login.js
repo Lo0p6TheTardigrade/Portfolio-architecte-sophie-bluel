@@ -109,7 +109,7 @@ loginNavLink.addEventListener('click', () => {
           sessionStorage.setItem('email', inputUserLogin);
           sessionStorage.setItem('password', inputPasswordLogin);
 
-          window.location.href = '/FrontEnd';
+          window.location.href = '/Portfolio-architecte-sophie-bluel//FrontEnd';
           cookieSessionCreate();
           // if (document.cookie === 'session') {
           //   const categoryHidden = document.querySelector('.category');
