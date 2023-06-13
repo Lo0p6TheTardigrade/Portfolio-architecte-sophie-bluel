@@ -1,7 +1,48 @@
+let allData = [];
+let allInputsForSend = [];
+let modalFigureImgDownloadArray = [];
+let allCategoryNames = [];
+
 const token = 'Bearer ' + sessionStorage.getItem('token');
 const tokenWithoutQuotes = token.replace(/"/g, '');
+
+function createElementDiv() {
+  return document.createElement('div');
+}
+function createElementSpan() {
+  return document.createElement('span');
+}
+function createElementFontAwesom() {
+  return document.createElement('i');
+}
+
+function setElementAttributes(element, ...attributes) {
+  for (const attribute of attributes) {
+    const [name, value] = attribute;
+    element.setAttribute(name, value);
+  }
+}
+
+function arrayAppenChildFunction(parent, [child]) {
+  parent.appendChild(child);
+}
+
+function faPenIconClass(element) {
+  element.classList.add('fa-regular', 'fa-pen-to-square');
+}
+
+function arrayPushFunction(element, what) {
+  element.push(what);
+}
+
+function sessionStorageRemoveMultiple(elements) {
+  for (const element of elements) {
+    sessionStorage.removeItem(element);
+  }
+}
+
 let workFormData = new FormData();
-const modalButtonSend = document.createElement('span');
+const modalButtonSend = createElementSpan();
 for (let i = 0; i < sessionStorage.length; i++) {
   if (sessionStorage.key(i) === 'token') {
     const getHeader = document.querySelector('header');
@@ -13,72 +54,55 @@ for (let i = 0; i < sessionStorage.length; i++) {
     fontAwesomeScript.setAttribute('src', 'https://kit.fontawesome.com/3fa10e7671.js');
     fontAwesomeScript.setAttribute('crossorigin', 'anonymous');
 
-    const userLoginTools = document.createElement('div');
-    userLoginTools.setAttribute('id', 'userLoginTools');
-    userLoginTools.classList.add('userLoginTools');
+    const userLoginTools = createElementDiv();
+    setElementAttributes(userLoginTools, ['id', 'userLoginTools'], ['class', 'userLoginTools']);
     getBody.insertBefore(userLoginTools, getHeader);
 
-    const userEditionModeBox = document.createElement('div');
-    userEditionModeBox.setAttribute('id', 'userEditionModeBox');
-    userEditionModeBox.classList.add('userEditionModeBox');
+    const userEditionModeBox = createElementDiv();
+    setElementAttributes(userEditionModeBox, ['id', 'userEditionModeBox'], ['class', 'userEditionModeBox']);
     userLoginTools.appendChild(userEditionModeBox);
 
-    const userEditionMode = document.createElement('span');
-    userEditionMode.setAttribute('id', 'userEditionMode');
-    userEditionMode.classList.add('userEditionMode');
-    userEditionMode.style.cursor = 'pointer';
+    const userEditionMode = createElementSpan();
+    setElementAttributes(userEditionMode, ['id', 'userEditionMode'], ['class', 'userEditionMode ' + 'cursorPointer']);
     userEditionMode.textContent = 'Mode édition';
     userEditionModeBox.appendChild(userEditionMode);
 
-    const userEditionModeIcon = document.createElement('i');
-    userEditionModeIcon.setAttribute('id', 'userEditionModeIcon');
-    userEditionModeIcon.setAttribute('class', 'fa-regular');
-    userEditionModeIcon.classList.add('fa-pen-to-square');
-    userEditionModeIcon.style.cursor = 'pointer';
+    const userEditionModeIcon = createElementFontAwesom();
+    setElementAttributes(userEditionModeIcon, ['id', 'userEditionModeIcon'], ['class', 'cursorPointer']);
+    faPenIconClass(userEditionModeIcon);
     userEditionModeBox.appendChild(userEditionModeIcon);
 
-    const userEditionModeBox2 = document.createElement('div');
-    userEditionModeBox2.setAttribute('id', 'userEditionModeBox2');
-    userEditionModeBox2.classList.add('userEditionModeBox2');
+    const userEditionModeBox2 = createElementDiv();
+    setElementAttributes(userEditionModeBox2, ['id', 'userEditionModeBox2'], ['class', 'userEditionModeBox2']);
     sectionPortfolio.insertBefore(userEditionModeBox2, sectionPortfolioH2);
     userEditionModeBox2.appendChild(sectionPortfolioH2);
 
-    const userEditionMode2 = document.createElement('span');
-    userEditionMode2.setAttribute('id', 'userEditionMode2');
-    userEditionMode2.classList.add('userEditionMode2');
-    userEditionMode2.style.cursor = 'pointer';
+    const userEditionMode2 = createElementSpan();
+    setElementAttributes(userEditionMode2, ['id', 'userEditionMode2'], ['class', 'userEditionMode2 ' + 'cursorPointer']);
     userEditionMode2.textContent = 'Modifier';
     userEditionModeBox2.appendChild(userEditionMode2);
 
-    const userEditionModeIcon2 = document.createElement('i');
-    userEditionModeIcon2.setAttribute('id', 'userEditionModeIcon2');
-    userEditionModeIcon2.setAttribute('class', 'fa-regular');
-    userEditionModeIcon2.classList.add('fa-pen-to-square');
-    userEditionModeIcon2.style.cursor = 'pointer';
+    const userEditionModeIcon2 = createElementFontAwesom();
+    setElementAttributes(userEditionModeIcon2, ['id', 'userEditionModeIcon2'], ['class', 'cursorPointer']);
+    faPenIconClass(userEditionModeIcon2);
     userEditionModeBox2.appendChild(userEditionModeIcon2);
 
-    const userEditionModeBox3 = document.createElement('div');
+    const userEditionModeBox3 = createElementDiv();
     introductionFigure.appendChild(userEditionModeBox3);
 
-    const userEditionMode3 = document.createElement('span');
-    userEditionMode3.setAttribute('id', 'userEditionMode3');
-    userEditionMode3.classList.add('userEditionMode3');
-    userEditionMode3.style.cursor = 'pointer';
+    const userEditionMode3 = createElementSpan();
+    setElementAttributes(userEditionMode3, ['id', 'userEditionMode3'], ['class', 'userEditionMode3 ' + 'cursorPointer']);
     userEditionModeBox3.setAttribute('id', 'userEditionModeBox3');
     userEditionMode3.textContent = 'Modifier';
     userEditionModeBox3.appendChild(userEditionMode3);
 
-    const userEditionModeIcon3 = document.createElement('i');
-    userEditionModeIcon3.setAttribute('id', 'userEditionModeIcon3');
-    userEditionModeIcon3.setAttribute('class', 'fa-regular');
-    userEditionModeIcon3.classList.add('fa-pen-to-square');
-    userEditionModeIcon3.style.cursor = 'pointer';
+    const userEditionModeIcon3 = createElementFontAwesom();
+    setElementAttributes(userEditionModeIcon3, ['id', 'userEditionModeIcon3'], ['class', 'cursorPointer']);
+    faPenIconClass(userEditionModeIcon3);
     userEditionModeBox3.appendChild(userEditionModeIcon3);
 
-    const publishChange = document.createElement('span');
-    publishChange.setAttribute('id', 'publishChange');
-    publishChange.classList.add('publishChange');
-    publishChange.style.cursor = 'pointer';
+    const publishChange = createElementSpan();
+    setElementAttributes(publishChange, ['id', 'publishChange'], ['class', 'publishChange ' + 'cursorPointer']);
     publishChange.textContent = 'publier les changements';
     userLoginTools.appendChild(publishChange);
 
@@ -97,18 +121,15 @@ for (let i = 0; i < sessionStorage.length; i++) {
         modalBox.appendChild(modal);
         modalBox.classList.add('modalBoxModal');
 
-        const modalCrossBox = document.createElement('div');
+        const modalCrossBox = createElementDiv();
         modalCrossBox.classList.add('modalCrossBox');
         modal.appendChild(modalCrossBox);
 
-        const modalCross = document.createElement('i');
-        modalCross.setAttribute('id', 'modalCross');
-        modalCross.setAttribute('class', 'fa-solid');
-        modalCross.classList.add('fa-xmark');
-        modalCross.style.cursor = 'pointer';
+        const modalCross = createElementFontAwesom();
+        setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid ' + 'fa-xmark ' + 'cursorPointer']);
         modalCrossBox.appendChild(modalCross);
 
-        const modalTitleBox = document.createElement('div');
+        const modalTitleBox = createElementDiv();
         modalTitleBox.classList.add('modalTitleBox');
         modal.appendChild(modalTitleBox);
 
@@ -116,27 +137,25 @@ for (let i = 0; i < sessionStorage.length; i++) {
         modalTitle.textContent = 'Galerie photo';
         modalTitleBox.appendChild(modalTitle);
 
-        const modalFigureImgBox = document.createElement('div');
+        const modalFigureImgBox = createElementDiv();
         modalFigureImgBox.classList.add('modalFigureImgBox');
         modal.appendChild(modalFigureImgBox);
 
-        const modalSeparator = document.createElement('div');
+        const modalSeparator = createElementDiv();
         modalSeparator.classList.add('modalSeparator');
         modal.appendChild(modalSeparator);
 
-        const modalButtonBox = document.createElement('div');
+        const modalButtonBox = createElementDiv();
         modalButtonBox.classList.add('modalButtonBox');
         modal.appendChild(modalButtonBox);
 
-        const modalButton = document.createElement('span');
-        modalButton.classList.add('modalButton');
-        modalButton.style.cursor = 'pointer';
+        const modalButton = createElementSpan();
+        setElementAttributes(modalButton, ['class', 'modalButton ' + 'cursorPointer']);
         modalButton.textContent = 'Ajouter une photo';
         modalButtonBox.appendChild(modalButton);
 
-        const modalButton2 = document.createElement('span');
-        modalButton2.classList.add('modalButton2');
-        modalButton2.style.cursor = 'pointer';
+        const modalButton2 = createElementSpan();
+        setElementAttributes(modalButton2, ['class', 'modalButton2 ' + 'cursorPointer']);
         modalButton2.textContent = 'Supprimer la galerie';
         modalButtonBox.appendChild(modalButton2);
         modalButton2.addEventListener('click', () => {});
@@ -159,30 +178,26 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalFigureImg.setAttribute('id', work.id);
               modalFigureImg.classList.add('modalFigureImg');
               modalFigureImg.style.cursor = 'pointer';
+              setElementAttributes(modalFigureImg, ['src', getImageUrl], ['id', work.id], ['class', 'modalFigure ' + 'cursorPointer']);
               modalFigure.appendChild(modalFigureImg);
 
               // Create text under img
               const modalFigureTextBox = document.createElement('p');
               modalFigureTextBox.textContent = 'éditer';
-              modalFigureTextBox.classList.add('modalFigureTextBox');
-              modalFigureTextBox.style.cursor = 'pointer';
+              setElementAttributes(modalFigureTextBox, ['class', 'modalFigureTextBox ' + 'cursorPointer']);
               modalFigure.appendChild(modalFigureTextBox);
 
               // Create box for Font Awesome
-              const modalIconBox = document.createElement('div');
+              const modalIconBox = createElementDiv();
               modalIconBox.classList.add('modalIconBox');
               modalFigure.appendChild(modalIconBox);
 
-              let modalTrashCanBox = document.createElement('div');
-              modalTrashCanBox.setAttribute('id', modalFigureImg.id);
-              modalTrashCanBox.classList.add('modalTrashCanBox');
+              let modalTrashCanBox = createElementDiv();
+              setElementAttributes(modalTrashCanBox, ['id', modalFigureImg.id], ['class', 'modalTrashCanBox']);
               modalIconBox.appendChild(modalTrashCanBox);
 
-              const modalTrashCan = document.createElement('i');
-              modalTrashCan.setAttribute('id', 'modalTrashCan');
-              modalTrashCan.setAttribute('class', 'fa-solid');
-              modalTrashCan.classList.add('fa-trash-can');
-              modalTrashCan.style.cursor = 'pointer';
+              const modalTrashCan = createElementFontAwesom();
+              setElementAttributes(modalTrashCan, ['id', 'modalTrashCan'], ['class', 'fa-solid ' + 'fa-trash-can ' + 'cursorPointer']);
               modalTrashCanBox.appendChild(modalTrashCan);
 
               // Event click for trash work
@@ -209,15 +224,12 @@ for (let i = 0; i < sessionStorage.length; i++) {
               });
 
               // Font Awesome zoom selection
-              const modalZoomSelectedIconBox = document.createElement('div');
+              const modalZoomSelectedIconBox = createElementDiv();
               modalZoomSelectedIconBox.classList.add('modalZoomSelectedIconBox');
               modalIconBox.appendChild(modalZoomSelectedIconBox);
 
-              const modalZoomSelectedIcon = document.createElement('i');
-              modalZoomSelectedIcon.setAttribute('id', 'modalZoomSelectedIcon');
-              modalZoomSelectedIcon.setAttribute('class', 'fa-solid');
-              modalZoomSelectedIcon.classList.add('fa-maximize');
-              modalZoomSelectedIcon.style.cursor = 'pointer';
+              const modalZoomSelectedIcon = createElementFontAwesom();
+              setElementAttributes(modalZoomSelectedIcon, ['id', 'modalZoomSelectedIcon'], ['class', 'fa-solid ' + 'fa-maximize ' + 'cursorPointer']);
 
               // Array for stopping miltiple icon + Event listener mouse events (Enter and Leave)
               let modalZoomSelectedIconArray = [];
@@ -233,41 +245,39 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalZoomSelectedIconBox.style.display = 'none';
               });
 
-              const modalFigureImgDownloadInputWorkCategory = document.createElement('div');
+              const modalFigureImgDownloadInputWorkCategory = createElementDiv();
               const modalFigureImgDownloadInputWorkSelect = document.createElement('select');
               const modalFigureImgDownloadInputWorkOption = document.createElement('option');
 
               const userId = work.userId;
-              console.log(userId);
 
               // Button for add work section
               modalButton.addEventListener('click', (e) => {
                 modalButtonBox.innerHTML = '';
                 modalButtonSend;
-                modalButtonSend.classList.add('modalButton');
-                modalButtonSend.style.cursor = 'pointer';
-                modalButtonSend.setAttribute('id', 'send');
+                setElementAttributes(modalButtonSend, ['id', 'send'], ['class', 'modalButton ' + 'cursorPointer']);
                 modalButtonSend.textContent = 'Ajout photo';
                 modalButtonBox.appendChild(modalButtonSend);
 
                 modalTitle.textContent = 'Ajout photo';
+
                 modalFigureImgBox.innerHTML = '';
                 modalFigureImgBox.classList.replace('modalFigureImgBox', 'modalFigureImgBoxChangeToSendWork');
+
                 const modalFigureImgDownload = document.createElement('label');
                 const modalFigureImgDownloadInput = document.createElement('input');
-                modalFigureImgDownloadInput.setAttribute('id', 'modalFigureImgDownloadIcon');
-                modalFigureImgDownloadInput.setAttribute('class', 'fa-regular');
-                modalFigureImgDownloadInput.classList.add('fa-image');
+
+                setElementAttributes(modalFigureImgDownloadInput, ['id', 'modalFigureImgDownloadIcon'], ['class', 'fa-image ' + 'fa-regular']);
                 modalFigureImgDownloadInput.type = 'file';
 
-                const modalFigureImgDownloadText = document.createElement('span');
-                const modalFigureImgDownloadFileType = document.createElement('span');
+                const modalFigureImgDownloadText = createElementSpan();
+                const modalFigureImgDownloadFileType = createElementSpan();
 
-                modalFigureImgDownload.setAttribute('for', 'modalFigureImgDownloadIcon');
-                modalFigureImgDownload.setAttribute('class', 'modalFigureImgDownload');
+                setElementAttributes(modalFigureImgDownload, ['for', 'modalFigureImgDownloadIcon'], ['class', 'modalFigureImgDownload']);
 
                 modalFigureImgDownloadText.setAttribute('id', 'modalFigureImgDownloadText');
                 modalFigureImgDownloadText.textContent = '+ Ajouter photo';
+
                 modalFigureImgDownloadFileType.setAttribute('id', 'modalFigureImgDownloadFileType');
                 modalFigureImgDownloadFileType.textContent = 'jpg, png: 4mo max';
 
@@ -284,10 +294,8 @@ for (let i = 0; i < sessionStorage.length; i++) {
                     let modalFigureImgDownloadInputPreview = location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
                     modalFigureImgDownloadInput.setAttribute('class', 'displayElementFalse');
 
-                    imagePreview.setAttribute('src', modalFigureImgDownloadInputPreview);
+                    setElementAttributes(imagePreview, ['src', modalFigureImgDownloadInputPreview], ['id', 'imagePreview'], ['class', 'imagePreview']);
                     imagePreview.classList.replace('displayElementFalse', 'displayElementTrue');
-                    imagePreview.setAttribute('id', 'imagePreview');
-                    imagePreview.classList.add('imagePreview');
 
                     modalFigureImgDownloadText.textContent = '';
                     modalFigureImgDownloadText.setAttribute('class', 'displayElementFalse');
@@ -301,51 +309,35 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 const modalFigureImgDownloadInputWorkName = document.createElement('input');
                 modalFigureImgDownloadInputWorkName.type = 'text';
                 modalFigureImgDownloadInputWorkName.classList.add('modalFigureImgDownloadInputWorkName');
+                modalFigureImgDownloadInputWorkName.classList.add('InputWorkCategory');
 
                 modalFigureImgDownloadInputWorkCategory.classList.add('modalFigureImgDownloadInputWorkCategory');
-                modalFigureImgDownloadInputWorkName.classList.add('InputWorkCategory');
                 modalFigureImgDownloadInputWorkSelect.classList.add('InputWorkCategory');
 
                 // Array for avoid multiplication
-                let modalFigureImgDownloadArray = [];
 
-                modalFigureImgDownloadArray.push(modalFigureImgDownload);
-                modalFigureImgDownloadArray.push(modalFigureImgDownloadInput);
-                modalFigureImgDownloadArray.push(imagePreview);
-                modalFigureImgDownloadArray.push(modalFigureImgDownloadInputWorkCategory);
-                modalFigureImgDownloadArray.push(modalFigureImgDownloadInputWorkName);
-                modalFigureImgDownloadArray.push(modalFigureImgDownloadInputWorkSelect);
+                arrayPushFunction(modalFigureImgDownloadArray, [modalFigureImgDownload, modalFigureImgDownloadInput, imagePreview, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkSelect]);
 
                 // Verification
                 if (!modalFigureImgDownloadArray) {
                   modalFigureImgDownloadArray.pop();
                 } else {
-                  modalFigureImgBox.appendChild(modalFigureImgDownload);
+                  arrayAppenChildFunction(modalFigureImgBox, [modalFigureImgDownload]);
+                  arrayAppenChildFunction(modalFigureImgBox, [modalFigureImgDownloadInputWorkCategory]);
 
-                  modalFigureImgDownload.appendChild(modalFigureImgDownloadInput);
+                  arrayAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadInput]);
+                  arrayAppenChildFunction(modalFigureImgDownload, [imagePreview]);
+                  arrayAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadText]);
+                  arrayAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadFileType]);
 
-                  modalFigureImgDownload.appendChild(imagePreview);
-
-                  modalFigureImgDownload.appendChild(modalFigureImgDownloadText);
-
-                  modalFigureImgDownload.appendChild(modalFigureImgDownloadFileType);
-
-                  modalFigureImgBox.appendChild(modalFigureImgDownloadInputWorkCategory);
-
-                  modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkName);
-
-                  modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
+                  arrayAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkName]);
+                  arrayAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkSelect]);
                 }
 
-                // let allInputsForSend = [modalFigureImgDownloadInput, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkOption];
-
-                let allInputsForSend = [];
-                allInputsForSend.push(modalFigureImgDownloadInput);
-                allInputsForSend.push(modalFigureImgDownloadInputWorkName);
-                allInputsForSend.push(modalFigureImgDownloadInputWorkCategory);
-                allInputsForSend.push(modalFigureImgDownloadInputWorkOption);
+                arrayPushFunction(allInputsForSend, [modalFigureImgDownloadInput, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkOption]);
 
                 const uniqueCategories = new Set();
+                const addedOptions = new Set();
 
                 works.forEach((work) => {
                   uniqueCategories.add(work.categoryId);
@@ -353,52 +345,57 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                 let matchingWork;
                 let option;
+
                 uniqueCategories.forEach((categoryId) => {
                   matchingWork = works.find((work) => work.categoryId === categoryId);
-                  option = modalFigureImgDownloadInputWorkOption.cloneNode(); // Cloner l'option pour chaque itération
-                  option.setAttribute('id', matchingWork.categoryId); // Utiliser l'identifiant de catégorie spécifique ici
-                  // option.value = matchingWork.categoryId; // Utiliser l'identifiant de catégorie spécifique ici
-                  option.textContent = matchingWork.category.name; // Assurez-vous d'utiliser la propriété appropriée pour le nom de catégorie
-                  // option.textContent = matchingWork.category.name; // Assurez-vous d'utiliser la propriété appropriée pour le nom de catégorie
-                  modalFigureImgDownloadInputWorkSelect.appendChild(option);
+
+                  if (!addedOptions.has(categoryId)) {
+                    option = modalFigureImgDownloadInputWorkOption.cloneNode();
+                    option.setAttribute('id', matchingWork.categoryId);
+                    option.textContent = matchingWork.category.name;
+
+                    modalFigureImgDownloadInputWorkSelect.appendChild(option);
+
+                    addedOptions.add(categoryId);
+                  }
                 });
 
                 modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
 
-                allInputsForSend.forEach((input) => {
-                  input.addEventListener('change', (e) => {
-                    modalFigureImgDownloadInputWorkOption.setAttribute('checked', 'checked');
-                    modalFigureImgDownloadInputWorkOption.setAttribute('value', modalFigureImgDownloadInputWorkName.value);
-                    modalFigureImgDownloadInputWorkOption.setAttribute('id', matchingWork.categoryId);
-                    let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
+                let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
 
-                    let modalFigureImgDownloadIconValuePath = e.target.value;
+                let modalFigureImgBoxChangeToSendWork = document.querySelector('.modalFigureImgBoxChangeToSendWork');
+
+                modalFigureImgBoxChangeToSendWork.addEventListener('click', () => {
+                  // Afficher les options sélectionnées
+                  let selectedOption = modalFigureImgDownloadInputWorkSelect.value;
+
+                  modalFigureImgDownloadInput.addEventListener('change', () => {
+                    let modalFigureImgDownloadIconValuePath = modalFigureImgDownloadInput.value;
                     let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
-
-                    let modalFigureImgDownloadIconValue = modalFigureImgDownloadIconValueCleanPath;
-
-                    let modalFigureImgDownloadInputPreview = 'http://localhost:5678/images/' + modalFigureImgDownloadIconValue;
-
-                    let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
-
-                    // Afficher les options sélectionnées
-                    let selectedOption = modalFigureImgDownloadInputWorkOption.querySelector('option:checked');
-                    let selectedOptionValue = modalFigureImgDownloadInputWorkOption.id;
-                    let selectedOptionText = matchingWork.category.name;
-                    console.log(modalFigureImgDownloadInputWorkNameValue);
-                    console.log(selectedOptionValue);
-                    console.log(selectedOptionText);
-                    // console.log('Option sélectionnée :', selectedOptionValue, '-', selectedOptionText);
-
-                    workFormData.append('id', selectedOptionValue);
-                    workFormData.append('title', modalFigureImgDownloadInputWorkNameValue);
-                    workFormData.append('imageUrl', modalFigureImgDownloadInputPreview);
-                    workFormData.append('category', selectedOptionText);
-                    workFormData.append('userId', userId);
+                    let modalFigureImgDownloadPath = modalFigureImgDownloadIconValueCleanPath;
+                    let modalFigureImgDownloadInputPreview = 'http://localhost:5678/images/' + modalFigureImgDownloadPath;
+                    sessionStorage.setItem('imageUrl', modalFigureImgDownloadInputPreview);
+                    console.log(sessionStorage.getItem('imageUrl'));
                   });
-                });
 
-                // Fetch pour l'envoi des données
+                  modalFigureImgDownloadInputWorkName.addEventListener('change', () => {
+                    let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
+                    sessionStorage.setItem('title', modalFigureImgDownloadInputWorkNameValue);
+                    console.log(sessionStorage.getItem('title'));
+                  });
+
+                  modalFigureImgDownloadInputWorkSelect.addEventListener('change', () => {
+                    let selectedOptionText = modalFigureImgDownloadInputWorkSelect.options[modalFigureImgDownloadInputWorkSelect.selectedIndex].textContent;
+                    let selectedOptionValue = modalFigureImgDownloadInputWorkSelect.options[modalFigureImgDownloadInputWorkSelect.selectedIndex].id;
+                    sessionStorage.setItem('category', selectedOptionText);
+                    sessionStorage.setItem('id', selectedOptionValue);
+                    console.log(selectedOptionValue);
+                    console.log(sessionStorage.getItem('category'));
+                  });
+
+                  sessionStorage.setItem('userId', userId);
+                });
               });
             });
           });
@@ -406,37 +403,47 @@ for (let i = 0; i < sessionStorage.length; i++) {
         modalCreated = true;
       }
     });
-    console.log(userEditionMode);
   }
 }
-modalButtonSend.addEventListener('click', async () => {
-  // Afficher les données du FormData
-  // for (let pair of workFormData.entries()) {
-  //   console.log(pair[0] + ':', pair[1]);
-  // }
-  console.log(JSON.stringify(workFormData.entries()));
-  console.log(token);
+arrayPushFunction(allData, [token], [tokenWithoutQuotes], [workFormData]);
 
+const elementsToRemove = ['id', 'title', 'imageUrl', 'category', 'userId'];
+
+modalButtonSend.addEventListener('click', async () => {
+  const workFormData = new FormData();
+  // workFormData.append('id', sessionStorage.getItem('id'));
+  workFormData.append('imageUrl', sessionStorage.getItem('imageUrl'));
+  workFormData.append('title', sessionStorage.getItem('title'));
+  workFormData.append('category', sessionStorage.getItem('category'));
+  // workFormData.append('userId', sessionStorage.getItem('userId'));
+
+  // Afficher les données du FormData
+  for (let pair of workFormData.entries()) {
+    console.log(pair[0] + ':', pair[1]);
+  }
+
+  // Fetch pour l'envoi des données
   try {
     const response = await fetch('http://localhost:5678/api/works/', {
       method: 'POST',
       headers: {
         Authorization: tokenWithoutQuotes,
-        'Content-Type': 'application/json', // Ajoutez le type de contenu
+        'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data',
       },
-      body: JSON.stringify(Object.fromEntries(workFormData)), // Convertir le FormData en objet JSON
+      body: workFormData,
     });
 
     if (response.ok) {
       alert('Travail envoyé avec succès !');
+      sessionStorageRemoveMultiple(elementsToRemove);
     } else {
       alert("Erreur lors de l'envoi du travail");
+      sessionStorageRemoveMultiple(elementsToRemove);
     }
   } catch (error) {
     console.error(error);
   }
 });
 
-console.log(document.cookie);
-console.log(localStorage);
 console.log(sessionStorage);

@@ -29,12 +29,8 @@ if (document.getElementById('main__section') === false) {
 }
 function ifPreviouslyConnected() {
   sessionStorage.getItem('token');
-  console.log(sessionStorage.getItem('token'));
 
   document.getElementById('loginNavigation').textContent = 'logout';
-
-  // sectionPortfolio.insertBefore(userEditionModeBox2, objectsCategoryDivRecall);
-  // console.log(objectsCategoryDivRecall);
 }
 for (let i = 0; i < sessionStorage.length; i++) {
   if (sessionStorage.key(i) === 'token') {
