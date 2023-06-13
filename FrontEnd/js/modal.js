@@ -376,13 +376,13 @@ for (let i = 0; i < sessionStorage.length; i++) {
                     let modalFigureImgDownloadPath = modalFigureImgDownloadIconValueCleanPath;
                     let modalFigureImgDownloadInputPreview = 'http://localhost:5678/images/' + modalFigureImgDownloadPath;
                     sessionStorage.setItem('imageUrl', modalFigureImgDownloadInputPreview);
-                    console.log(sessionStorage.getItem('imageUrl'));
+                    // console.log(sessionStorage.getItem('imageUrl'));
                   });
 
                   modalFigureImgDownloadInputWorkName.addEventListener('change', () => {
                     let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
                     sessionStorage.setItem('title', modalFigureImgDownloadInputWorkNameValue);
-                    console.log(sessionStorage.getItem('title'));
+                    // console.log(sessionStorage.getItem('title'));
                   });
 
                   modalFigureImgDownloadInputWorkSelect.addEventListener('change', () => {
@@ -390,8 +390,8 @@ for (let i = 0; i < sessionStorage.length; i++) {
                     let selectedOptionValue = modalFigureImgDownloadInputWorkSelect.options[modalFigureImgDownloadInputWorkSelect.selectedIndex].id;
                     sessionStorage.setItem('category', selectedOptionText);
                     sessionStorage.setItem('id', selectedOptionValue);
-                    console.log(selectedOptionValue);
-                    console.log(sessionStorage.getItem('category'));
+                    // console.log(selectedOptionValue);
+                    // console.log(sessionStorage.getItem('category'));
                   });
 
                   sessionStorage.setItem('userId', userId);
@@ -418,9 +418,9 @@ modalButtonSend.addEventListener('click', async () => {
   // workFormData.append('userId', sessionStorage.getItem('userId'));
 
   // Afficher les données du FormData
-  for (let pair of workFormData.entries()) {
-    console.log(pair[0] + ':', pair[1]);
-  }
+  // for (let pair of workFormData.entries()) {
+  //   console.log(pair[0] + ':', pair[1]);
+  // }
 
   // Fetch pour l'envoi des données
   try {
