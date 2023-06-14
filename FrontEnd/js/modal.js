@@ -330,23 +330,29 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                 // Array for avoid multiplication
 
-                arrayPushFunction(modalFigureImgDownloadArray, [modalFigureImgDownload, modalFigureImgDownloadInput, imagePreview, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkSelect]);
-
-                // Verification
-                if (!modalFigureImgDownloadArray) {
-                  modalFigureImgDownloadArray.pop();
-                } else {
-                  elementAppenChildFunction(modalFigureImgBox, [modalFigureImgDownload]);
-                  elementAppenChildFunction(modalFigureImgBox, [modalFigureImgDownloadInputWorkCategory]);
-
-                  elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadInput]);
-                  elementAppenChildFunction(modalFigureImgDownload, [imagePreview]);
-                  elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadText]);
-                  elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadFileType]);
-
-                  elementAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkName]);
-                  elementAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkSelect]);
+                const avoidMultiplierSet = new Set();
+                function SetAddFunction(element, value) {
+                  element.add(value);
                 }
+                SetAddFunction(avoidMultiplierSet, [modalFigureImgDownload, modalFigureImgDownloadInput, imagePreview, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkSelect]);
+
+                // arrayPushFunction(modalFigureImgDownloadArray, [modalFigureImgDownload, modalFigureImgDownloadInput, imagePreview, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkSelect]);
+
+                // // Verification
+                // if (!modalFigureImgDownloadArray) {
+                //   modalFigureImgDownloadArray.pop();
+                // } else {
+                // }
+                elementAppenChildFunction(modalFigureImgBox, [modalFigureImgDownload]);
+                elementAppenChildFunction(modalFigureImgBox, [modalFigureImgDownloadInputWorkCategory]);
+
+                elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadInput]);
+                elementAppenChildFunction(modalFigureImgDownload, [imagePreview]);
+                elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadText]);
+                elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadFileType]);
+
+                elementAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkName]);
+                elementAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkSelect]);
 
                 // arrayPushFunction(allInputsForSend, [modalFigureImgDownloadInput, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkOption]);
 
@@ -374,7 +380,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   }
                 });
 
-                modalFigureImgDownloadInputWorkCategory.appendChild(modalFigureImgDownloadInputWorkSelect);
+                elementAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkSelect]);
 
                 let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
 
@@ -387,7 +393,6 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   modalFigureImgDownloadInput.addEventListener('change', () => {
                     let modalFigureImgDownloadIconValuePath = modalFigureImgDownloadInput.value;
                     let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
-                    // let modalFigureImgDownloadPath = modalFigureImgDownloadIconValueCleanPath;
                     let modalFigureImgDownloadInputPreview = 'http://localhost:5678/images/' + modalFigureImgDownloadIconValueCleanPath;
                     sessionStorage.setItem('imageUrl', modalFigureImgDownloadInputPreview);
                     // console.log(sessionStorage.getItem('imageUrl'));
