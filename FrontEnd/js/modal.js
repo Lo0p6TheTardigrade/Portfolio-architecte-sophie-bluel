@@ -1,5 +1,5 @@
-let allData = [];
-let allInputsForSend = [];
+// let allData = [];
+// let allInputsForSend = [];
 let modalFigureImgDownloadArray = [];
 let allCategoryNames = [];
 
@@ -23,7 +23,7 @@ function setElementAttributes(element, ...attributes) {
   }
 }
 
-function arrayAppenChildFunction(parent, [child]) {
+function elementAppenChildFunction(parent, [child]) {
   parent.appendChild(child);
 }
 
@@ -127,6 +127,12 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
         const modalCross = createElementFontAwesom();
         setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid ' + 'fa-xmark ' + 'cursorPointer']);
+        modalCross.addEventListener('click', (e) => {
+          // getBody.removeChild(modalBox);
+          window.location.href = '/FrontEnd';
+          // e.preventDefault();
+          // window.location.reload();
+        });
         modalCrossBox.appendChild(modalCross);
 
         const modalTitleBox = createElementDiv();
@@ -154,12 +160,17 @@ for (let i = 0; i < sessionStorage.length; i++) {
         modalButton.textContent = 'Ajouter une photo';
         modalButtonBox.appendChild(modalButton);
 
+        const arrowBack = createElementFontAwesom();
+        setElementAttributes(arrowBack, ['id', 'faArrowBack'], ['class', 'fa-solid ' + 'fa-arrow-left ' + 'cursorPointer']);
+        arrowBack.addEventListener('click', () => {});
+        console.log(arrowBack);
+
         const modalButton2 = createElementSpan();
         setElementAttributes(modalButton2, ['class', 'modalButton2 ' + 'cursorPointer']);
         modalButton2.textContent = 'Supprimer la galerie';
         modalButtonBox.appendChild(modalButton2);
-        modalButton2.addEventListener('click', () => {});
 
+        function arrowBackFunction() {}
         fetch('http://localhost:5678/api/works')
           .then((response) => response.json())
           .then((works) => {
@@ -259,6 +270,9 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 modalButtonSend.textContent = 'Ajout photo';
                 modalButtonBox.appendChild(modalButtonSend);
 
+                modalCrossBox.appendChild(arrowBack);
+                modalCrossBox.classList.replace('modalCrossBox', 'modalCrossBoxAndArrow');
+
                 modalTitle.textContent = 'Ajout photo';
 
                 modalFigureImgBox.innerHTML = '';
@@ -322,19 +336,19 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 if (!modalFigureImgDownloadArray) {
                   modalFigureImgDownloadArray.pop();
                 } else {
-                  arrayAppenChildFunction(modalFigureImgBox, [modalFigureImgDownload]);
-                  arrayAppenChildFunction(modalFigureImgBox, [modalFigureImgDownloadInputWorkCategory]);
+                  elementAppenChildFunction(modalFigureImgBox, [modalFigureImgDownload]);
+                  elementAppenChildFunction(modalFigureImgBox, [modalFigureImgDownloadInputWorkCategory]);
 
-                  arrayAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadInput]);
-                  arrayAppenChildFunction(modalFigureImgDownload, [imagePreview]);
-                  arrayAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadText]);
-                  arrayAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadFileType]);
+                  elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadInput]);
+                  elementAppenChildFunction(modalFigureImgDownload, [imagePreview]);
+                  elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadText]);
+                  elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadFileType]);
 
-                  arrayAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkName]);
-                  arrayAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkSelect]);
+                  elementAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkName]);
+                  elementAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkSelect]);
                 }
 
-                arrayPushFunction(allInputsForSend, [modalFigureImgDownloadInput, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkOption]);
+                // arrayPushFunction(allInputsForSend, [modalFigureImgDownloadInput, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkOption]);
 
                 const uniqueCategories = new Set();
                 const addedOptions = new Set();
@@ -373,8 +387,8 @@ for (let i = 0; i < sessionStorage.length; i++) {
                   modalFigureImgDownloadInput.addEventListener('change', () => {
                     let modalFigureImgDownloadIconValuePath = modalFigureImgDownloadInput.value;
                     let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
-                    let modalFigureImgDownloadPath = modalFigureImgDownloadIconValueCleanPath;
-                    let modalFigureImgDownloadInputPreview = 'http://localhost:5678/images/' + modalFigureImgDownloadPath;
+                    // let modalFigureImgDownloadPath = modalFigureImgDownloadIconValueCleanPath;
+                    let modalFigureImgDownloadInputPreview = 'http://localhost:5678/images/' + modalFigureImgDownloadIconValueCleanPath;
                     sessionStorage.setItem('imageUrl', modalFigureImgDownloadInputPreview);
                     // console.log(sessionStorage.getItem('imageUrl'));
                   });
@@ -405,7 +419,6 @@ for (let i = 0; i < sessionStorage.length; i++) {
     });
   }
 }
-arrayPushFunction(allData, [token], [tokenWithoutQuotes], [workFormData]);
 
 const elementsToRemove = ['id', 'title', 'imageUrl', 'category', 'userId'];
 
