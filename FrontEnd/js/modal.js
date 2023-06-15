@@ -16,6 +16,10 @@ function createElementFontAwesom() {
   return document.createElement('i');
 }
 
+function faPenIconClass(element) {
+  element.classList.add('fa-regular', 'fa-pen-to-square');
+}
+
 function setElementAttributes(element, ...attributes) {
   for (const attribute of attributes) {
     const [name, value] = attribute;
@@ -31,8 +35,12 @@ function elementAppendChildMultiple([parent1, child1], [parent2, child2]) {
   parent2.appendChild(child2);
 }
 
-function faPenIconClass(element) {
-  element.classList.add('fa-regular', 'fa-pen-to-square');
+function resetFunction(element) {
+  element.innerHTML = '';
+}
+
+function goHome(where) {
+  window.location.href = "'" + where + "'";
 }
 
 function arrayPushFunction(element, what) {
@@ -50,7 +58,11 @@ function sessionStorageRemoveMultiple(elements) {
 }
 
 let workFormData = new FormData();
+
 const modalButtonSend = createElementSpan();
+
+const arrowBackModalSet = new Set();
+
 for (let i = 0; i < sessionStorage.length; i++) {
   if (sessionStorage.key(i) === 'token') {
     const getHeader = document.querySelector('header');
@@ -114,25 +126,35 @@ for (let i = 0; i < sessionStorage.length; i++) {
     publishChange.textContent = 'publier les changements';
     userLoginTools.appendChild(publishChange);
 
+    // Modal dialog
     const createModal = [];
     let modalCreated = false;
 
     userEditionMode.addEventListener('click', () => {
       if (!modalCreated) {
+        // Modal form
+        const modalBox = document.createElement('form');
+        modalBox.classList.add('modalBoxModal');
+
+        // Modal element
         const modal = document.createElement('modal');
         modal.setAttribute('id', 'modal1');
-        const modalBox = document.createElement('form');
 
         createModal.push(modal);
 
-        getBody.appendChild(modalBox);
-        modalBox.appendChild(modal);
-        modalBox.classList.add('modalBoxModal');
+        // Append modal form to body
+        getBody.insertBefore(modalBox, getHeader);
 
+        // Value for arrowBack button
+        const modalParentChild = modalBox.appendChild(modal);
+        // SetAddFunction(arrowBackModalSet, modalParentChild);
+
+        // Cross close button box
         const modalCrossBox = createElementDiv();
         modalCrossBox.classList.add('modalCrossBox');
         modal.appendChild(modalCrossBox);
 
+        // Cross close button
         const modalCross = createElementFontAwesom();
         setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid ' + 'fa-xmark ' + 'cursorPointer']);
         modalCross.addEventListener('click', (e) => {
@@ -143,42 +165,89 @@ for (let i = 0; i < sessionStorage.length; i++) {
         });
         modalCrossBox.appendChild(modalCross);
 
+        // Title for the modal
         const modalTitleBox = createElementDiv();
         modalTitleBox.classList.add('modalTitleBox');
-        modal.appendChild(modalTitleBox);
+        const modalTitleBoxParentChild = modal.appendChild(modalTitleBox);
+        SetAddFunction(arrowBackModalSet, modalTitleBoxParentChild);
 
         const modalTitle = document.createElement('h2');
         modalTitle.textContent = 'Galerie photo';
-        modalTitleBox.appendChild(modalTitle);
+        const modalTitleParentChild = modalTitleBox.appendChild(modalTitle);
+        SetAddFunction(arrowBackModalSet, modalTitleParentChild);
 
+        // Figure boxes for all works
         const modalFigureImgBox = createElementDiv();
         modalFigureImgBox.classList.add('modalFigureImgBox');
-        modal.appendChild(modalFigureImgBox);
+        const modalFigureImgBoxParentChild = modal.appendChild(modalFigureImgBox);
+        SetAddFunction(arrowBackModalSet, modalFigureImgBoxParentChild);
 
+        // Separator between element
         const modalSeparator = createElementDiv();
         modalSeparator.classList.add('modalSeparator');
-        modal.appendChild(modalSeparator);
+        const modalSeparatorParentChild = modal.appendChild(modalSeparator);
+        SetAddFunction(arrowBackModalSet, modalSeparatorParentChild);
 
+        // Modal button box
         const modalButtonBox = createElementDiv();
         modalButtonBox.classList.add('modalButtonBox');
-        modal.appendChild(modalButtonBox);
+        const modalButtonBoxParentChild = modal.appendChild(modalButtonBox);
+        SetAddFunction(arrowBackModalSet, modalButtonBoxParentChild);
 
         const modalButton = createElementSpan();
         setElementAttributes(modalButton, ['class', 'modalButton ' + 'cursorPointer']);
         modalButton.textContent = 'Ajouter une photo';
-        modalButtonBox.appendChild(modalButton);
+        const modalButtonParentChild = modalButtonBox.appendChild(modalButton);
+        SetAddFunction(arrowBackModalSet, modalButtonParentChild);
 
+        // Arrow button
         const arrowBack = createElementFontAwesom();
         setElementAttributes(arrowBack, ['id', 'faArrowBack'], ['class', 'fa-solid ' + 'fa-arrow-left ' + 'cursorPointer']);
-        arrowBack.addEventListener('click', () => {});
         console.log(arrowBack);
 
+        // Button for deleting the gallery
         const modalButton2 = createElementSpan();
         setElementAttributes(modalButton2, ['class', 'modalButton2 ' + 'cursorPointer']);
         modalButton2.textContent = 'Supprimer la galerie';
-        modalButtonBox.appendChild(modalButton2);
+        const modalButton2ParentChild = modalButtonBox.appendChild(modalButton2);
+        SetAddFunction(arrowBackModalSet, modalButton2ParentChild);
 
-        function arrowBackFunction() {}
+        // Arrow function for go back
+        const figuresSet = new Set();
+
+        function arrowBackFunction(element) {
+          resetFunction(element);
+
+          elementAppenChildFunction(modal, [modalCrossBox]);
+          modalCrossBox.classList.add('modalCrossBox');
+          modalCrossBox.classList.remove('modalCrossBoxAndArrow');
+          setElementAttributes(arrowBack, ['class', 'displayElementFalse']);
+
+          const hiddeInputs = document.querySelector('input');
+          setElementAttributes(hiddeInputs, ['class', 'displayElementFalse']);
+
+          modalFigureImgBox.classList.replace('modalFigureImgBoxChangeToSendWork', 'modalFigureImgBox');
+
+          console.log(arrowBackModalSet);
+
+          const modalArray = Array.from(arrowBackModalSet);
+          for (let i = 0; i < modalArray.length; i++) {
+            modal.appendChild(modalArray[i]);
+            console.log(modalArray[i]);
+          }
+
+          elementAppenChildFunction(modalTitleBox, [modalTitle]);
+          resetFunction(modalButtonBox);
+          resetFunction(modalFigureImgBox);
+
+          elementAppendChildMultiple([modalButtonBox, modalButton], [modalButtonBox, modalButton2]);
+          modalTitle.textContent = 'Gallerie';
+        }
+
+        arrowBack.addEventListener('click', () => {
+          arrowBackFunction(modal);
+        });
+
         fetch('http://localhost:5678/api/works')
           .then((response) => response.json())
           .then((works) => {
@@ -190,6 +259,10 @@ for (let i = 0; i < sessionStorage.length; i++) {
               // Create figure tag
               const modalFigure = document.createElement('figure');
               modalFigureImgBox.appendChild(modalFigure);
+              figuresSet.add(modalFigure);
+              let figuresSetKeys;
+              // elementAppenChildFunction(modalFigureImgBox, [figuresSetKeys]);
+              // console.log(figuresSet);
 
               // Create img tag
               const modalFigureImg = document.createElement('img');
@@ -329,7 +402,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                 // Input element for the new work item (SEND)
                 const modalFigureImgDownloadInputWorkName = document.createElement('input');
-                setElementAttributes(modalFigureImgDownloadInputWorkName, ['type', 'text'], ['class', 'modalFigureImgDownloadInputWorkName ' + 'inputWorkCategory']);
+                setElementAttributes(modalFigureImgDownloadInputWorkName, ['type', 'text'], ['class', 'modalFigureImgDownloadInputWorkName ' + 'inputWorkCategory'], ['id', 'title']);
 
                 modalFigureImgDownloadInputWorkCategory.classList.add('modalFigureImgDownloadInputWorkCategory');
                 setElementAttributes(modalFigureImgDownloadInputWorkSelect, ['class', 'inputWorkCategory ' + 'cursorPointer']);
@@ -418,18 +491,26 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
 const elementsToRemove = ['id', 'title', 'imageUrl', 'category', 'userId'];
 
+const imageUrl = sessionStorage.getItem('imageUrl');
+console.log(imageUrl);
+const categoryData = sessionStorage.getItem('category');
+console.log(categoryData);
+const title = sessionStorage.getItem('title');
+console.log(title);
+
 modalButtonSend.addEventListener('click', async () => {
   const workFormData = new FormData();
   // workFormData.append('id', sessionStorage.getItem('id'));
-  workFormData.append('imageUrl', sessionStorage.getItem('imageUrl'));
-  workFormData.append('title', sessionStorage.getItem('title'));
-  workFormData.append('category', sessionStorage.getItem('category'));
+  workFormData.append('imageUrl', imageUrl);
+  workFormData.append('title', title);
+  workFormData.append('category', categoryData);
   // workFormData.append('userId', sessionStorage.getItem('userId'));
 
   // Afficher les données du FormData
   // for (let pair of workFormData.entries()) {
   //   console.log(pair[0] + ':', pair[1]);
   // }
+  console.log(workFormData);
 
   // Fetch pour l'envoi des données
   try {
@@ -437,18 +518,17 @@ modalButtonSend.addEventListener('click', async () => {
       method: 'POST',
       headers: {
         Authorization: tokenWithoutQuotes,
-        'Content-Type': 'application/json',
-        'Content-Type': 'multipart/form-data',
+        'Content-type': 'multipart/form-data',
       },
       body: workFormData,
     });
 
     if (response.ok) {
       alert('Travail envoyé avec succès !');
-      sessionStorageRemoveMultiple(elementsToRemove);
+      // sessionStorageRemoveMultiple(elementsToRemove);
     } else {
       alert("Erreur lors de l'envoi du travail");
-      sessionStorageRemoveMultiple(elementsToRemove);
+      // sessionStorageRemoveMultiple(elementsToRemove);
     }
   } catch (error) {
     console.error(error);
