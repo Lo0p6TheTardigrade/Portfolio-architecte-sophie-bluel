@@ -26,6 +26,10 @@ function setElementAttributes(element, ...attributes) {
 function elementAppenChildFunction(parent, [child]) {
   parent.appendChild(child);
 }
+function elementAppendChildMultiple([parent1, child1], [parent2, child2]) {
+  parent1.appendChild(child1);
+  parent2.appendChild(child2);
+}
 
 function faPenIconClass(element) {
   element.classList.add('fa-regular', 'fa-pen-to-square');
@@ -33,6 +37,10 @@ function faPenIconClass(element) {
 
 function arrayPushFunction(element, what) {
   element.push(what);
+}
+
+function SetAddFunction(element, value) {
+  element.add(value);
 }
 
 function sessionStorageRemoveMultiple(elements) {
@@ -247,8 +255,8 @@ for (let i = 0; i < sessionStorage.length; i++) {
               modalZoomSelectedIconBox.style.display = 'none';
               modalFigure.addEventListener('mouseenter', () => {
                 modalZoomSelectedIconArray.push(modalZoomSelectedIconBox);
-                modalZoomSelectedIconBox.appendChild(modalZoomSelectedIcon);
-                modalIconBox.appendChild(modalZoomSelectedIconBox);
+
+                elementAppendChildMultiple([modalZoomSelectedIconBox, modalZoomSelectedIcon], [modalIconBox, modalZoomSelectedIconBox]);
                 modalZoomSelectedIconBox.style.display = 'flex';
               });
               modalFigure.addEventListener('mouseleave', () => {
@@ -287,7 +295,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
                 const modalFigureImgDownloadText = createElementSpan();
                 const modalFigureImgDownloadFileType = createElementSpan();
 
-                setElementAttributes(modalFigureImgDownload, ['for', 'modalFigureImgDownloadIcon'], ['class', 'modalFigureImgDownload']);
+                setElementAttributes(modalFigureImgDownload, ['for', 'modalFigureImgDownloadIcon'], ['class', 'modalFigureImgDownload ' + 'cursorPointer']);
 
                 modalFigureImgDownloadText.setAttribute('id', 'modalFigureImgDownloadText');
                 modalFigureImgDownloadText.textContent = '+ Ajouter photo';
@@ -308,7 +316,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
                     let modalFigureImgDownloadInputPreview = location.href + 'assets/images/' + modalFigureImgDownloadIconValue;
                     modalFigureImgDownloadInput.setAttribute('class', 'displayElementFalse');
 
-                    setElementAttributes(imagePreview, ['src', modalFigureImgDownloadInputPreview], ['id', 'imagePreview'], ['class', 'imagePreview']);
+                    setElementAttributes(imagePreview, ['src', modalFigureImgDownloadInputPreview], ['id', 'imagePreview'], ['class', 'imagePreview ' + 'cursorPointer']);
                     imagePreview.classList.replace('displayElementFalse', 'displayElementTrue');
 
                     modalFigureImgDownloadText.textContent = '';
@@ -321,40 +329,23 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                 // Input element for the new work item (SEND)
                 const modalFigureImgDownloadInputWorkName = document.createElement('input');
-                modalFigureImgDownloadInputWorkName.type = 'text';
-                modalFigureImgDownloadInputWorkName.classList.add('modalFigureImgDownloadInputWorkName');
-                modalFigureImgDownloadInputWorkName.classList.add('InputWorkCategory');
+                setElementAttributes(modalFigureImgDownloadInputWorkName, ['type', 'text'], ['class', 'modalFigureImgDownloadInputWorkName ' + 'inputWorkCategory']);
 
                 modalFigureImgDownloadInputWorkCategory.classList.add('modalFigureImgDownloadInputWorkCategory');
-                modalFigureImgDownloadInputWorkSelect.classList.add('InputWorkCategory');
+                setElementAttributes(modalFigureImgDownloadInputWorkSelect, ['class', 'inputWorkCategory ' + 'cursorPointer']);
 
-                // Array for avoid multiplication
+                // Avoid multiplication for the work inputs
 
                 const avoidMultiplierSet = new Set();
-                function SetAddFunction(element, value) {
-                  element.add(value);
-                }
+
                 SetAddFunction(avoidMultiplierSet, [modalFigureImgDownload, modalFigureImgDownloadInput, imagePreview, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkSelect]);
 
-                // arrayPushFunction(modalFigureImgDownloadArray, [modalFigureImgDownload, modalFigureImgDownloadInput, imagePreview, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkSelect]);
+                elementAppendChildMultiple([modalFigureImgBox, modalFigureImgDownload], [modalFigureImgBox, modalFigureImgDownloadInputWorkCategory]);
 
-                // // Verification
-                // if (!modalFigureImgDownloadArray) {
-                //   modalFigureImgDownloadArray.pop();
-                // } else {
-                // }
-                elementAppenChildFunction(modalFigureImgBox, [modalFigureImgDownload]);
-                elementAppenChildFunction(modalFigureImgBox, [modalFigureImgDownloadInputWorkCategory]);
+                elementAppendChildMultiple([modalFigureImgDownload, modalFigureImgDownloadInput], [modalFigureImgDownload, imagePreview]);
+                elementAppendChildMultiple([modalFigureImgDownload, modalFigureImgDownloadText], [modalFigureImgDownload, modalFigureImgDownloadFileType]);
 
-                elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadInput]);
-                elementAppenChildFunction(modalFigureImgDownload, [imagePreview]);
-                elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadText]);
-                elementAppenChildFunction(modalFigureImgDownload, [modalFigureImgDownloadFileType]);
-
-                elementAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkName]);
-                elementAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkSelect]);
-
-                // arrayPushFunction(allInputsForSend, [modalFigureImgDownloadInput, modalFigureImgDownloadInputWorkName, modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkOption]);
+                elementAppendChildMultiple([modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkName], [modalFigureImgDownloadInputWorkCategory, modalFigureImgDownloadInputWorkSelect]);
 
                 const uniqueCategories = new Set();
                 const addedOptions = new Set();
