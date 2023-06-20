@@ -326,12 +326,14 @@ for (let i = 0; i < sessionStorage.length; i++) {
               // Array for stopping miltiple icon + Event listener mouse events (Enter and Leave)
               let modalZoomSelectedIconArray = [];
               modalZoomSelectedIconBox.style.display = 'none';
+
               modalFigure.addEventListener('mouseenter', () => {
                 modalZoomSelectedIconArray.push(modalZoomSelectedIconBox);
 
                 elementAppendChildMultiple([modalZoomSelectedIconBox, modalZoomSelectedIcon], [modalIconBox, modalZoomSelectedIconBox]);
                 modalZoomSelectedIconBox.style.display = 'flex';
               });
+
               modalFigure.addEventListener('mouseleave', () => {
                 modalZoomSelectedIconArray.pop(modalZoomSelectedIconBox);
                 modalZoomSelectedIconBox.style.display = 'none';
@@ -344,7 +346,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
               const userId = work.userId;
 
               // Button for add work section
-              modalButton.addEventListener('click', (e) => {
+              modalButton.addEventListener('click', () => {
                 modalButtonBox.innerHTML = '';
                 modalButtonSend;
                 setElementAttributes(modalButtonSend, ['id', 'send'], ['class', 'modalButton ' + 'cursorPointer']);
@@ -446,26 +448,19 @@ for (let i = 0; i < sessionStorage.length; i++) {
 
                 elementAppenChildFunction(modalFigureImgDownloadInputWorkCategory, [modalFigureImgDownloadInputWorkSelect]);
 
-                let modalFigureImgDownloadInputWorkOptionValue = modalFigureImgDownloadInputWorkOption.value;
-
                 let modalFigureImgBoxChangeToSendWork = document.querySelector('.modalFigureImgBoxChangeToSendWork');
 
                 modalFigureImgBoxChangeToSendWork.addEventListener('click', () => {
-                  // Afficher les options sélectionnées
-                  let selectedOption = modalFigureImgDownloadInputWorkSelect.value;
-
                   modalFigureImgDownloadInput.addEventListener('change', () => {
                     let modalFigureImgDownloadIconValuePath = modalFigureImgDownloadInput.value;
                     let modalFigureImgDownloadIconValueCleanPath = modalFigureImgDownloadIconValuePath.split('\\').pop();
                     let modalFigureImgDownloadInputPreview = 'http://localhost:5678/images/' + modalFigureImgDownloadIconValueCleanPath;
                     sessionStorage.setItem('imageUrl', modalFigureImgDownloadInputPreview);
-                    // console.log(sessionStorage.getItem('imageUrl'));
                   });
 
                   modalFigureImgDownloadInputWorkName.addEventListener('change', () => {
                     let modalFigureImgDownloadInputWorkNameValue = modalFigureImgDownloadInputWorkName.value;
                     sessionStorage.setItem('title', modalFigureImgDownloadInputWorkNameValue);
-                    // console.log(sessionStorage.getItem('title'));
                   });
 
                   modalFigureImgDownloadInputWorkSelect.addEventListener('change', () => {
@@ -473,8 +468,6 @@ for (let i = 0; i < sessionStorage.length; i++) {
                     let selectedOptionValue = modalFigureImgDownloadInputWorkSelect.options[modalFigureImgDownloadInputWorkSelect.selectedIndex].id;
                     sessionStorage.setItem('category', selectedOptionText);
                     sessionStorage.setItem('id', selectedOptionValue);
-                    // console.log(selectedOptionValue);
-                    // console.log(sessionStorage.getItem('category'));
                   });
 
                   sessionStorage.setItem('userId', userId);
@@ -499,18 +492,16 @@ const title = sessionStorage.getItem('title');
 console.log(title);
 
 modalButtonSend.addEventListener('click', async () => {
-  const workFormData = new FormData();
-  // workFormData.append('id', sessionStorage.getItem('id'));
-  workFormData.append('imageUrl', imageUrl);
-  workFormData.append('title', title);
-  workFormData.append('category', categoryData);
-  // workFormData.append('userId', sessionStorage.getItem('userId'));
+  const formData = new FormData();
 
-  // Afficher les données du FormData
-  // for (let pair of workFormData.entries()) {
-  //   console.log(pair[0] + ':', pair[1]);
-  // }
-  console.log(workFormData);
+  formData.append('imageUrl', imageUrl);
+  console.log(formData.get('imageUrl'));
+
+  formData.append('title', title);
+  console.log(formData.get('title'));
+
+  formData.append('category', categoryData);
+  console.log(formData.get('category'));
 
   // Fetch pour l'envoi des données
   try {
@@ -520,7 +511,7 @@ modalButtonSend.addEventListener('click', async () => {
         Authorization: tokenWithoutQuotes,
         'Content-type': 'multipart/form-data',
       },
-      body: workFormData,
+      body: formData,
     });
 
     if (response.ok) {

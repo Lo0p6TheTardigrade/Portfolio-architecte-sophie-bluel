@@ -394,21 +394,21 @@ modal img {
   margin-top: 10px;
   margin-bottom: 46px;
 }
-.modalFigureImgBox {
+.ImageBox {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   margin-left: 105px;
   margin-right: 105px;
   margin-bottom: 42px;
 }
-.modalFigureImgBoxChangeToSendWork {
+.ImgBox__ChangeToSendWork {
   display: flex;
   flex-flow: column;
   margin-left: 105px;
   margin-right: 105px;
   margin-bottom: 42px;
 }
-.modalIconBox {
+.IconBox {
   display: flex;
   justify-content: flex-end;
   gap: 3px;
@@ -417,8 +417,8 @@ modal img {
   top: -112px;
   right: 13px;
 }
-.modalZoomSelectedIconBox,
-.modalTrashCanBox {
+.SelectedBox,
+.TrashBox {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -426,14 +426,14 @@ modal img {
   width: 20px;
   height: 20px;
 }
-.modalZoomSelectedIconBox {
+.SelectedElement {
   order: 1;
 }
-.modalTrashCanBox {
+.TrashBox {
   order: 2;
 }
-#modalZoomSelectedIcon,
-#modalTrashCan {
+#SelectedElement,
+#TrashElement {
   color: #ffff;
 }
 .modalSeparator {
@@ -442,7 +442,7 @@ modal img {
   width: 420px;
   height: 0px;
 }
-.modalButtonBox {
+.ButtonBox {
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -450,7 +450,7 @@ modal img {
   gap: 23px;
   margin-top: 38px;
 }
-.modalButton {
+.ButtonAddWork {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -460,7 +460,7 @@ modal img {
   width: 237px;
   height: 36px;
 }
-.modalFigureImgDownload {
+.LabelElement {
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -472,7 +472,7 @@ modal img {
   width: 420px;
   height: 169px;
 }
-#modalFigureImgDownloadIcon {
+#InputFile {
   display: flex;
   margin-bottom: 21px;
   background: #b9c5cc;
@@ -481,7 +481,7 @@ modal img {
   width: 58px;
   height: 45px;
 }
-#modalFigureImgDownloadText {
+#InputFileText {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -496,13 +496,13 @@ modal img {
   margin: 0;
   height: 0;
 } */
-#modalFigureImgDownloadText {
+#InputFileText {
   color: #306685;
 }
-#modalFigureImgDownloadFileType {
+#InputFileType {
   color: #444444;
 }
-/* .modalFigureImgDownloadFileType {
+/* .InputFileType {
   height: 0;
 } */
 .imagePreview {
@@ -510,7 +510,7 @@ modal img {
   width: 129px;
   object-fit: cover;
 }
-.modalFigureImgDownloadInputWorkCategory {
+.InputBoxForWork {
   display: flex;
   flex-flow: column;
   gap: 47px;
@@ -519,7 +519,7 @@ modal img {
 .inputWorkCategory {
   height: 41px;
 }
-.modalButton2 {
+.ButtonDeleteGallery {
   color: red;
 }
 .displayElementTrue {
