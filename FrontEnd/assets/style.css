@@ -523,10 +523,10 @@ modal img {
   color: red;
 }
 .displayElementTrue {
-  display: flex !important;
+  display: flex;
 }
 .displayElementFalse {
-  display: none !important;
+  display: none;
 }
 .cursorPointer {
   cursor: pointer;

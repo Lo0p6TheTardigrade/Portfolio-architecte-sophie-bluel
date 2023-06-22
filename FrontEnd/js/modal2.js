@@ -55,8 +55,6 @@ function sessionStorageRemoveMultiple(elements) {
   }
 }
 
-let workFormData = new FormData();
-
 const ButtonSend = createElementSpan();
 
 const arrowBackModalSet = new Set();
@@ -165,11 +163,8 @@ userEditionMode.addEventListener('click', () => {
   modalCreated = true;
 });
 
-modalCross.addEventListener('click', (e) => {
-  // getBody.removeChild(modalBox);
+modalCross.addEventListener('click', () => {
   window.location.href = '/FrontEnd';
-  // e.preventDefault();
-  // window.location.reload();
 });
 
 const modalTitleBox = createElementDiv();
@@ -217,7 +212,6 @@ SetAddFunction(arrowBackModalSet, modalButtonForSet);
 // Arrow button
 
 setElementAttributes(arrowBack, ['id', 'faArrowBack'], ['class', 'fa-solid ' + 'fa-arrow-left ' + 'cursorPointer']);
-console.log(arrowBack);
 
 // Button for deleting the gallery
 
@@ -239,7 +233,7 @@ function arrowBackFunction(element) {
   const hiddeInputs = document.querySelector('input');
   setElementAttributes(hiddeInputs, ['class', 'displayElementFalse']);
 
-  ImageBox.classList.replace('ImgBox__ChangeToSendWork', 'ImageBox');
+  // ImageBox.classList.replace('ImgBox__ChangeToSendWork', 'ImageBox');
 
   console.log(arrowBackModalSet);
 
@@ -270,56 +264,56 @@ let TrashElement = createElementFontAwesom();
 
 const figuresSet = new Set();
 
-fetch('http://localhost:5678/api/works')
-  .then((response) => response.json())
-  .then((works) => {
-    works.forEach((work) => {
-      const getImageUrl = work.imageUrl;
+userEditionMode.addEventListener('click', () => {
+  fetch('http://localhost:5678/api/works')
+    .then((response) => response.json())
+    .then((works) => {
+      works.forEach((work) => {
+        const getImageUrl = work.imageUrl;
 
-      FigureElement = document.createElement('figure');
-      ImgElement = document.createElement('img');
-      FigureText = document.createElement('p');
-      IconBox = createElementDiv();
-      TrashBox = createElementDiv();
-      TrashElement = createElementFontAwesom();
+        FigureElement = document.createElement('figure');
+        ImgElement = document.createElement('img');
+        FigureText = document.createElement('p');
+        IconBox = createElementDiv();
+        TrashBox = createElementDiv();
+        TrashElement = createElementFontAwesom();
 
-      ImageBox.appendChild(FigureElement);
-      figuresSet.add(FigureElement);
+        ImageBox.appendChild(FigureElement);
+        figuresSet.add(FigureElement);
 
-      ImgElement.setAttribute('src', getImageUrl);
-      ImgElement.setAttribute('id', work.id);
-      ImgElement.classList.add('ImgElement');
-      ImgElement.style.cursor = 'pointer';
-      setElementAttributes(ImgElement, ['src', getImageUrl], ['id', work.id], ['class', 'FigureElement ' + 'cursorPointer']);
-      FigureElement.appendChild(ImgElement);
+        ImgElement.setAttribute('src', getImageUrl);
+        ImgElement.setAttribute('id', work.id);
+        ImgElement.classList.add('ImgElement');
+        ImgElement.style.cursor = 'pointer';
+        setElementAttributes(ImgElement, ['src', getImageUrl], ['id', work.id], ['class', 'FigureElement ' + 'cursorPointer']);
+        FigureElement.appendChild(ImgElement);
 
-      FigureText.textContent = 'éditer';
-      setElementAttributes(FigureText, ['class', 'FigureText ' + 'cursorPointer']);
-      FigureElement.appendChild(FigureText);
+        FigureText.textContent = 'éditer';
+        setElementAttributes(FigureText, ['class', 'FigureText ' + 'cursorPointer']);
+        FigureElement.appendChild(FigureText);
 
-      IconBox.classList.add('IconBox');
-      FigureElement.appendChild(IconBox);
+        IconBox.classList.add('IconBox');
+        FigureElement.appendChild(IconBox);
 
-      setElementAttributes(TrashBox, ['id', ImgElement.id], ['class', 'TrashBox']);
-      IconBox.appendChild(TrashBox);
+        setElementAttributes(TrashBox, ['id', ImgElement.id], ['class', 'TrashBox']);
+        IconBox.appendChild(TrashBox);
 
-      setElementAttributes(TrashElement, ['id', 'TrashElement'], ['class', 'fa-solid ' + 'fa-trash-can ' + 'cursorPointer']);
-      TrashBox.appendChild(TrashElement);
+        setElementAttributes(TrashElement, ['id', 'TrashElement'], ['class', 'fa-solid ' + 'fa-trash-can ' + 'cursorPointer']);
+        TrashBox.appendChild(TrashElement);
+      });
+
+      myFunction(FigureElement, ImgElement, FigureText, IconBox, TrashBox, TrashElement);
     });
+});
 
-    // Appeler une fonction après la résolution de la promesse
-    myFunction(FigureElement, ImgElement, FigureText, IconBox, TrashBox, TrashElement);
-  });
-
-// Fonction appelée après la résolution de la promesse
 function myFunction(FigureElement, ImgElement, FigureText, IconBox, TrashBox, TrashElement) {
   // Utilisez les variables ici
-  console.log(FigureElement);
-  console.log(ImgElement);
-  console.log(FigureText);
-  console.log(IconBox);
-  console.log(TrashBox);
-  console.log(TrashElement);
+  // console.log(FigureElement);
+  // console.log(ImgElement);
+  // console.log(FigureText);
+  // console.log(IconBox);
+  // console.log(TrashBox);
+  // console.log(TrashElement);
 }
 
 // Event click for trash work
@@ -376,28 +370,28 @@ const InputWorkOption = document.createElement('option');
 // const userId = work.userId;
 
 let LabelElement = document.createElement('label');
-const InputFile = document.createElement('input');
+let InputFile = document.createElement('input');
 let InputFileText = createElementSpan();
 let InputFileType = createElementSpan();
 let imagePreview = document.createElement('img');
 let InputWorkTitle = document.createElement('input');
 
-function modalInput() {
-  let LabelElement = document.createElement('label');
-  const InputFile = document.createElement('input');
-  let InputFileText = createElementSpan();
-  let InputFileType = createElementSpan();
-  let imagePreview = document.createElement('img');
-  let InputWorkTitle = document.createElement('input');
-  return [LabelElement, InputFile, InputFileText, InputFileType, imagePreview, InputWorkTitle];
-}
+// function modalInput() {
+//   let LabelElement = document.createElement('label');
+//   let InputFile = document.createElement('input');
+//   let InputFileText = createElementSpan();
+//   let InputFileType = createElementSpan();
+//   let imagePreview = document.createElement('img');
+//   let InputWorkTitle = document.createElement('input');
+//   return [LabelElement, InputFile, InputFileText, InputFileType, imagePreview, InputWorkTitle];
+// }
 
 // --------------- Modal Input ---------------//
 
-ButtonAddWork.addEventListener('click', () => {
+ButtonAddWork.addEventListener('click', (e) => {
   ButtonBox.innerHTML = '';
-  const [LabelElement, InputFile, InputFileText, InputFileType, imagePreview, InputWorkTitle] = modalInput();
-
+  // const [LabelElement, InputFile, InputFileText, InputFileType, imagePreview, InputWorkTitle] = modalInput();
+  ButtonAddWork.replaceWith(ButtonSend);
   setElementAttributes(ButtonSend, ['id', 'send'], ['class', 'ButtonAddWork ' + 'cursorPointer']);
   ButtonSend.textContent = 'Ajout photo';
   ButtonBox.appendChild(ButtonSend);
@@ -413,7 +407,7 @@ ButtonAddWork.addEventListener('click', () => {
   setElementAttributes(InputFile, ['id', 'InputFile'], ['class', 'fa-image ' + 'fa-regular']);
   InputFile.type = 'file';
 
-  setElementAttributes(LabelElement, ['for', 'InputFile'], ['class', 'LabelElement ' + 'cursorPointer']);
+  setElementAttributes(LabelElement, ['for', 'InputFile'], ['id', 'LabelElement'], ['class', 'LabelElement ' + 'cursorPointer']);
 
   InputFileText.setAttribute('id', 'InputFileText');
   InputFileText.textContent = '+ Ajouter photo';
@@ -423,9 +417,6 @@ ButtonAddWork.addEventListener('click', () => {
 
   imagePreview.setAttribute('class', 'displayElementFalse');
 
-  LabelElement.appendChild(InputFile);
-  LabelElement.appendChild(InputFileText);
-  LabelElement.appendChild(InputFileType);
   ImageBox.appendChild(LabelElement);
 
   // Input element for the new work item (SEND)
@@ -443,7 +434,10 @@ ButtonAddWork.addEventListener('click', () => {
 
   elementAppendChildMultiple([ImageBox, LabelElement], [ImageBox, InputBoxForWork]);
 
-  elementAppendChildMultiple([LabelElement, InputFile], [LabelElement, imagePreview]);
+  LabelElement.appendChild(InputFile);
+  LabelElement.appendChild(imagePreview);
+
+  // elementAppendChildMultiple([LabelElement, InputFile], [LabelElement, imagePreview]);
   elementAppendChildMultiple([LabelElement, InputFileText], [LabelElement, InputFileType]);
 
   elementAppendChildMultiple([InputBoxForWork, InputWorkTitle], [InputBoxForWork, InputWorkSelect]);
@@ -498,27 +492,44 @@ let imagePreviewGetPath;
 let categoryData;
 let title;
 elementAppenChildFunction(InputBoxForWork, [InputWorkSelect]);
-console.log(ButtonAddWork);
 
-ButtonAddWork.addEventListener('click', () => {
-  // let ImgBox__ChangeToSendWork = document.querySelector('#send');
-  // console.log(ImgBox__ChangeToSendWork);
+const formData = new FormData();
 
-  InputFile.addEventListener('change', () => {
-    let imagePreviewPath = InputFile.value;
+console.log(imagePreview);
+// setElementAttributes(imagePreview, ['id', 'imagePreview'], ['class', 'imagePreview ' + 'cursorPointer']);
+imagePreview.setAttribute('id', 'imagePreview');
+imagePreview.setAttribute('class', 'imagePreview ' + 'cursorPointer');
+
+ImageBox.addEventListener('click', () => {
+  const InputFileById = document.getElementById('InputFile');
+  // console.log(InputFileById);
+  InputFileById.addEventListener('change', () => {
+    // console.log(e);
+    const ImagePreview = document.getElementById('imagePreview');
+
+    console.log(ImagePreview);
+
+    let imagePreviewPath = InputFileById.value;
     let imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
+
     let imagePreviewGetPath = 'http://localhost:5678/api/works/images/' + imagePreviewCleanPath;
-    setElementAttributes(imagePreview, ['src', imagePreviewGetPath], ['id', 'imagePreview'], ['class', 'imagePreview ' + 'cursorPointer']);
 
-    imagePreview.classList.replace('displayElementFalse', 'displayElementTrue');
+    console.log(imagePreviewCleanPath);
 
+    ImagePreview.setAttribute('src', imagePreviewCleanPath);
+
+    ImagePreview.classList.replace('displayElementFalse', 'displayElementTrue');
+    InputFileById.setAttribute('class', 'displayElementFalse');
+    ImagePreview.classList.add('displayElementTrue');
+    const InputFileText = document.getElementById('InputFileText');
     InputFileText.textContent = '';
     InputFileText.setAttribute('class', 'displayElementFalse');
 
     InputFileType.textContent = '';
     InputFileType.setAttribute('class', 'displayElementFalse');
 
-    sessionStorage.setItem('imageUrl', imagePreviewGetPath);
+    formData.append('imageUrl', imagePreviewGetPath);
+    console.log(formData.get('imageUrl'));
   });
 
   InputWorkTitle.addEventListener('change', () => {
@@ -528,65 +539,47 @@ ButtonAddWork.addEventListener('click', () => {
     console.log('================================OK================================');
     title = InputWorkTitleValue;
     console.log(title);
-    // sessionStorage.setItem('title', InputWorkTitleValue);
   });
 
   InputWorkSelect.addEventListener('change', () => {
-    let selectedOptionText = InputWorkSelect.options[InputWorkSelect.selectedIndex].textContent;
-    let selectedOptionValue = InputWorkSelect.options[InputWorkSelect.selectedIndex].id;
-    // sessionStorage.setItem('category', selectedOptionText);
-    // sessionStorage.setItem('id', selectedOptionValue);
+    // let selectedOptionText = InputWorkSelect.options[InputWorkSelect.selectedIndex].textContent;
+    // let selectedOptionValue = InputWorkSelect.options[InputWorkSelect.selectedIndex].id;
 
-    console.log(InputWorkSelect.options[InputWorkSelect.selectedIndex].value);
     console.log('================================OK================================');
     categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].value;
-    console.log(categoryData);
+    formData.append('category', categoryData);
   });
 
-  // sessionStorage.setItem('userId', userId);
+  console.log(categoryData);
+  // imagePreview.setAttribute('src', 'http://127.0.0.1:59495/FrontEnd/assets/images/abajour-tahina.png');
+  // console.log(formData.get('category'));
+
+  const elementsToRemove = ['id', 'title', 'imageUrl', 'category', 'userId'];
+
+  ButtonSend.addEventListener('click', async () => {
+    formData.append('title', title);
+    console.log(formData.get('title'));
+
+    
+  });
+  console.log(sessionStorage);
 });
+try {
+  const response = await fetch('http://localhost:5678/api/works/', {
+    method: 'POST',
+    headers: {
+      Authorization: tokenWithoutQuotes,
+      'Content-type': 'multipart/form-data',
+    },
+    body: formData,
+  });
 
-const elementsToRemove = ['id', 'title', 'imageUrl', 'category', 'userId'];
-
-const imageUrl = sessionStorage.getItem('imageUrl');
-console.log(imageUrl);
-// const categoryData = sessionStorage.getItem('category');
-// const title = sessionStorage.getItem('title');
-console.log(title);
-
-ButtonSend.addEventListener('click', async () => {
-  const formData = new FormData();
-
-  formData.append('imageUrl', imageUrl);
-  console.log(formData.get('imageUrl'));
-
-  formData.append('title', title);
-  console.log(formData.get('title'));
-
-  formData.append('category', categoryData);
-  console.log(formData.get('category'));
-
-  // Fetch pour l'envoi des données
-  try {
-    const response = await fetch('http://localhost:5678/api/works/', {
-      method: 'POST',
-      headers: {
-        Authorization: tokenWithoutQuotes,
-        'Content-type': 'multipart/form-data',
-      },
-      body: formData,
-    });
-
-    if (response.ok) {
-      alert('Travail envoyé avec succès !');
-      // sessionStorageRemoveMultiple(elementsToRemove);
-    } else {
-      alert("Erreur lors de l'envoi du travail");
-      sessionStorageRemoveMultiple(elementsToRemove);
-    }
-  } catch (error) {
-    console.error(error);
+  if (response.ok) {
+    alert('Travail envoyé avec succès !');
+  } else {
+    alert("Erreur lors de l'envoi du travail");
+    sessionStorageRemoveMultiple(elementsToRemove);
   }
-});
-
-console.log(sessionStorage);
+} catch (error) {
+  console.error(error);
+}
