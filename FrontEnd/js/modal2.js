@@ -559,8 +559,6 @@ ImageBox.addEventListener('click', () => {
   ButtonSend.addEventListener('click', async () => {
     formData.append('title', title);
     console.log(formData.get('title'));
-
-    
   });
   console.log(sessionStorage);
 });
