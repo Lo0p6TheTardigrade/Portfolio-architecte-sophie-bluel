@@ -394,7 +394,7 @@ modal img {
   margin-top: 10px;
   margin-bottom: 46px;
 }
-.ImageBox {
+.imageBox {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   margin-left: 105px;
@@ -450,7 +450,7 @@ modal img {
   gap: 23px;
   margin-top: 38px;
 }
-.ButtonAddWork {
+.buttonAddWork {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -523,10 +523,10 @@ modal img {
   color: red;
 }
 .displayElementTrue {
-  display: flex;
+  display: flex !important;
 }
 .displayElementFalse {
-  display: none;
+  display: none !important;
 }
 .cursorPointer {
   cursor: pointer;

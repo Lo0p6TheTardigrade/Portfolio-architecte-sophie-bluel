@@ -81,55 +81,95 @@ const userEditionMode3 = createElementSpan();
 const userEditionModeIcon3 = createElementFontAwesome();
 const publishChange = createElementSpan();
 
-for (let i = 0; i < sessionStorage.length; i++) {
-  if (sessionStorage.key(i) === 'token') {
-    headTarget.appendChild(fontAwesomeScript);
-    setElementAttributes(fontAwesomeScript, ['src', 'https://kit.fontawesome.com/3fa10e7671.js'], ['crossorigin', 'anonymous']);
-
-    setElementAttributes(userLoginTools, ['id', 'userLoginTools'], ['class', 'userLoginTools']);
-    getBody.appendChild(userLoginTools);
-
-    setElementAttributes(userEditionModeBox, ['id', 'userEditionModeBox'], ['class', 'userEditionModeBox']);
-    userLoginTools.appendChild(userEditionModeBox);
-    getBody.insertBefore(userLoginTools, getHeader);
-
-    setElementAttributes(userEditionMode, ['id', 'userEditionMode'], ['class', 'userEditionMode cursorPointer']);
-    userEditionMode.textContent = 'Edit mode';
-    userEditionModeBox.appendChild(userEditionMode);
-
-    setElementAttributes(userEditionModeIcon, ['id', 'userEditionModeIcon'], ['class', 'cursorPointer']);
-    addClass(userEditionModeIcon, 'fa-regular', 'fa-pen-to-square');
-    userEditionModeBox.appendChild(userEditionModeIcon);
-
-    setElementAttributes(userEditionModeBox2, ['id', 'userEditionModeBox2'], ['class', 'userEditionModeBox2']);
-    sectionPortfolio.insertBefore(userEditionModeBox2, sectionPortfolioH2);
-    userEditionModeBox2.appendChild(sectionPortfolioH2);
-
-    setElementAttributes(userEditionMode2, ['id', 'userEditionMode2'], ['class', 'userEditionMode2 cursorPointer']);
-    userEditionMode2.textContent = 'Modify';
-    userEditionModeBox2.appendChild(userEditionMode2);
-
-    setElementAttributes(userEditionModeIcon2, ['id', 'userEditionModeIcon2'], ['class', 'cursorPointer']);
-    addClass(userEditionModeIcon2, 'fa-regular', 'fa-pen-to-square');
-    appendChild(userEditionModeBox2, userEditionModeIcon2);
-
-    introductionFigure.appendChild(userEditionModeBox3);
-
-    setElementAttributes(userEditionMode3, ['id', 'userEditionMode3'], ['class', 'userEditionMode3 cursorPointer']);
-    userEditionModeBox3.setAttribute('id', 'userEditionModeBox3');
-    userEditionMode3.textContent = 'Modify';
-    appendChild(userEditionModeBox3, userEditionMode3);
-
-    setElementAttributes(userEditionModeIcon3, ['id', 'userEditionModeIcon3'], ['class', 'cursorPointer']);
-    addClass(userEditionModeIcon3, 'fa-regular', 'fa-pen-to-square');
-    appendChild(userEditionModeBox3, userEditionModeIcon3);
-
-    setElementAttributes(publishChange, ['id', 'publishChange'], ['class', 'publishChange cursorPointer']);
-    publishChange.textContent = 'Publish changes';
-    appendChild(userLoginTools, publishChange);
-  }
+function createFontAwesomeScript() {
+  setElementAttributes(fontAwesomeScript, ['src', 'https://kit.fontawesome.com/3fa10e7671.js'], ['crossorigin', 'anonymous']);
+  headTarget.appendChild(fontAwesomeScript);
 }
 
+function createUserLoginTools() {
+  setElementAttributes(userLoginTools, ['id', 'userLoginTools'], ['class', 'userLoginTools']);
+  getBody.appendChild(userLoginTools);
+}
+
+function createUserEditionModeBox() {
+  setElementAttributes(userEditionModeBox, ['id', 'userEditionModeBox'], ['class', 'userEditionModeBox']);
+  userLoginTools.appendChild(userEditionModeBox);
+  getBody.insertBefore(userLoginTools, getHeader);
+}
+
+function createUserEditionMode() {
+  setElementAttributes(userEditionMode, ['id', 'userEditionMode'], ['class', 'userEditionMode cursorPointer']);
+  userEditionMode.textContent = 'Edit mode';
+  userEditionModeBox.appendChild(userEditionMode);
+}
+
+function createUserEditionModeIcon() {
+  setElementAttributes(userEditionModeIcon, ['id', 'userEditionModeIcon'], ['class', 'cursorPointer']);
+  addClass(userEditionModeIcon, 'fa-regular', 'fa-pen-to-square');
+  userEditionModeBox.appendChild(userEditionModeIcon);
+}
+
+function createUserEditionModeBox2() {
+  setElementAttributes(userEditionModeBox2, ['id', 'userEditionModeBox2'], ['class', 'userEditionModeBox2']);
+  sectionPortfolio.insertBefore(userEditionModeBox2, sectionPortfolioH2);
+  userEditionModeBox2.appendChild(sectionPortfolioH2);
+}
+
+function createUserEditionMode2() {
+  setElementAttributes(userEditionMode2, ['id', 'userEditionMode2'], ['class', 'userEditionMode2 cursorPointer']);
+  userEditionMode2.textContent = 'Modify';
+  userEditionModeBox2.appendChild(userEditionMode2);
+}
+
+function createUserEditionModeIcon2() {
+  setElementAttributes(userEditionModeIcon2, ['id', 'userEditionModeIcon2'], ['class', 'cursorPointer']);
+  addClass(userEditionModeIcon2, 'fa-regular', 'fa-pen-to-square');
+  appendChild(userEditionModeBox2, userEditionModeIcon2);
+}
+
+function createUserEditionModeBox3() {
+  introductionFigure.appendChild(userEditionModeBox3);
+  userEditionModeBox3.setAttribute('id', 'userEditionModeBox3');
+}
+
+function createUserEditionMode3() {
+  setElementAttributes(userEditionMode3, ['id', 'userEditionMode3'], ['class', 'userEditionMode3 cursorPointer']);
+  userEditionMode3.textContent = 'Modify';
+  appendChild(userEditionModeBox3, userEditionMode3);
+}
+
+function createUserEditionModeIcon3() {
+  setElementAttributes(userEditionModeIcon3, ['id', 'userEditionModeIcon3'], ['class', 'cursorPointer']);
+  addClass(userEditionModeIcon3, 'fa-regular', 'fa-pen-to-square');
+  appendChild(userEditionModeBox3, userEditionModeIcon3);
+}
+
+function createPublishChange() {
+  setElementAttributes(publishChange, ['id', 'publishChange'], ['class', 'publishChange cursorPointer']);
+  publishChange.textContent = 'Publish changes';
+  appendChild(userLoginTools, publishChange);
+}
+
+function setupUserLoginTools() {
+  createFontAwesomeScript();
+  createUserLoginTools();
+  createUserEditionModeBox();
+  createUserEditionMode();
+  createUserEditionModeIcon();
+  createUserEditionModeBox2();
+  createUserEditionMode2();
+  createUserEditionModeIcon2();
+  createUserEditionModeBox3();
+  createUserEditionMode3();
+  createUserEditionModeIcon3();
+  createPublishChange();
+}
+
+for (let i = 0; i < sessionStorage.length; i++) {
+  if (sessionStorage.key(i) === 'token') {
+    setupUserLoginTools();
+  }
+}
 // Modal dialog
 const createModal = [];
 let modalCreated = false;
@@ -145,17 +185,40 @@ userEditionMode.addEventListener('click', createModalFunction);
 
 function createModalFunction() {
   if (!modalCreated) {
-    addClass(modalCrossBox, 'modalCrossBox');
-    addClass(modalBox, 'modalBoxModal');
-    modal.setAttribute('id', 'modal1');
+    addModalCrossBoxClass();
+    addModalBoxClass();
+    setModalAttributes();
     pushToArray(createModal, modal);
-    appendChild(getBody, modalBox);
-    getBody.insertBefore(modalBox, getHeader);
-    setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid fa-xmark cursorPointer']);
+    appendModalBoxToBody();
+    insertModalBoxBeforeHeader();
+    setModalCrossAttributes();
   }
   modalCreated = true;
 }
 
+function addModalCrossBoxClass() {
+  addClass(modalCrossBox, 'modalCrossBox');
+}
+
+function addModalBoxClass() {
+  addClass(modalBox, 'modalBoxModal');
+}
+
+function setModalAttributes() {
+  modal.setAttribute('id', 'modal1');
+}
+
+function appendModalBoxToBody() {
+  appendChild(getBody, modalBox);
+}
+
+function insertModalBoxBeforeHeader() {
+  getBody.insertBefore(modalBox, getHeader);
+}
+
+function setModalCrossAttributes() {
+  setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid fa-xmark cursorPointer']);
+}
 modalCross.addEventListener('click', redirectToFrontEnd);
 
 const modalTitleBox = createElementDiv();
@@ -204,10 +267,8 @@ arrowBack.addEventListener('click', redirectToFrontEnd);
 function redirectToFrontEnd() {
   window.location.href = '/FrontEnd';
 }
-
 // Arrow function for go back
-
-function arrowBackFunction(element) {
+const arrowBackFunction = (element) => {
   resetFunction(element);
   elementAppenChildFunction(modal, [modalCrossBox]);
   addClass(modalCrossBox, 'modalCrossBox');
@@ -225,7 +286,7 @@ function arrowBackFunction(element) {
   ButtonBox.appendChild(buttonAddWork);
   ButtonBox.appendChild(ButtonDeleteGallery);
   modalTitle.textContent = 'Gallery';
-}
+};
 
 arrowBack.addEventListener('click', () => {
   arrowBackFunction(modal);
@@ -249,7 +310,7 @@ function fetchWorks() {
       works.forEach((work) => {
         createFigureElements(work.imageUrl, work.id);
       });
-      // myFunction(FigureElement, ImgElement, FigureText, IconBox, TrashBox, TrashElement);
+      myFunction(FigureElement, ImgElement, FigureText, IconBox, TrashBox, TrashElement);
     });
 }
 
@@ -284,7 +345,6 @@ function createFigureElements(imageUrl, id) {
   setElementAttributes(TrashElement, ['id', 'TrashElement'], ['class', 'fa-solid fa-trash-can cursorPointer']);
   TrashBox.appendChild(TrashElement);
 }
-
 function myFunction(FigureElement, ImgElement, FigureText, IconBox, TrashBox, TrashElement) {
   // Use the variables here
   // console.log(FigureElement);
@@ -354,8 +414,6 @@ let InputFileType = createElementSpan();
 let imagePreview = document.createElement('img');
 let InputWorkTitle = document.createElement('input');
 
-// --------------- Modal Input ---------------//
-
 buttonAddWork.addEventListener('click', handleAddWork);
 
 function handleAddWork(e) {
@@ -388,14 +446,10 @@ function handleAddWork(e) {
 
   imageBox.appendChild(LabelElement);
 
-  // Input element for the new work item (SEND)
-
   setElementAttributes(InputWorkTitle, ['type', 'text'], ['class', 'InputWorkTitle inputWorkCategory'], ['id', 'title']);
 
   InputBoxForWork.classList.add('InputBoxForWork');
   setElementAttributes(InputWorkSelect, ['class', 'inputWorkCategory cursorPointer']);
-
-  // Avoid multiplication for the work inputs
 
   const avoidMultiplierSet = new Set();
 
@@ -407,40 +461,38 @@ function handleAddWork(e) {
   LabelElement.appendChild(InputFile);
   LabelElement.appendChild(imagePreview);
 
-  // elementAppendChildMultiple([LabelElement, InputFile], [LabelElement, imagePreview]);
   LabelElement.appendChild(InputFileText);
   LabelElement.appendChild(InputFileType);
 
   InputBoxForWork.appendChild(InputWorkTitle);
   InputBoxForWork.appendChild(InputWorkSelect);
+}
+const uniqueCategories = new Set();
+const addedOptions = new Set();
 
-  const uniqueCategories = new Set();
-  const addedOptions = new Set();
-
+function fetchWorks() {
   fetch('http://localhost:5678/api/works')
     .then((response) => response.json())
     .then((works) => {
       works.forEach((work) => {
-        works.forEach((work) => {
-          uniqueCategories.add(work.categoryId);
-        });
+        uniqueCategories.add(work.categoryId);
+      });
 
-        let matchingWork;
-        let option;
+      let matchingWork;
+      let option;
 
-        uniqueCategories.forEach((categoryId) => {
-          matchingWork = works.find((work) => work.categoryId === categoryId);
+      uniqueCategories.forEach((categoryId) => {
+        matchingWork = works.find((work) => work.categoryId === categoryId);
 
-          if (!addedOptions.has(categoryId)) {
-            option = InputWorkOption.cloneNode();
-            option.setAttribute('id', matchingWork.categoryId);
-            option.textContent = matchingWork.category.name;
+        if (!addedOptions.has(categoryId)) {
+          option = InputWorkOption.cloneNode();
+          option.setAttribute('id', matchingWork.categoryId);
+          option.textContent = matchingWork.category.name;
 
-            InputWorkSelect.appendChild(option);
+          InputWorkSelect.appendChild(option);
 
-            addedOptions.add(categoryId);
-          }
-        });
+          addedOptions.add(categoryId);
+        }
       });
     });
 }
@@ -457,9 +509,9 @@ function handleImageInputChange() {
   InputFileById.addEventListener('change', () => {
     const ImagePreview = document.getElementById('imagePreview');
 
-    const imagePreviewPath = InputFileById.value;
-    const imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
-    const imagePreviewGetPath = 'http://localhost:5678/api/works/images/' + imagePreviewCleanPath;
+    imagePreviewPath = InputFileById.value;
+    imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
+    imagePreviewGetPath = 'http://localhost:5678/api/works/images/' + imagePreviewCleanPath;
 
     ImagePreview.setAttribute('src', '/Frontend/assets/images/' + imagePreviewCleanPath);
     replaceClass(ImagePreview, 'displayElementFalse', 'displayElementTrue');
@@ -476,14 +528,13 @@ function handleImageInputChange() {
 
 function handleInputWorkTitleChange() {
   InputWorkTitle.addEventListener('change', () => {
-    const title = InputWorkTitle.value;
-    formData.append('title', title);
+    title = InputWorkTitle.value;
   });
 }
 
 function handleInputWorkSelectChange() {
   InputWorkSelect.addEventListener('change', () => {
-    const categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].value;
+    categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].value;
     formData.append('category', categoryData);
   });
 }
@@ -496,19 +547,18 @@ imageBox.addEventListener('click', handleImageInputChange);
 handleInputWorkTitleChange();
 handleInputWorkSelectChange();
 
+console.log(sessionStorage);
+
 function handleButtonSendClick() {
   ButtonSend.addEventListener('click', async () => {
-    const formData = new FormData();
-
-    formData.append('title', InputWorkTitle.value);
-    formData.append('imageUrl', imagePreviewGetPath);
-    formData.append('category', InputWorkSelect.options[InputWorkSelect.selectedIndex].value);
+    formData.append('title', title);
 
     try {
       const response = await fetch('http://localhost:5678/api/works/', {
         method: 'POST',
         headers: {
           Authorization: tokenWithoutQuotes,
+          'Content-type': 'multipart/form-data',
         },
         body: formData,
       });
