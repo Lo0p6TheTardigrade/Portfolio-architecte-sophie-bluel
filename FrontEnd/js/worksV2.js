@@ -498,11 +498,12 @@ handleInputWorkSelectChange();
 
 function handleButtonSendClick() {
   ButtonSend.addEventListener('click', async () => {
-    const formData = new FormData();
-
-    formData.append('title', InputWorkTitle.value);
-    formData.append('imageUrl', imagePreviewGetPath);
-    formData.append('category', InputWorkSelect.options[InputWorkSelect.selectedIndex].value);
+    // formData.append('title', InputWorkTitle.value);
+    console.log(formData.get('title'));
+    // formData.append('imageUrl', imagePreviewGetPath);
+    console.log(formData.get('imageUrl'));
+    // formData.append('category', InputWorkSelect.options[InputWorkSelect.selectedIndex].value);
+    console.log(formData.get('category'));
 
     try {
       const response = await fetch('http://localhost:5678/api/works/', {
