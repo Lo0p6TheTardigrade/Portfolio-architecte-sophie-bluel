@@ -147,8 +147,6 @@ function createModalFunction() {
   modalCreated = true;
 }
 
-modalCross.addEventListener('click', redirectToFrontEnd);
-
 const modalTitleBox = createElement('div');
 const modalTitle = document.createElement('h2');
 const imageBox = createElement('div');
@@ -158,6 +156,7 @@ const buttonAddWork = createElement('span');
 const arrowBack = createElement('i');
 const buttonDeleteGallery = createElement('span');
 
+function modalElement() {}
 modalTitleBox.classList.add('modalTitleBox');
 const modalTitleBoxParentChild = modal.appendChild(modalTitleBox);
 addToSet(arrowBackModalSet, modalTitleBoxParentChild);
@@ -190,20 +189,32 @@ buttonDeleteGallery.textContent = 'Delete gallery';
 const deleteGalleryForSet = buttonBox.appendChild(buttonDeleteGallery);
 addToSet(arrowBackModalSet, deleteGalleryForSet);
 
-arrowBack.addEventListener('click', redirectToFrontEnd);
-
 function redirectToFrontEnd() {
   window.location.href = '/FrontEnd';
 }
 
-// Arrow function for go back
+function imageBoxChange() {
+  imageBox.classList.replace('ImgBox__ChangeToSendWork', 'imageBox');
+}
 
+function arrowBackAdd() {
+  modalCrossBox.appendChild(arrowBack);
+}
+
+function modalClose() {
+  modalBox.remove();
+}
+
+modalCross.addEventListener('click', () => modalClose());
+
+// Arrow function for go back
 function arrowBackFunction(element) {
-  resetFunction(element);
+  resetElement(element);
   appendChild(modal, modalCrossBox);
   addClass(modalCrossBox, 'modalCrossBox');
-  removeClass(modalCrossBox, 'modalCrossBoxAndArrow');
-  setElementAttributes(arrowBack, ['class', 'displayElementFalse']);
+  imageBoxChange();
+  modalCrossBox.classList.replace('modalCrossBoxAndArrow', 'modalCrossBox');
+  arrowBack.style.visibility = 'hidden';
   const hiddenInputs = document.querySelector('input');
   setElementAttributes(hiddenInputs, ['class', 'displayElementFalse']);
   const modalArray = Array.from(arrowBackModalSet);
@@ -211,16 +222,19 @@ function arrowBackFunction(element) {
     appendChild(modal, modalArray[i]);
   }
   appendChild(modalTitleBox, modalTitle);
-  resetFunction(buttonBox);
-  resetFunction(imageBox);
+  resetElement(buttonBox);
+  resetElement(imageBox);
   buttonBox.appendChild(buttonAddWork);
   buttonBox.appendChild(buttonDeleteGallery);
   modalTitle.textContent = 'Galerie photo';
 }
 
 arrowBack.addEventListener('click', () => {
-  arrowBackFunction(modal);
+  arrowBackFunction(modal, fetchWorks());
 });
+// buttonAddWork.addEventListener('click', () => {
+//   arrowBack.style.visibility = 'visible';
+// });
 
 let FigureElement = document.createElement('figure');
 let ImgElement = document.createElement('img');
@@ -232,6 +246,11 @@ let TrashElement = createElement('i');
 const figuresSet = new Set();
 
 userEditionMode.addEventListener('click', fetchWorks);
+// userEditionMode.addEventListener('click', () => {
+//   fetchWorks(modalElement());
+//   getBody.appendChild(modalBox);
+//   modalBox.appendChild(modal);
+// });
 
 function fetchWorks() {
   fetch('http://localhost:5678/api/works')
@@ -413,6 +432,7 @@ function handleAddWork() {
         });
       });
     });
+  arrowBack.style.visibility = 'visible';
 }
 
 let imagePreviewPath;
@@ -463,8 +483,8 @@ InputBoxForWork.appendChild(InputWorkSelect);
 setElementAttributes(imagePreview, ['id', 'imagePreview'], ['class', 'imagePreview cursorPointer']);
 
 imageBox.addEventListener('click', handleImageInputChange);
-InputWorkTitle.addEventListener('click', handleInputWorkTitleChange());
-InputWorkSelect.addEventListener('click', handleInputWorkSelectChange());
+handleInputWorkTitleChange();
+handleInputWorkSelectChange();
 
 function handleButtonSendClick() {
   ButtonSend.addEventListener('click', async () => {
