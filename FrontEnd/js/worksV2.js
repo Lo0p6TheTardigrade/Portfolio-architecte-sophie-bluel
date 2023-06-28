@@ -1,6 +1,3 @@
-const modalFigureImgDownloadArray = [];
-const allCategoryNames = [];
-
 const token = 'Bearer ' + sessionStorage.getItem('token');
 const tokenWithoutQuotes = token.replace(/"/g, '');
 
@@ -30,16 +27,8 @@ function setElementAttributes(element, ...attributes) {
   }
 }
 
-function appendChild(parent, child) {
-  parent.appendChild(child);
-}
-
 function resetElement(element) {
   element.innerHTML = '';
-}
-
-function navigateTo(where) {
-  window.location.href = where;
 }
 
 function pushToArray(array, item) {
@@ -105,27 +94,26 @@ function ifLogged() {
       userEditionModeBox2.appendChild(userEditionMode2);
 
       setElementAttributes(userEditionModeIcon2, ['id', 'userEditionModeIcon2'], ['class', 'fa-regular fa-pen-to-square cursorPointer']);
-      appendChild(userEditionModeBox2, userEditionModeIcon2);
+      userEditionModeBox2.appendChild(userEditionModeIcon2);
 
       introductionFigure.appendChild(userEditionModeBox3);
 
       setElementAttributes(userEditionMode3, ['id', 'userEditionMode3'], ['class', 'userEditionMode3 cursorPointer']);
       userEditionModeBox3.setAttribute('id', 'userEditionModeBox3');
       userEditionMode3.textContent = 'modifier';
-      appendChild(userEditionModeBox3, userEditionMode3);
+      userEditionModeBox3.appendChild(userEditionMode3);
 
       setElementAttributes(userEditionModeIcon3, ['id', 'userEditionModeIcon3'], ['class', 'fa-regular fa-pen-to-square cursorPointer']);
-      appendChild(userEditionModeBox3, userEditionModeIcon3);
+      userEditionModeBox3.appendChild(userEditionModeIcon3);
 
       setElementAttributes(publishChange, ['id', 'publishChange'], ['class', 'publishChange cursorPointer']);
       publishChange.textContent = 'publier les changements';
-      appendChild(userLoginTools, publishChange);
+      userLoginTools.appendChild(publishChange);
     }
   }
 }
 
 // Modal dialog
-const createModal = [];
 let modalCreated = false;
 const modalBox = document.createElement('form');
 const modal = document.createElement('modal');
@@ -133,14 +121,13 @@ const modalParentChild = modalBox.appendChild(modal);
 const modalCrossBox = createElement('div');
 const modalCross = createElement('i');
 
-ifLogged(modal.appendChild(modalCrossBox), modalCrossBox.appendChild(modalCross), userEditionMode.addEventListener('click', createModalFunction));
-function createModalFunction() {
+ifLogged(modal.appendChild(modalCrossBox), modalCrossBox.appendChild(modalCross), userEditionMode.addEventListener('click', modalCondition));
+function modalCondition() {
   if (!modalCreated) {
     addClass(modalCrossBox, 'modalCrossBox');
     addClass(modalBox, 'modalBoxModal');
     modal.setAttribute('id', 'modal1');
-    pushToArray(createModal, modal);
-    appendChild(getBody, modalBox);
+    getBody.appendChild(modalBox);
     getBody.insertBefore(modalBox, getHeader);
     setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid fa-xmark cursorPointer']);
   }
@@ -156,7 +143,15 @@ const buttonAddWork = createElement('span');
 const arrowBack = createElement('i');
 const buttonDeleteGallery = createElement('span');
 
-function modalElement() {}
+function modalElement() {
+  modalTitleBoxParentChild;
+  modalTitleParentChild;
+  modalFigureImgBoxParentChild;
+  modalSeparatorParentChild;
+  modalButtonBoxParentChild;
+  modalButtonForSet;
+  deleteGalleryForSet;
+}
 modalTitleBox.classList.add('modalTitleBox');
 const modalTitleBoxParentChild = modal.appendChild(modalTitleBox);
 addToSet(arrowBackModalSet, modalTitleBoxParentChild);
@@ -201,16 +196,13 @@ function arrowBackAdd() {
   modalCrossBox.appendChild(arrowBack);
 }
 
-function modalClose() {
-  modalBox.remove();
-}
-
-modalCross.addEventListener('click', () => modalClose());
+modalCross.addEventListener('click', () => redirectToFrontEnd());
+userEditionMode.addEventListener('click', () => modalCondition());
 
 // Arrow function for go back
 function arrowBackFunction(element) {
   resetElement(element);
-  appendChild(modal, modalCrossBox);
+  modal.appendChild(modalCrossBox);
   addClass(modalCrossBox, 'modalCrossBox');
   imageBoxChange();
   modalCrossBox.classList.replace('modalCrossBoxAndArrow', 'modalCrossBox');
@@ -219,9 +211,9 @@ function arrowBackFunction(element) {
   setElementAttributes(hiddenInputs, ['class', 'displayElementFalse']);
   const modalArray = Array.from(arrowBackModalSet);
   for (let i = 0; i < modalArray.length; i++) {
-    appendChild(modal, modalArray[i]);
+    modal.appendChild(modalArray[i]);
   }
-  appendChild(modalTitleBox, modalTitle);
+  modalTitleBox.appendChild(modalTitle);
   resetElement(buttonBox);
   resetElement(imageBox);
   buttonBox.appendChild(buttonAddWork);
@@ -350,7 +342,7 @@ let InputWorkTitle = document.createElement('input');
 buttonAddWork.addEventListener('click', handleAddWork);
 
 function handleAddWork() {
-  buttonBox.innerHTML = '';
+  resetElement(buttonBox);
   buttonAddWork.replaceWith(ButtonSend);
   setElementAttributes(ButtonSend, ['id', 'send'], ['class', 'buttonAddWork cursorPointer']);
   ButtonSend.textContent = 'Ajout photo';
@@ -361,7 +353,7 @@ function handleAddWork() {
 
   modalTitle.textContent = 'Ajout photo';
 
-  imageBox.innerHTML = '';
+  resetElement(imageBox);
   replaceClass(imageBox, 'imageBox', 'ImgBox__ChangeToSendWork');
 
   setElementAttributes(InputFile, ['id', 'InputFile'], ['class', 'fa-image fa-regular']);
