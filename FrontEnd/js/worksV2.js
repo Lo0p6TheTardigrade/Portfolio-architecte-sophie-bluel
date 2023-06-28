@@ -4,16 +4,8 @@ const allCategoryNames = [];
 const token = 'Bearer ' + sessionStorage.getItem('token');
 const tokenWithoutQuotes = token.replace(/"/g, '');
 
-function createElementDiv() {
-  return document.createElement('div');
-}
-
-function createElementSpan() {
-  return document.createElement('span');
-}
-
-function createElementFontAwesome() {
-  return document.createElement('i');
+function createElement(element) {
+  return document.createElement('' + element);
 }
 
 function addClass(element, ...classes) {
@@ -26,6 +18,9 @@ function replaceClass(element, ...classes) {
 
 function hideElement(element) {
   element.style.display = 'none';
+}
+function showElement(element) {
+  element.style.display = 'flex';
 }
 
 function setElementAttributes(element, ...attributes) {
@@ -61,7 +56,7 @@ function removeSessionStorageItems(elements) {
   }
 }
 
-const ButtonSend = createElementSpan();
+const ButtonSend = createElement('span');
 
 const arrowBackModalSet = new Set();
 
@@ -69,64 +64,63 @@ const getHeader = document.querySelector('header');
 const getBody = document.querySelector('body');
 const headTarget = document.querySelector('head');
 const fontAwesomeScript = document.createElement('script');
-const userLoginTools = createElementDiv();
-const userEditionModeBox = createElementDiv();
-const userEditionMode = createElementSpan();
-const userEditionModeIcon = createElementFontAwesome();
-const userEditionModeBox2 = createElementDiv();
-const userEditionMode2 = createElementSpan();
-const userEditionModeIcon2 = createElementFontAwesome();
-const userEditionModeBox3 = createElementDiv();
-const userEditionMode3 = createElementSpan();
-const userEditionModeIcon3 = createElementFontAwesome();
-const publishChange = createElementSpan();
+const userLoginTools = createElement('div');
+const userEditionModeBox = createElement('div');
+const userEditionMode = createElement('span');
+const userEditionModeIcon = createElement('i');
+const userEditionModeBox2 = createElement('div');
+const userEditionMode2 = createElement('span');
+const userEditionModeIcon2 = createElement('i');
+const userEditionModeBox3 = createElement('div');
+const userEditionMode3 = createElement('span');
+const userEditionModeIcon3 = createElement('i');
+const publishChange = createElement('span');
 
-for (let i = 0; i < sessionStorage.length; i++) {
-  if (sessionStorage.key(i) === 'token') {
-    headTarget.appendChild(fontAwesomeScript);
-    setElementAttributes(fontAwesomeScript, ['src', 'https://kit.fontawesome.com/3fa10e7671.js'], ['crossorigin', 'anonymous']);
+function ifLogged() {
+  for (let i = 0; i < sessionStorage.length; i++) {
+    if (sessionStorage.key(i) === 'token') {
+      headTarget.appendChild(fontAwesomeScript);
+      setElementAttributes(fontAwesomeScript, ['src', 'https://kit.fontawesome.com/3fa10e7671.js'], ['crossorigin', 'anonymous']);
 
-    setElementAttributes(userLoginTools, ['id', 'userLoginTools'], ['class', 'userLoginTools']);
-    getBody.appendChild(userLoginTools);
+      setElementAttributes(userLoginTools, ['id', 'userLoginTools'], ['class', 'userLoginTools']);
+      getBody.appendChild(userLoginTools);
 
-    setElementAttributes(userEditionModeBox, ['id', 'userEditionModeBox'], ['class', 'userEditionModeBox']);
-    userLoginTools.appendChild(userEditionModeBox);
-    getBody.insertBefore(userLoginTools, getHeader);
+      setElementAttributes(userEditionModeBox, ['id', 'userEditionModeBox'], ['class', 'userEditionModeBox']);
+      userLoginTools.appendChild(userEditionModeBox);
+      getBody.insertBefore(userLoginTools, getHeader);
 
-    setElementAttributes(userEditionMode, ['id', 'userEditionMode'], ['class', 'userEditionMode cursorPointer']);
-    userEditionMode.textContent = 'Edit mode';
-    userEditionModeBox.appendChild(userEditionMode);
+      setElementAttributes(userEditionMode, ['id', 'userEditionMode'], ['class', 'userEditionMode cursorPointer']);
+      userEditionMode.textContent = 'Mode édition';
+      userEditionModeBox.appendChild(userEditionMode);
 
-    setElementAttributes(userEditionModeIcon, ['id', 'userEditionModeIcon'], ['class', 'cursorPointer']);
-    addClass(userEditionModeIcon, 'fa-regular', 'fa-pen-to-square');
-    userEditionModeBox.appendChild(userEditionModeIcon);
+      setElementAttributes(userEditionModeIcon, ['id', 'userEditionModeIcon'], ['class', 'fa-regular fa-pen-to-square cursorPointer']);
+      userEditionModeBox.appendChild(userEditionModeIcon);
 
-    setElementAttributes(userEditionModeBox2, ['id', 'userEditionModeBox2'], ['class', 'userEditionModeBox2']);
-    sectionPortfolio.insertBefore(userEditionModeBox2, sectionPortfolioH2);
-    userEditionModeBox2.appendChild(sectionPortfolioH2);
+      setElementAttributes(userEditionModeBox2, ['id', 'userEditionModeBox2'], ['class', 'userEditionModeBox2']);
+      sectionPortfolio.insertBefore(userEditionModeBox2, sectionPortfolioH2);
+      userEditionModeBox2.appendChild(sectionPortfolioH2);
 
-    setElementAttributes(userEditionMode2, ['id', 'userEditionMode2'], ['class', 'userEditionMode2 cursorPointer']);
-    userEditionMode2.textContent = 'Modify';
-    userEditionModeBox2.appendChild(userEditionMode2);
+      setElementAttributes(userEditionMode2, ['id', 'userEditionMode2'], ['class', 'userEditionMode2 cursorPointer']);
+      userEditionMode2.textContent = 'modifier';
+      userEditionModeBox2.appendChild(userEditionMode2);
 
-    setElementAttributes(userEditionModeIcon2, ['id', 'userEditionModeIcon2'], ['class', 'cursorPointer']);
-    addClass(userEditionModeIcon2, 'fa-regular', 'fa-pen-to-square');
-    appendChild(userEditionModeBox2, userEditionModeIcon2);
+      setElementAttributes(userEditionModeIcon2, ['id', 'userEditionModeIcon2'], ['class', 'fa-regular fa-pen-to-square cursorPointer']);
+      appendChild(userEditionModeBox2, userEditionModeIcon2);
 
-    introductionFigure.appendChild(userEditionModeBox3);
+      introductionFigure.appendChild(userEditionModeBox3);
 
-    setElementAttributes(userEditionMode3, ['id', 'userEditionMode3'], ['class', 'userEditionMode3 cursorPointer']);
-    userEditionModeBox3.setAttribute('id', 'userEditionModeBox3');
-    userEditionMode3.textContent = 'Modify';
-    appendChild(userEditionModeBox3, userEditionMode3);
+      setElementAttributes(userEditionMode3, ['id', 'userEditionMode3'], ['class', 'userEditionMode3 cursorPointer']);
+      userEditionModeBox3.setAttribute('id', 'userEditionModeBox3');
+      userEditionMode3.textContent = 'modifier';
+      appendChild(userEditionModeBox3, userEditionMode3);
 
-    setElementAttributes(userEditionModeIcon3, ['id', 'userEditionModeIcon3'], ['class', 'cursorPointer']);
-    addClass(userEditionModeIcon3, 'fa-regular', 'fa-pen-to-square');
-    appendChild(userEditionModeBox3, userEditionModeIcon3);
+      setElementAttributes(userEditionModeIcon3, ['id', 'userEditionModeIcon3'], ['class', 'fa-regular fa-pen-to-square cursorPointer']);
+      appendChild(userEditionModeBox3, userEditionModeIcon3);
 
-    setElementAttributes(publishChange, ['id', 'publishChange'], ['class', 'publishChange cursorPointer']);
-    publishChange.textContent = 'Publish changes';
-    appendChild(userLoginTools, publishChange);
+      setElementAttributes(publishChange, ['id', 'publishChange'], ['class', 'publishChange cursorPointer']);
+      publishChange.textContent = 'publier les changements';
+      appendChild(userLoginTools, publishChange);
+    }
   }
 }
 
@@ -136,13 +130,10 @@ let modalCreated = false;
 const modalBox = document.createElement('form');
 const modal = document.createElement('modal');
 const modalParentChild = modalBox.appendChild(modal);
-const modalCrossBox = createElementDiv();
-const modalCross = createElementFontAwesome();
+const modalCrossBox = createElement('div');
+const modalCross = createElement('i');
 
-modal.appendChild(modalCrossBox);
-modalCrossBox.appendChild(modalCross);
-userEditionMode.addEventListener('click', createModalFunction);
-
+ifLogged(modal.appendChild(modalCrossBox), modalCrossBox.appendChild(modalCross), userEditionMode.addEventListener('click', createModalFunction));
 function createModalFunction() {
   if (!modalCreated) {
     addClass(modalCrossBox, 'modalCrossBox');
@@ -158,14 +149,14 @@ function createModalFunction() {
 
 modalCross.addEventListener('click', redirectToFrontEnd);
 
-const modalTitleBox = createElementDiv();
+const modalTitleBox = createElement('div');
 const modalTitle = document.createElement('h2');
-const imageBox = createElementDiv();
-const modalSeparator = createElementDiv();
-const buttonBox = createElementDiv();
-const buttonAddWork = createElementSpan();
-const arrowBack = createElementFontAwesome();
-const buttonDeleteGallery = createElementSpan();
+const imageBox = createElement('div');
+const modalSeparator = createElement('div');
+const buttonBox = createElement('div');
+const buttonAddWork = createElement('span');
+const arrowBack = createElement('i');
+const buttonDeleteGallery = createElement('span');
 
 modalTitleBox.classList.add('modalTitleBox');
 const modalTitleBoxParentChild = modal.appendChild(modalTitleBox);
@@ -209,7 +200,7 @@ function redirectToFrontEnd() {
 
 function arrowBackFunction(element) {
   resetFunction(element);
-  elementAppenChildFunction(modal, [modalCrossBox]);
+  appendChild(modal, modalCrossBox);
   addClass(modalCrossBox, 'modalCrossBox');
   removeClass(modalCrossBox, 'modalCrossBoxAndArrow');
   setElementAttributes(arrowBack, ['class', 'displayElementFalse']);
@@ -217,14 +208,14 @@ function arrowBackFunction(element) {
   setElementAttributes(hiddenInputs, ['class', 'displayElementFalse']);
   const modalArray = Array.from(arrowBackModalSet);
   for (let i = 0; i < modalArray.length; i++) {
-    elementAppenChildFunction(modal, [modalArray[i]]);
+    appendChild(modal, modalArray[i]);
   }
-  elementAppenChildFunction(modalTitleBox, [modalTitle]);
-  resetFunction(ButtonBox);
+  appendChild(modalTitleBox, modalTitle);
+  resetFunction(buttonBox);
   resetFunction(imageBox);
-  ButtonBox.appendChild(buttonAddWork);
-  ButtonBox.appendChild(ButtonDeleteGallery);
-  modalTitle.textContent = 'Gallery';
+  buttonBox.appendChild(buttonAddWork);
+  buttonBox.appendChild(buttonDeleteGallery);
+  modalTitle.textContent = 'Galerie photo';
 }
 
 arrowBack.addEventListener('click', () => {
@@ -234,9 +225,9 @@ arrowBack.addEventListener('click', () => {
 let FigureElement = document.createElement('figure');
 let ImgElement = document.createElement('img');
 let FigureText = document.createElement('p');
-let IconBox = createElementDiv();
-let TrashBox = createElementDiv();
-let TrashElement = createElementFontAwesome();
+let IconBox = createElement('div');
+let TrashBox = createElement('div');
+let TrashElement = createElement('i');
 
 const figuresSet = new Set();
 
@@ -257,25 +248,20 @@ function createFigureElements(imageUrl, id) {
   FigureElement = document.createElement('figure');
   ImgElement = document.createElement('img');
   FigureText = document.createElement('p');
-  IconBox = createElementDiv();
-  TrashBox = createElementDiv();
-  TrashElement = createElementFontAwesome();
+  IconBox = createElement('div');
+  TrashBox = createElement('div');
+  TrashElement = createElement('i');
 
   imageBox.appendChild(FigureElement);
   addToSet(figuresSet, FigureElement);
 
-  ImgElement.setAttribute('src', imageUrl);
-  ImgElement.setAttribute('id', id);
-  ImgElement.classList.add('ImgElement');
-  ImgElement.style.cursor = 'pointer';
-  setElementAttributes(ImgElement, ['src', imageUrl], ['id', id], ['class', 'FigureElement cursorPointer']);
+  setElementAttributes(ImgElement, ['src', imageUrl], ['id', id], ['class', 'ImageElement cursorPointer']);
   FigureElement.appendChild(ImgElement);
 
-  FigureText.textContent = 'Edit';
   setElementAttributes(FigureText, ['class', 'FigureText cursorPointer']);
-  FigureElement.appendChild(FigureText);
+  FigureElement.appendChild(FigureText).textContent = 'éditer';
 
-  IconBox.classList.add('IconBox');
+  addClass(IconBox, 'IconBox');
   FigureElement.appendChild(IconBox);
 
   setElementAttributes(TrashBox, ['id', ImgElement.id], ['class', 'TrashBox']);
@@ -287,12 +273,7 @@ function createFigureElements(imageUrl, id) {
 
 function myFunction(FigureElement, ImgElement, FigureText, IconBox, TrashBox, TrashElement) {
   // Use the variables here
-  // console.log(FigureElement);
-  // console.log(ImgElement);
-  // console.log(FigureText);
-  // console.log(IconBox);
-  // console.log(TrashBox);
-  // console.log(TrashElement);
+  // log
 }
 
 // Event click for trash work
@@ -319,38 +300,29 @@ async function deleteWork() {
 }
 
 // Font Awesome zoom selection
-const SelectedBox = createElementDiv();
+const SelectedBox = createElement('div');
 addClass(SelectedBox, 'SelectedBox');
 IconBox.appendChild(SelectedBox);
 
-const SelectedElement = createElementFontAwesome();
+const SelectedElement = createElement('i');
 setElementAttributes(SelectedElement, ['id', 'SelectedElement'], ['class', 'fa-solid fa-maximize cursorPointer']);
 
-// Array for stopping multiple icon + Event listener mouse events (Enter and Leave)
+// // Array for stopping multiple icon + Event listener mouse events (Enter and Leave)
 const SelectedElementArray = [];
 hideElement(SelectedBox);
 
-FigureElement.addEventListener('mouseenter', () => {
-  SelectedElementArray.push(SelectedBox);
+FigureElement.addEventListener('mouseenter', showElement(SelectedBox));
 
-  SelectedBox.appendChild(SelectedElement);
-  IconBox.appendChild(SelectedBox);
-  showElement(SelectedBox);
-});
+FigureElement.addEventListener('mouseleave', hideElement(SelectedBox));
 
-FigureElement.addEventListener('mouseleave', () => {
-  SelectedElementArray.pop(SelectedBox);
-  hideElement(SelectedBox);
-});
-
-const InputBoxForWork = createElementDiv();
+const InputBoxForWork = createElement('div');
 const InputWorkSelect = document.createElement('select');
 const InputWorkOption = document.createElement('option');
 
 let LabelElement = document.createElement('label');
 let InputFile = document.createElement('input');
-let InputFileText = createElementSpan();
-let InputFileType = createElementSpan();
+let InputFileText = createElement('span');
+let InputFileType = createElement('span');
 let imagePreview = document.createElement('img');
 let InputWorkTitle = document.createElement('input');
 
@@ -358,7 +330,7 @@ let InputWorkTitle = document.createElement('input');
 
 buttonAddWork.addEventListener('click', handleAddWork);
 
-function handleAddWork(e) {
+function handleAddWork() {
   buttonBox.innerHTML = '';
   buttonAddWork.replaceWith(ButtonSend);
   setElementAttributes(ButtonSend, ['id', 'send'], ['class', 'buttonAddWork cursorPointer']);
@@ -406,8 +378,6 @@ function handleAddWork(e) {
 
   LabelElement.appendChild(InputFile);
   LabelElement.appendChild(imagePreview);
-
-  // elementAppendChildMultiple([LabelElement, InputFile], [LabelElement, imagePreview]);
   LabelElement.appendChild(InputFileText);
   LabelElement.appendChild(InputFileType);
 
@@ -493,16 +463,13 @@ InputBoxForWork.appendChild(InputWorkSelect);
 setElementAttributes(imagePreview, ['id', 'imagePreview'], ['class', 'imagePreview cursorPointer']);
 
 imageBox.addEventListener('click', handleImageInputChange);
-handleInputWorkTitleChange();
-handleInputWorkSelectChange();
+InputWorkTitle.addEventListener('click', handleInputWorkTitleChange());
+InputWorkSelect.addEventListener('click', handleInputWorkSelectChange());
 
 function handleButtonSendClick() {
   ButtonSend.addEventListener('click', async () => {
-    // formData.append('title', InputWorkTitle.value);
     console.log(formData.get('title'));
-    // formData.append('imageUrl', imagePreviewGetPath);
     console.log(formData.get('imageUrl'));
-    // formData.append('category', InputWorkSelect.options[InputWorkSelect.selectedIndex].value);
     console.log(formData.get('category'));
 
     try {
