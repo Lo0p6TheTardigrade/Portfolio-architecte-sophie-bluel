@@ -46,7 +46,7 @@ function removeSessionStorageItems(elements) {
   }
 }
 
-const ButtonSend = createElement('button');
+const ButtonSend = createElement('span');
 
 const arrowBackModalSet = new Set();
 
@@ -351,18 +351,14 @@ function handleAddWork() {
   imagePreview.setAttribute('class', 'displayElementFalse');
 
   imageBox.appendChild(LabelElement);
+  imageBox.appendChild(InputBoxForWork);
 
-  // Input element for the new work item (SEND)
-
-  setElementAttributes(InputWorkTitle, ['type', 'text'], ['class', 'InputWorkTitle inputWorkCategory'], ['id', 'title']);
+  setElementAttributes(InputWorkTitle, ['type', 'text'], ['class', 'InputWorkTitle inputWorkCategory cursorPointer'], ['id', 'title']);
 
   InputBoxForWork.classList.add('InputBoxForWork');
   setElementAttributes(InputWorkSelect, ['class', 'inputWorkCategory cursorPointer']);
 
-  // Avoid multiplication for the work inputs
-
   const avoidMultiplierSet = new Set();
-
   addToSet(avoidMultiplierSet, [LabelElement, InputFile, imagePreview, InputBoxForWork, InputWorkTitle, InputWorkSelect]);
 
   imageBox.appendChild(LabelElement);
@@ -383,36 +379,35 @@ function handleAddWork() {
     .then((response) => response.json())
     .then((works) => {
       works.forEach((work) => {
-        works.forEach((work) => {
-          uniqueCategories.add(work.categoryId);
-        });
+        uniqueCategories.add(work.categoryId);
+      });
 
-        let matchingWork;
-        let option;
+      let matchingWork;
+      let option;
 
-        uniqueCategories.forEach((categoryId) => {
-          matchingWork = works.find((work) => work.categoryId === categoryId);
+      uniqueCategories.forEach((categoryId) => {
+        matchingWork = works.find((work) => work.categoryId === categoryId);
 
-          if (!addedOptions.has(categoryId)) {
-            option = InputWorkOption.cloneNode();
-            option.setAttribute('id', matchingWork.categoryId);
-            option.textContent = matchingWork.category.name;
+        if (!addedOptions.has(categoryId)) {
+          option = InputWorkOption.cloneNode();
+          option.setAttribute('id', matchingWork.categoryId);
+          option.textContent = matchingWork.category.name;
 
-            InputWorkSelect.appendChild(option);
+          InputWorkSelect.appendChild(option);
 
-            addedOptions.add(categoryId);
-          }
-        });
+          addedOptions.add(categoryId);
+        }
       });
     });
+
   arrowBack.style.visibility = 'visible';
 }
 
 let imagePreviewPath;
 let imagePreviewCleanPath;
-let imagePreviewGetPath;
 
 const formData = new FormData();
+let imagePreviewGetPath;
 
 function handleImageInputChange() {
   const InputFileById = document.getElementById('InputFile');
@@ -421,7 +416,8 @@ function handleImageInputChange() {
 
     const imagePreviewPath = InputFileById.value;
     const imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
-    const imagePreviewGetPath = api + '/images/' + imagePreviewCleanPath;
+    imagePreviewGetPath = api + '/images/' + imagePreviewCleanPath;
+
     ImagePreview.setAttribute('src', '/Frontend/assets/images/' + imagePreviewCleanPath);
     replaceClass(ImagePreview, 'displayElementFalse', 'displayElementTrue');
 
@@ -435,12 +431,14 @@ function handleImageInputChange() {
     formData.append('imageUrl', imagePreviewGetPath);
   });
 }
+
 function handleInputWorkTitleChange() {
   InputWorkTitle.addEventListener('change', () => {
     const title = InputWorkTitle.value;
     formData.append('title', title);
   });
 }
+
 function handleInputWorkSelectChange() {
   InputWorkSelect.addEventListener('change', () => {
     const categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].value;
@@ -457,23 +455,35 @@ handleInputWorkTitleChange();
 handleInputWorkSelectChange();
 
 function handleButtonSendClick() {
-  ButtonSend.addEventListener('click', async (e) => {
-    e.preventDefault();
-    console.log(formData.get('title'));
-    console.log(formData.get('imageUrl'));
-    console.log(formData.get('category'));
+  ButtonSend.addEventListener('click', async () => {
+    const formDataToSend = new FormData();
+
+    formDataToSend.append('title', InputWorkTitle.value);
+    formDataToSend.append('imageUrl', imagePreviewGetPath);
+    formDataToSend.append('category', InputWorkSelect.options[InputWorkSelect.selectedIndex].value);
+
+    console.log(formDataToSend.get('title'));
+    console.log(formDataToSend.get('imageUrl'));
+    console.log(formDataToSend.get('category'));
+
+    const plainFormData = Object.fromEntries(formDataToSend.entries());
+    const formDataToSendStringify = JSON.stringify(plainFormData);
+
     try {
       const response = await fetch(api, {
         method: 'POST',
         headers: {
           Authorization: tokenWithoutQuotes,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
         },
-        body: formData,
+        body: formDataToSendStringify,
       });
+
       if (response.ok) {
         alert('Travail envoyé avec succès !');
       } else {
-        alert("Erreur lors de l'envoi du travail");
+        alert("Erreur lors de l'envoi du travail " + '(Code erreur = ' + response.status + ')');
       }
     } catch (error) {
       console.error(error);

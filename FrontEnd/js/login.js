@@ -54,6 +54,7 @@ loginNavLink.addEventListener('click', () => {
   inputUserLoginSectionTitle.type = 'email';
   inputUserLoginSectionTitle.classList.add('input__style');
   inputUserLoginSectionTitle.setAttribute('id', 'username');
+  inputUserLoginSectionTitle.setAttribute('autocomplete');
   divLabelInputUser.appendChild(inputUserLoginSectionTitle);
 
   // Password field elements
@@ -69,6 +70,7 @@ loginNavLink.addEventListener('click', () => {
   inputPasswordLoginSectionTitle.type = 'password';
   inputPasswordLoginSectionTitle.classList.add('input__style');
   inputPasswordLoginSectionTitle.setAttribute('id', 'password');
+  inputPasswordLoginSectionTitle.setAttribute('autocomplete');
   divLabelInputPasswords.appendChild(inputPasswordLoginSectionTitle);
 
   // Create the button for the form
