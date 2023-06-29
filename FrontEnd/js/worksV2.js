@@ -1,5 +1,6 @@
 const token = 'Bearer ' + sessionStorage.getItem('token');
 const tokenWithoutQuotes = token.replace(/"/g, '');
+let api = 'http://localhost:5678/api/works';
 
 function createElement(element) {
   return document.createElement('' + element);
@@ -45,7 +46,7 @@ function removeSessionStorageItems(elements) {
   }
 }
 
-const ButtonSend = createElement('span');
+const ButtonSend = createElement('button');
 
 const arrowBackModalSet = new Set();
 
@@ -143,15 +144,6 @@ const buttonAddWork = createElement('span');
 const arrowBack = createElement('i');
 const buttonDeleteGallery = createElement('span');
 
-function modalElement() {
-  modalTitleBoxParentChild;
-  modalTitleParentChild;
-  modalFigureImgBoxParentChild;
-  modalSeparatorParentChild;
-  modalButtonBoxParentChild;
-  modalButtonForSet;
-  deleteGalleryForSet;
-}
 modalTitleBox.classList.add('modalTitleBox');
 const modalTitleBoxParentChild = modal.appendChild(modalTitleBox);
 addToSet(arrowBackModalSet, modalTitleBoxParentChild);
@@ -173,14 +165,14 @@ const modalButtonBoxParentChild = modal.appendChild(buttonBox);
 addToSet(arrowBackModalSet, modalButtonBoxParentChild);
 
 setElementAttributes(buttonAddWork, ['class', 'buttonAddWork cursorPointer']);
-buttonAddWork.textContent = 'Add a photo';
+buttonAddWork.textContent = 'Ajouter une photo';
 const modalButtonForSet = buttonBox.appendChild(buttonAddWork);
 addToSet(arrowBackModalSet, modalButtonForSet);
 
 setElementAttributes(arrowBack, ['id', 'faArrowBack'], ['class', 'fa-solid fa-arrow-left cursorPointer']);
 
 setElementAttributes(buttonDeleteGallery, ['class', 'ButtonDeleteGallery cursorPointer']);
-buttonDeleteGallery.textContent = 'Delete gallery';
+buttonDeleteGallery.textContent = 'Supprimer galerie';
 const deleteGalleryForSet = buttonBox.appendChild(buttonDeleteGallery);
 addToSet(arrowBackModalSet, deleteGalleryForSet);
 
@@ -238,20 +230,14 @@ let TrashElement = createElement('i');
 const figuresSet = new Set();
 
 userEditionMode.addEventListener('click', fetchWorks);
-// userEditionMode.addEventListener('click', () => {
-//   fetchWorks(modalElement());
-//   getBody.appendChild(modalBox);
-//   modalBox.appendChild(modal);
-// });
 
 function fetchWorks() {
-  fetch('http://localhost:5678/api/works')
+  fetch(api)
     .then((response) => response.json())
     .then((works) => {
       works.forEach((work) => {
         createFigureElements(work.imageUrl, work.id);
       });
-      // myFunction(FigureElement, ImgElement, FigureText, IconBox, TrashBox, TrashElement);
     });
 }
 
@@ -282,11 +268,6 @@ function createFigureElements(imageUrl, id) {
   TrashBox.appendChild(TrashElement);
 }
 
-function myFunction(FigureElement, ImgElement, FigureText, IconBox, TrashBox, TrashElement) {
-  // Use the variables here
-  // log
-}
-
 // Event click for trash work
 TrashBox.addEventListener('click', deleteWork);
 
@@ -294,7 +275,7 @@ async function deleteWork() {
   const workId = parseInt(TrashBox.id);
 
   try {
-    const response = await fetch(`http://localhost:5678/api/works/${workId}`, {
+    const response = await fetch(api + `/${workId}`, {
       method: 'DELETE',
       headers: {
         Authorization: tokenWithoutQuotes,
@@ -318,7 +299,7 @@ IconBox.appendChild(SelectedBox);
 const SelectedElement = createElement('i');
 setElementAttributes(SelectedElement, ['id', 'SelectedElement'], ['class', 'fa-solid fa-maximize cursorPointer']);
 
-// // Array for stopping multiple icon + Event listener mouse events (Enter and Leave)
+// // Array avoid multiple icon + Event listener mouse events (Enter and Leave)
 const SelectedElementArray = [];
 hideElement(SelectedBox);
 
@@ -398,7 +379,7 @@ function handleAddWork() {
   const uniqueCategories = new Set();
   const addedOptions = new Set();
 
-  fetch('http://localhost:5678/api/works')
+  fetch(api)
     .then((response) => response.json())
     .then((works) => {
       works.forEach((work) => {
@@ -435,16 +416,15 @@ const formData = new FormData();
 
 function handleImageInputChange() {
   const InputFileById = document.getElementById('InputFile');
-
   InputFileById.addEventListener('change', () => {
     const ImagePreview = document.getElementById('imagePreview');
 
     const imagePreviewPath = InputFileById.value;
     const imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
-    const imagePreviewGetPath = 'http://localhost:5678/api/works/images/' + imagePreviewCleanPath;
-
+    const imagePreviewGetPath = api + '/images/' + imagePreviewCleanPath;
     ImagePreview.setAttribute('src', '/Frontend/assets/images/' + imagePreviewCleanPath);
     replaceClass(ImagePreview, 'displayElementFalse', 'displayElementTrue');
+
     InputFileById.classList.add('displayElementFalse');
 
     const InputFileText = document.getElementById('InputFileText');
@@ -455,14 +435,12 @@ function handleImageInputChange() {
     formData.append('imageUrl', imagePreviewGetPath);
   });
 }
-
 function handleInputWorkTitleChange() {
   InputWorkTitle.addEventListener('change', () => {
     const title = InputWorkTitle.value;
     formData.append('title', title);
   });
 }
-
 function handleInputWorkSelectChange() {
   InputWorkSelect.addEventListener('change', () => {
     const categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].value;
@@ -479,20 +457,19 @@ handleInputWorkTitleChange();
 handleInputWorkSelectChange();
 
 function handleButtonSendClick() {
-  ButtonSend.addEventListener('click', async () => {
+  ButtonSend.addEventListener('click', async (e) => {
+    e.preventDefault();
     console.log(formData.get('title'));
     console.log(formData.get('imageUrl'));
     console.log(formData.get('category'));
-
     try {
-      const response = await fetch('http://localhost:5678/api/works/', {
+      const response = await fetch(api, {
         method: 'POST',
         headers: {
           Authorization: tokenWithoutQuotes,
         },
         body: formData,
       });
-
       if (response.ok) {
         alert('Travail envoyé avec succès !');
       } else {
