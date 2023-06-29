@@ -272,7 +272,11 @@ li:hover {
 /* End login */
 
 /* Modal */
-#userLoginTools {
+.fa-regular,
+.fa-pen-to-square {
+  color: #ffff;
+}
+#admin__tool__box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -280,50 +284,49 @@ li:hover {
   background-color: #000000;
   height: 59px;
 }
-.fa-regular,
-.fa-pen-to-square {
-  color: #ffff;
-}
-#userEditionModeBox {
+#admin__tool__button__box {
   display: flex;
   gap: 13px;
 }
-#userEditionModeBox3 {
+#admin__tool__button {
+  color: #fff;
+}
+#admin__tool__button__icon {
+  order: 2;
+  color: #ffff;
+}
+#titleEditButtonBox {
   display: flex;
   gap: 13px;
   margin-inline-start: 55px;
   margin-inline-end: 55px;
   margin-top: 15px;
 }
-#userEditionModeBox2 {
+#titleButton {
+  order: 1;
+  color: #000000;
+}
+#titleButtonICon {
+  order: 2;
+  cursor: pointer;
+}
+#portraitEditButtonBox {
   display: flex;
   justify-content: center;
   align-items: start;
   gap: 13px;
   margin-left: 95px;
 }
-#userEditionModeIcon2 {
+#portraitButton {
   margin-top: 10px;
   color: #000000;
   order: 1;
 }
-#userEditionModeIcon3 {
-  order: 1;
-  color: #000000;
-}
-#userEditionMode3 {
-  order: 2;
-  cursor: pointer;
-}
-#userEditionMode2 {
+#portraitButtonIcon {
   margin-top: 10px;
   order: 2;
 }
-#userEditionMode {
-  order: 2;
-  color: #ffff;
-}
-#publishChange {
+#admin__publish__button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -348,7 +351,8 @@ li:hover {
   top: 0px;
   background: rgba(0, 0, 0, 0.3);
 }
-modal {
+#modal__delete_work,
+#modal__add_work {
   position: fixed;
   width: 630px;
   height: 731px;
@@ -358,7 +362,7 @@ modal {
   background: #ffffff;
   border-radius: 10px;
 }
-modal img {
+#image_box img {
   width: 78px;
   height: 104px;
 }
@@ -370,7 +374,7 @@ modal img {
   margin-right: 30px;
   margin-left: 30px;
 }
-.modalCrossBoxAndArrow {
+#modal__cross__and__arrow__box {
   display: flex;
   justify-content: space-between;
   padding: 6px;
@@ -378,23 +382,24 @@ modal img {
   margin-right: 30px;
   margin-left: 30px;
 }
-#faArrowBack {
+#modal__arrow__back {
   order: 1;
   width: 12px;
   height: 12px;
 }
-#modalCross {
+#modal__cross__close {
   order: 2;
   width: 12px;
   height: 12px;
 }
-.modalTitleBox {
+#modal__delete__title__box,
+#modal__add__title__box {
   display: flex;
   justify-content: center;
   margin-top: 10px;
   margin-bottom: 46px;
 }
-.imageBox {
+#image_box {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   margin-left: 105px;
@@ -408,7 +413,7 @@ modal img {
   margin-right: 105px;
   margin-bottom: 42px;
 }
-.IconBox {
+#icon__box {
   display: flex;
   justify-content: flex-end;
   gap: 3px;
@@ -417,8 +422,8 @@ modal img {
   top: -112px;
   right: 13px;
 }
-.SelectedBox,
-.TrashBox {
+.selected___element,
+.trash__box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -426,10 +431,10 @@ modal img {
   width: 20px;
   height: 20px;
 }
-.SelectedElement {
+#selected___element {
   order: 1;
 }
-.TrashBox {
+#trash__box {
   order: 2;
 }
 #SelectedElement,
@@ -442,7 +447,7 @@ modal img {
   width: 420px;
   height: 0px;
 }
-.ButtonBox {
+#button__box {
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -450,7 +455,7 @@ modal img {
   gap: 23px;
   margin-top: 38px;
 }
-.buttonAddWork {
+#button__add__work {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -460,7 +465,7 @@ modal img {
   width: 237px;
   height: 36px;
 }
-.LabelElement {
+.label__element {
   display: flex;
   flex-flow: column;
   justify-content: center;
@@ -472,7 +477,7 @@ modal img {
   width: 420px;
   height: 169px;
 }
-#InputFile {
+#image__file {
   display: flex;
   margin-bottom: 21px;
   background: #b9c5cc;
@@ -481,7 +486,7 @@ modal img {
   width: 58px;
   height: 45px;
 }
-#InputFileText {
+#input__file__text {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -496,16 +501,16 @@ modal img {
   margin: 0;
   height: 0;
 } */
-#InputFileText {
+#input__file__text {
   color: #306685;
 }
-#InputFileType {
+#input__file__type {
   color: #444444;
 }
 /* .InputFileType {
   height: 0;
 } */
-.imagePreview {
+#image__preview {
   height: 193px;
   width: 129px;
   object-fit: cover;
@@ -524,6 +529,9 @@ modal img {
 }
 .displayElementTrue {
   display: flex !important;
+}
+.displayElementTrueGrid {
+  display: grid !important;
 }
 .displayElementFalse {
   display: none !important;

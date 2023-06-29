@@ -22,15 +22,98 @@
     <link
       rel="stylesheet"
       href="./assets/style.css" />
+    <!-- <script
+      src="'https://kit.fontawesome.com/3fa10e7671.js"
+      crossorigin="anonymous"></script> -->
   </head>
   <body>
+    <div
+      id="modal__delete_work"
+      class="displayElementFalse">
+      <div id="modal__cross__box"></div>
+      <div id="modal__delete__title__box">
+        <h2>Galerie photo</h2>
+      </div>
+      <div id="image_box"></div>
+    </div>
+    <div
+      id="modal__add_work"
+      class="displayElementFalse">
+      <div id="modal__cross__and__arrow__box"></div>
+      <div id="modal__add__title__box">
+        <h2>Ajouter une photo</h2>
+      </div>
+      <form
+        action="POST"
+        id="form">
+        <label
+          for="image__file"
+          class="label__element">
+          <input
+            type="file"
+            name="image__file"
+            id="image__file"
+            class="fa-image fa-regular" />
+          <img
+            id="image__preview"
+            src="#"
+            alt="image import" />
+          <span id="input__file__text">+ Ajouter photo</span>
+          <span id="input__file__type">jpg, png: 4mo max</span>
+        </label>
+        <label
+          for="work__title"
+          class="label__element">
+          <input
+            type="text"
+            name="work__title"
+            id="work__title" />
+        </label>
+        <select id="option">
+          <option
+            value="Appartement"
+            id="2">
+            Appartement
+          </option>
+          <option
+            value="Hotel et restaurant"
+            id="3">
+            Hotel et restaurant
+          </option>
+          <option
+            value="Objets"
+            id="1">
+            Objets
+          </option>
+        </select>
+
+        <div id="button__box">
+          <button id="button__add__work"></button>
+          <button id="button__delete__work"></button>
+          <button
+            id="button__send__work"
+            type="submit"></button>
+        </div>
+      </form>
+    </div>
+    <div id="admin__tool__box">
+      <div id="admin__tool__button__box">
+        <span id="admin__tool__button">Mode édition</span>
+        <i
+          id="admin__tool__button__icon"
+          class="fa-regular fa-pen-to-square"></i>
+      </div>
+      <div id="admin__publish__button__box">
+        <span id="admin__publish__button">Publier les changements</span>
+      </div>
+    </div>
     <header>
       <h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
       <nav>
         <ul>
-          <li>projets</li>
+          <li id="projet">projets</li>
           <li>contact</li>
-          <li>login</li>
+          <li id="login">login</li>
           <li>
             <img
               src="./assets/icons/instagram.png"
@@ -160,12 +243,12 @@
         </ul>
       </nav>
     </footer>
-    <script src="js/login.js"></script>
-    <script src="js/index.js"></script>
-    <script src="js/nav.js"></script>
+    <script src="./js/login.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/nav.js"></script>
     <!-- <script src="js/modal.js"></script> -->
     <!-- <script src="js/modal2.js"></script> -->
-    <script src="js/worksV2.js"></script>
+    <script src="./js/worksV2.js"></script>
     <!-- <script src="js/Refactoring.js"></script> -->
   </body>
 </html>
