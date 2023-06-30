@@ -362,6 +362,19 @@ li:hover {
   background: #ffffff;
   border-radius: 10px;
 }
+#modal__add_work,
+#form {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 105px;
+  margin-right: 105px;
+  margin-bottom: 42px;
+}
+#form {
+  gap: 47px;
+}
 #image_box img {
   width: 78px;
   height: 104px;
@@ -406,13 +419,6 @@ li:hover {
   margin-right: 105px;
   margin-bottom: 42px;
 }
-.ImgBox__ChangeToSendWork {
-  display: flex;
-  flex-flow: column;
-  margin-left: 105px;
-  margin-right: 105px;
-  margin-bottom: 42px;
-}
 #icon__box {
   display: flex;
   justify-content: flex-end;
@@ -441,21 +447,25 @@ li:hover {
 #TrashElement {
   color: #ffff;
 }
-.modalSeparator {
+#modal__separator {
   margin: auto;
   border: 1px solid #b3b3b3;
   width: 420px;
   height: 0px;
 }
-#button__box {
+#button__add_box,
+#button__delete_box,
+#button__send_box {
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
   gap: 23px;
-  margin-top: 38px;
+  /* margin-top: 38px; */
 }
-#button__add__work {
+#button__add__work,
+#button__delete__work,
+#button__send__work {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -515,14 +525,17 @@ li:hover {
   width: 129px;
   object-fit: cover;
 }
-.InputBoxForWork {
+.input__box__for__work {
   display: flex;
   flex-flow: column;
   gap: 47px;
   width: 100%;
 }
-.inputWorkCategory {
-  height: 41px;
+.input__add__work {
+  height: 51px;
+}
+#work__title {
+  padding: 0;
 }
 .ButtonDeleteGallery {
   color: red;

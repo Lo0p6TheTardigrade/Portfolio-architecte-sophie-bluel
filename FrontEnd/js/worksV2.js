@@ -53,6 +53,10 @@ const arrowBackModalSet = new Set();
 const modalAddWork = document.getElementById('modal__add_work');
 const modalDeleteWork = document.getElementById('modal__delete_work');
 
+const buttonAddWork = document.getElementById('button__add__work');
+const buttonDeleteAllWork = document.getElementById('button__delete__work');
+const buttonSendWork = document.getElementById('button__send__work');
+
 const getHeader = document.querySelector('header');
 const getBody = document.querySelector('body');
 const headTarget = document.querySelector('head');
@@ -164,11 +168,6 @@ function modalCondition() {
   modalCreated = true;
 }
 
-const modalSeparator = createElement('div');
-modalSeparator.classList.add('modalSeparator');
-const modalSeparatorParentChild = modalAddWork.appendChild(modalSeparator);
-addToSet(arrowBackModalSet, modalSeparatorParentChild);
-
 const arrowBack = createElement('i');
 setElementAttributes(arrowBack, ['id', 'faArrowBack'], ['class', 'fa-solid fa-arrow-left cursorPointer']);
 
@@ -204,8 +203,6 @@ function arrowBackFunction(element) {
   modalTitleBox.appendChild(modalTitle);
   resetElement(buttonBox);
   resetElement(imageBox);
-  buttonBox.appendChild(buttonAddWork);
-  buttonBox.appendChild(buttonDeleteGallery);
   modalTitle.textContent = 'Galerie photo';
 }
 
@@ -320,14 +317,15 @@ let imagePreview = document.createElement('img');
 let InputWorkTitle = document.createElement('input');
 
 // --------------- Modal Input ---------------//
-const buttonAddWork = document.getElementById('button__add__work');
 buttonAddWork.addEventListener('click', handleAddWork);
 
 function handleAddWork() {
   // resetElement(buttonBox);
-  buttonAddWork.replaceWith(ButtonSend);
   const uniqueCategories = new Set();
   const addedOptions = new Set();
+  modalDeleteWork.classList.add('displayElementFalse');
+  modalAddWork.classList.remove('displayElementFalse');
+  modalAddWork.classList.add('displayElementTrue');
 
   fetch(api)
     .then((response) => response.json())
@@ -448,7 +446,7 @@ handleInputWorkSelectChange();
 // }
 
 // handleButtonSendClick();
-modalAddWork.addEventListener('submit', handleFormSubmit);
+buttonSendWork.addEventListener('submit', handleFormSubmit);
 
 function handleFormSubmit(event) {
   event.preventDefault();

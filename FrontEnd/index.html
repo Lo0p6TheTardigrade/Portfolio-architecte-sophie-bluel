@@ -27,74 +27,80 @@
       crossorigin="anonymous"></script> -->
   </head>
   <body>
-    <div
-      id="modal__delete_work"
-      class="displayElementFalse">
-      <div id="modal__cross__box"></div>
-      <div id="modal__delete__title__box">
-        <h2>Galerie photo</h2>
-      </div>
-      <div id="image_box"></div>
-    </div>
-    <div
-      id="modal__add_work"
-      class="displayElementFalse">
-      <div id="modal__cross__and__arrow__box"></div>
-      <div id="modal__add__title__box">
-        <h2>Ajouter une photo</h2>
-      </div>
-      <form
-        action="POST"
-        id="form">
-        <label
-          for="image__file"
-          class="label__element">
-          <input
-            type="file"
-            name="image__file"
-            id="image__file"
-            class="fa-image fa-regular" />
-          <img
-            id="image__preview"
-            src="#"
-            alt="image import" />
-          <span id="input__file__text">+ Ajouter photo</span>
-          <span id="input__file__type">jpg, png: 4mo max</span>
-        </label>
-        <label
-          for="work__title"
-          class="label__element">
-          <input
-            type="text"
-            name="work__title"
-            id="work__title" />
-        </label>
-        <select id="option">
-          <option
-            value="Appartement"
-            id="2">
-            Appartement
-          </option>
-          <option
-            value="Hotel et restaurant"
-            id="3">
-            Hotel et restaurant
-          </option>
-          <option
-            value="Objets"
-            id="1">
-            Objets
-          </option>
-        </select>
-
-        <div id="button__box">
+    <div id="modal">
+      <div
+        id="modal__delete_work"
+        class="displayElementFalse">
+        <div id="modal__cross__box"></div>
+        <div id="modal__delete__title__box">
+          <h2>Galerie photo</h2>
+        </div>
+        <div id="image_box"></div>
+        <div id="button__add_box">
           <button id="button__add__work"></button>
           <button id="button__delete__work"></button>
-          <button
-            id="button__send__work"
-            type="submit"></button>
         </div>
-      </form>
+      </div>
+      <div
+        id="modal__add_work"
+        class="displayElementFalse">
+        <div id="modal__cross__and__arrow__box"></div>
+        <div id="modal__add__title__box">
+          <h2>Ajouter une photo</h2>
+        </div>
+        <form
+          action="POST"
+          id="form">
+          <label
+            for="image__file"
+            class="label__element">
+            <input
+              type="file"
+              name="image__file"
+              id="image__file"
+              class="fa-image fa-regular" />
+            <img
+              id="image__preview"
+              src="#"
+              alt="image import"
+              class="displayElementFalse" />
+            <span id="input__file__text">+ Ajouter photo</span>
+            <span id="input__file__type">jpg, png: 4mo max</span>
+          </label>
+          <div class="input__box__for__work">
+            <input
+              type="text"
+              name="work__title"
+              id="work__title"
+              class="input__add__work" />
+            <select
+              id="select"
+              class="input__add__work">
+              <option
+                value="Appartement"
+                id="2">
+                Appartement
+              </option>
+              <option
+                value="Hotel et restaurant"
+                id="3">
+                Hotel et restaurant
+              </option>
+              <option
+                value="Objets"
+                id="1">
+                Objets
+              </option>
+            </select>
+            <div id="modal__separator"></div>
+            <div id="button__send_box">
+              <button
+                id="button__send__work"
+                type="submit"></button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
     <div id="admin__tool__box">
       <div id="admin__tool__button__box">
