@@ -76,6 +76,7 @@ loginNavLink.addEventListener('click', () => {
   // Create the button for the form
   const buttonLoginSectionTitle = document.createElement('span');
   buttonLoginSectionTitle.textContent = 'Se connecter';
+  buttonLoginSectionTitle.setAttribute('id', 'login__section__title');
   // buttonLoginSectionTitle.type = 'submit';
   buttonLoginSectionTitle.style.cursor = 'pointer';
   formLoginSectionTitle.appendChild(buttonLoginSectionTitle);
@@ -103,6 +104,8 @@ loginNavLink.addEventListener('click', () => {
 
         let getTokenResponse = JSON.stringify(data.token);
         sessionStorage.setItem('token', getTokenResponse);
+
+        buttonLogin();
 
         console.log(getTokenResponse);
         alert('Vous êtes connecté !');

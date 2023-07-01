@@ -271,7 +271,7 @@ li:hover {
 
 /* End login */
 
-/* Modal */
+/* Modal element */
 .fa-regular,
 .fa-pen-to-square {
   color: #ffff;
@@ -342,7 +342,11 @@ li:hover {
   height: 38px;
 }
 
-/* Modal add CSS */
+/* Modal */
+#modal {
+  display: grid;
+  grid-template-columns: 50% 630px 50%;
+}
 .modalBoxModal {
   position: fixed;
   width: 100vw;
@@ -353,23 +357,23 @@ li:hover {
 }
 #modal__delete_work,
 #modal__add_work {
+  grid-column: 2 / 3;
   position: fixed;
   width: 630px;
   height: 731px;
-  left: 405px;
+  left: 30%;
   top: 79px;
 
   background: #ffffff;
   border-radius: 10px;
 }
-#modal__add_work,
-#form {
+#modal__add_work {
   display: flex;
   flex-flow: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
-  margin-left: 105px;
-  margin-right: 105px;
+  /* margin-left: 105px; */
+  /* margin-right: 105px; */
   margin-bottom: 42px;
 }
 #form {
@@ -379,6 +383,7 @@ li:hover {
   width: 78px;
   height: 104px;
 }
+#modal__cross__box,
 .modalCrossBox {
   display: flex;
   justify-content: end;
@@ -428,8 +433,11 @@ li:hover {
   top: -112px;
   right: 13px;
 }
-.selected___element,
-.trash__box {
+.fa-maximize {
+  color: #fff;
+}
+#selected__box,
+#trash__box {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -437,14 +445,14 @@ li:hover {
   width: 20px;
   height: 20px;
 }
-#selected___element {
+#selected___box {
   order: 1;
 }
 #trash__box {
   order: 2;
 }
-#SelectedElement,
-#TrashElement {
+#selected___element,
+#trash__element {
   color: #ffff;
 }
 #modal__separator {
@@ -537,7 +545,7 @@ li:hover {
 #work__title {
   padding: 0;
 }
-.ButtonDeleteGallery {
+#button__delete__all__work {
   color: red;
 }
 .displayElementTrue {

@@ -54,7 +54,7 @@ const modalAddWork = document.getElementById('modal__add_work');
 const modalDeleteWork = document.getElementById('modal__delete_work');
 
 const buttonAddWork = document.getElementById('button__add__work');
-const buttonDeleteAllWork = document.getElementById('button__delete__work');
+const buttonDeleteAllWork = document.getElementById('button__delete__all__work');
 const buttonSendWork = document.getElementById('button__send__work');
 
 const getHeader = document.querySelector('header');
@@ -100,6 +100,14 @@ console.log(titleButton);
 console.log(titleButtonIcon);
 console.log(publishChange);
 
+adminToolBox.classList.add('displayElementFalse');
+
+function buttonLogin() {
+  const buttonLoginSectionTitle = document.getElementById('login__section__title');
+  buttonLoginSectionTitle.addEventListener('click', () => ifLogged);
+  adminToolBox.classList.remove('displayElementFalse');
+  console.log(buttonLoginSectionTitle);
+}
 function ifLogged() {
   for (let i = 0; i < sessionStorage.length; i++) {
     if (sessionStorage.key(i) === 'token') {
@@ -159,17 +167,18 @@ ifLogged(
     modalDeleteWork.classList.remove('displayElementFalse');
   })
 );
+const modal = document.getElementById('modal');
 function modalCondition() {
   if (!modalCreated) {
     addClass(modalCrossBox, 'modalCrossBox');
-    addClass(modalDeleteWork, 'modalBoxModal');
+    addClass(modal, 'modalBoxModal');
     setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid fa-xmark cursorPointer']);
   }
   modalCreated = true;
 }
 
 const arrowBack = createElement('i');
-setElementAttributes(arrowBack, ['id', 'faArrowBack'], ['class', 'fa-solid fa-arrow-left cursorPointer']);
+setElementAttributes(arrowBack, ['id', 'modal__arrow__back'], ['class', 'fa-solid fa-arrow-left cursorPointer']);
 
 function redirectToFrontEnd() {
   window.location.href = '/FrontEnd';
@@ -193,7 +202,7 @@ function arrowBackFunction(element) {
   addClass(modalCrossBox, 'modalCrossBox');
   imageBoxChange();
   modalCrossBox.classList.replace('modalCrossBoxAndArrow', 'modalCrossBox');
-  arrowBack.style.visibility = 'hidden';
+
   const hiddenInputs = document.querySelector('input');
   setElementAttributes(hiddenInputs, ['class', 'displayElementFalse']);
   const modalArray = Array.from(arrowBackModalSet);
@@ -256,23 +265,21 @@ function createFigureElements(imageUrl, id) {
   FigureElement.appendChild(FigureText).textContent = 'éditer';
 
   addClass(IconBox, 'IconBox');
+  setElementAttributes(IconBox, ['id', 'icon__box']);
   FigureElement.appendChild(IconBox);
 
-  setElementAttributes(TrashBox, ['id', ImgElement.id], ['class', 'TrashBox']);
+  setElementAttributes(TrashBox, ['id', 'trash__box'], ['data-id', ImgElement.id], ['class', 'trash__box']);
   IconBox.appendChild(TrashBox);
 
-  setElementAttributes(TrashElement, ['id', 'TrashElement'], ['class', 'fa-solid fa-trash-can cursorPointer']);
+  setElementAttributes(TrashElement, ['id', 'trash__element'], ['class', 'fa-solid fa-trash-can cursorPointer']);
   TrashBox.appendChild(TrashElement);
 
-  addClass(SelectedBox, 'SelectedBox');
   IconBox.appendChild(SelectedBox);
-  setElementAttributes(SelectedElement, ['id', 'SelectedElement'], ['class', 'fa-solid fa-maximize cursorPointer']);
+  setElementAttributes(SelectedBox, ['id', 'selected__box'], ['data-id', ImgElement.id], ['class', 'selected__box']);
+
+  setElementAttributes(SelectedElement, ['id', 'selected__element'], ['class', 'fa-solid fa-maximize cursorPointer']);
   SelectedBox.appendChild(SelectedElement);
 }
-
-// Font Awesome zoom selection
-
-console.log(IconBox);
 
 // // Array avoid multiple icon + Event listener mouse events (Enter and Leave)
 const SelectedElementArray = [];
@@ -325,7 +332,6 @@ function handleAddWork() {
   const addedOptions = new Set();
   modalDeleteWork.classList.add('displayElementFalse');
   modalAddWork.classList.remove('displayElementFalse');
-  modalAddWork.classList.add('displayElementTrue');
 
   fetch(api)
     .then((response) => response.json())
@@ -352,7 +358,6 @@ function handleAddWork() {
         });
       });
     });
-  arrowBack.style.visibility = 'visible';
 }
 
 let imagePreviewPath;
