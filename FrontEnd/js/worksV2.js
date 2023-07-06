@@ -345,7 +345,6 @@ let imagePreviewCleanPath;
 
 const formData = new FormData();
 let imageUrl;
-let image;
 let title;
 let categoryData;
 
@@ -354,32 +353,19 @@ ImagePreview.classList.add('displayElementFalse');
 function handleImageInputChange() {
   const imagePreviewPath = InputFileById.value;
 
-  const reader = new FileReader();
-  const file = InputFileById.files[0];
-  console.log(file);
-
   const imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
   ImagePreview.classList.remove('displayElementFalse');
-  imageUrl = api + '/images/' + file.name;
+  imageUrl = api + '/images/' + imagePreviewCleanPath;
   console.log(imageUrl);
 
-  reader.onload = function (event) {
-    const image = event.target.result;
-    console.log(image);
+  ImagePreview.setAttribute('src', '/Frontend/assets/images/' + imagePreviewCleanPath);
+  InputFileById.classList.add('displayElementFalse');
 
-    ImagePreview.setAttribute('src', '/Frontend/assets/images/' + imagePreviewCleanPath);
-    InputFileById.classList.add('displayElementFalse');
+  const InputFileText = document.getElementById('input__file__text');
+  InputFileText.textContent = '';
+  InputFileText.classList.add('displayElementFalse');
 
-    const InputFileText = document.getElementById('input__file__text');
-    InputFileText.textContent = '';
-    InputFileText.classList.add('displayElementFalse');
-
-    InputFileType.classList.add('displayElementFalse');
-
-    // Le reste de votre code ici
-  };
-
-  reader.readAsDataURL(file);
+  InputFileType.classList.add('displayElementFalse');
 }
 
 const InputFileById = document.getElementById('image__file');
@@ -389,13 +375,13 @@ InputFileById.addEventListener('change', () => {
 
 function handleInputWorkTitleChange() {
   InputWorkTitle.addEventListener('change', () => {
-    const title = InputWorkTitle.value;
+    title = InputWorkTitle.value;
   });
 }
 
 function handleInputWorkSelectChange() {
   InputWorkSelect.addEventListener('change', () => {
-    let categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].id;
+    categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].id;
   });
 }
 // InputBoxForWork.appendChild(InputWorkSelect);
@@ -449,7 +435,7 @@ buttonSendWork.addEventListener('click', handleFormSubmit);
 
 function handleFormSubmit(event) {
   event.preventDefault();
-  formData.append('imageUrl', image);
+  formData.append('imageUrl', imageUrl);
   formData.append('title', title);
   formData.append('categoryId', categoryData);
 
