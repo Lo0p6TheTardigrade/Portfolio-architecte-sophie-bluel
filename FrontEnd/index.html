@@ -48,15 +48,12 @@
         <div id="modal__add__title__box">
           <h2>Ajout photo</h2>
         </div>
-        <form
-          action="POST"
-          id="form">
+        <form id="form">
           <label
             for="image__file"
             class="label__element">
             <input
               type="file"
-              name="image__file"
               id="image__file"
               class="fa-image fa-regular" />
             <img
@@ -72,7 +69,8 @@
               type="text"
               name="work__title"
               id="work__title"
-              class="input__add__work" />
+              class="input__add__work"
+              multiple />
             <select
               id="select"
               class="input__add__work">

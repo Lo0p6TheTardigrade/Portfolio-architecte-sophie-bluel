@@ -77,29 +77,6 @@ const titleButtonIcon = createElement('i');
 
 const publishChange = document.getElementById('admin__publish__button');
 
-console.log(ButtonSend);
-
-console.log(arrowBackModalSet);
-console.log(modalAddWork);
-console.log(modalDeleteWork);
-
-console.log(getHeader);
-console.log(getBody);
-console.log(headTarget);
-console.log(fontAwesomeScript);
-
-console.log(adminToolBox);
-console.log(adminToolButtonBox);
-console.log(adminToolButton);
-console.log(adminToolButtonIcon);
-console.log(portraitEditButtonBox);
-console.log(portraitButton);
-console.log(portraitButtonIcon);
-console.log(titleEditButtonBox);
-console.log(titleButton);
-console.log(titleButtonIcon);
-console.log(publishChange);
-
 adminToolBox.classList.add('displayElementFalse');
 
 function buttonLogin() {
@@ -158,24 +135,25 @@ function ifLogged() {
 // Modal dialog
 let modalCreated = false;
 const modalCrossBox = document.getElementById('modal__cross__box');
+const modalCrossArrowBox = document.getElementById('modal__cross__and__arrow__box');
 const modalCross = createElement('i');
 
 ifLogged(
   modalCrossBox.appendChild(modalCross),
   adminToolButton.addEventListener('click', () => {
-    modalCondition;
+    if (!modalCreated) {
+      addClass(modalCrossBox, 'modalCrossBox');
+      addClass(modal, 'modalBoxModal');
+      setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid fa-xmark cursorPointer']);
+    }
+    modalCreated = true;
     modalDeleteWork.classList.remove('displayElementFalse');
   })
 );
 const modal = document.getElementById('modal');
-function modalCondition() {
-  if (!modalCreated) {
-    addClass(modalCrossBox, 'modalCrossBox');
-    addClass(modal, 'modalBoxModal');
-    setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid fa-xmark cursorPointer']);
-  }
-  modalCreated = true;
-}
+// function modalCondition() {
+
+// }
 
 const arrowBack = createElement('i');
 setElementAttributes(arrowBack, ['id', 'modal__arrow__back'], ['class', 'fa-solid fa-arrow-left cursorPointer']);
@@ -189,11 +167,12 @@ function imageBoxChange() {
 }
 
 function arrowBackAdd() {
-  modalCrossBox.appendChild(arrowBack);
+  modalCrossArrowBox.appendChild(arrowBack);
+  modalCrossArrowBox.appendChild(modalCross);
 }
 
 modalCross.addEventListener('click', () => redirectToFrontEnd());
-adminToolButton.addEventListener('click', () => modalCondition());
+adminToolButton.addEventListener('click', () => ifLogged);
 
 // Arrow function for go back
 function arrowBackFunction(element) {
@@ -313,15 +292,15 @@ async function deleteWork() {
 }
 
 const InputBoxForWork = createElement('div');
-const InputWorkSelect = document.createElement('select');
+const InputWorkSelect = document.getElementById('select');
 const InputWorkOption = document.createElement('option');
 
 let LabelElement = document.createElement('label');
-let InputFile = document.createElement('input');
+let InputFile = document.getElementById('image__file');
 let InputFileText = createElement('span');
-let InputFileType = createElement('span');
-let imagePreview = document.createElement('img');
-let InputWorkTitle = document.createElement('input');
+let InputFileType = document.getElementById('input__file__type');
+let imagePreview = document.getElementById('image__preview');
+let InputWorkTitle = document.getElementById('work__title');
 
 // --------------- Modal Input ---------------//
 buttonAddWork.addEventListener('click', handleAddWork);
@@ -332,82 +311,100 @@ function handleAddWork() {
   const addedOptions = new Set();
   modalDeleteWork.classList.add('displayElementFalse');
   modalAddWork.classList.remove('displayElementFalse');
+  arrowBackAdd();
 
-  fetch(api)
-    .then((response) => response.json())
-    .then((works) => {
-      works.forEach((work) => {
-        works.forEach((work) => {
-          uniqueCategories.add(work.categoryId);
-        });
+  // fetch(api)
+  //   .then((response) => response.json())
+  //   .then((works) => {
+  //     works.forEach((work) => {
+  //       works.forEach((work) => {
+  //         uniqueCategories.add(work.categoryId);
+  //       });
 
-        let matchingWork;
-        let option;
+  //       let matchingWork;
+  //       let option;
 
-        uniqueCategories.forEach((categoryId) => {
-          matchingWork = works.find((work) => work.categoryId === categoryId);
-          if (!addedOptions.has(categoryId)) {
-            option = InputWorkOption.cloneNode();
-            option.setAttribute('id', matchingWork.categoryId);
-            option.textContent = matchingWork.category.name;
+  //       uniqueCategories.forEach((categoryId) => {
+  //         matchingWork = works.find((work) => work.categoryId === categoryId);
+  //         if (!addedOptions.has(categoryId)) {
+  //           option = InputWorkOption.cloneNode();
+  //           option.setAttribute('id', matchingWork.categoryId);
+  //           option.textContent = matchingWork.category.name;
 
-            InputWorkSelect.appendChild(option);
+  //           InputWorkSelect.appendChild(option);
 
-            addedOptions.add(categoryId);
-          }
-        });
-      });
-    });
+  //           addedOptions.add(categoryId);
+  //         }
+  //       });
+  //     });
+  //   });
 }
 
 let imagePreviewPath;
 let imagePreviewCleanPath;
 
 const formData = new FormData();
-let imagePreviewGetPath;
+let imageUrl;
+let image;
+let title;
+let categoryData;
+let blob;
 
+const ImagePreview = document.getElementById('image__preview');
+ImagePreview.classList.add('displayElementFalse');
 function handleImageInputChange() {
-  const InputFileById = document.getElementById('InputFile');
-  InputFileById.addEventListener('change', () => {
-    const ImagePreview = document.getElementById('imagePreview');
+  const imagePreviewPath = InputFileById.value;
 
-    const imagePreviewPath = InputFileById.value;
-    const imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
-    imagePreviewGetPath = api + '/images/' + imagePreviewCleanPath;
+  const reader = new FileReader();
+  const file = InputFileById.files[0];
+  console.log(file);
+
+  const imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
+  ImagePreview.classList.remove('displayElementFalse');
+  imageUrl = file.name;
+  console.log(imageUrl);
+
+  reader.onload = function (event) {
+    const arrayBuffer = event.target.result;
+    image = new Uint8Array(arrayBuffer);
+    blob = new Blob([imageUrl]);
+    console.log(blob);
 
     ImagePreview.setAttribute('src', '/Frontend/assets/images/' + imagePreviewCleanPath);
-    replaceClass(ImagePreview, 'displayElementFalse', 'displayElementTrue');
-
     InputFileById.classList.add('displayElementFalse');
 
-    const InputFileText = document.getElementById('InputFileText');
+    const InputFileText = document.getElementById('input__file__text');
     InputFileText.textContent = '';
     InputFileText.classList.add('displayElementFalse');
 
     InputFileType.classList.add('displayElementFalse');
-    formData.append('imageUrl', imagePreviewGetPath);
-  });
+
+    // Le reste de votre code ici
+  };
+
+  reader.readAsArrayBuffer(file);
 }
+
+const InputFileById = document.getElementById('image__file');
+InputFileById.addEventListener('change', () => {
+  handleImageInputChange();
+});
 
 function handleInputWorkTitleChange() {
   InputWorkTitle.addEventListener('change', () => {
-    const title = InputWorkTitle.value;
-    formData.append('title', title);
+    title = InputWorkTitle.value;
   });
 }
 
 function handleInputWorkSelectChange() {
   InputWorkSelect.addEventListener('change', () => {
-    let categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].id;
-    formData.append('categoryId', categoryData);
+    categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].id;
   });
 }
-console.log(InputWorkSelect);
-InputBoxForWork.appendChild(InputWorkSelect);
-
-setElementAttributes(imagePreview, ['id', 'imagePreview'], ['class', 'imagePreview cursorPointer']);
+// InputBoxForWork.appendChild(InputWorkSelect);
 
 const imageBox = document.getElementById('image_box');
+
 imageBox.addEventListener('click', handleImageInputChange);
 handleInputWorkTitleChange();
 handleInputWorkSelectChange();
@@ -421,7 +418,7 @@ handleInputWorkSelectChange();
 //     console.log(form);
 //     const formDataToSend = new FormData(form);
 
-//     // formDataToSend.append('imageUrl', imagePreviewGetPath);
+//     // formDataToSend.append('imageUrl', imageUrl);
 //     // formDataToSend.append('title', InputWorkTitle.value);
 //     // formDataToSend.append('categoryId', InputWorkSelect.options[InputWorkSelect.selectedIndex].id);
 
@@ -451,13 +448,20 @@ handleInputWorkSelectChange();
 // }
 
 // handleButtonSendClick();
-buttonSendWork.addEventListener('submit', handleFormSubmit);
+buttonSendWork.addEventListener('click', handleFormSubmit);
 
 function handleFormSubmit(event) {
   event.preventDefault();
 
-  const formData = new FormData(event.target);
-  console.log(formData.get(''));
+  formData.append('imageUrl', blob);
+  formData.append('title', title);
+  formData.append('categoryId', categoryData);
+
+  console.log(formData.get('imageUrl'));
+  console.log(formData.get('title'));
+  console.log(formData.get('categoryId'));
+
+  // const formData = new FormData(event.target);
 
   fetch('http://localhost:5678/api/works', {
     method: 'POST',
