@@ -348,7 +348,6 @@ let imageUrl;
 let image;
 let title;
 let categoryData;
-let blob;
 
 const ImagePreview = document.getElementById('image__preview');
 ImagePreview.classList.add('displayElementFalse');
@@ -361,14 +360,12 @@ function handleImageInputChange() {
 
   const imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
   ImagePreview.classList.remove('displayElementFalse');
-  imageUrl = file.name;
+  imageUrl = api + '/images/' + file.name;
   console.log(imageUrl);
 
   reader.onload = function (event) {
-    const arrayBuffer = event.target.result;
-    image = new Uint8Array(arrayBuffer);
-    blob = new Blob([imageUrl]);
-    console.log(blob);
+    const image = event.target.result;
+    console.log(image);
 
     ImagePreview.setAttribute('src', '/Frontend/assets/images/' + imagePreviewCleanPath);
     InputFileById.classList.add('displayElementFalse');
@@ -382,7 +379,7 @@ function handleImageInputChange() {
     // Le reste de votre code ici
   };
 
-  reader.readAsArrayBuffer(file);
+  reader.readAsDataURL(file);
 }
 
 const InputFileById = document.getElementById('image__file');
@@ -392,13 +389,13 @@ InputFileById.addEventListener('change', () => {
 
 function handleInputWorkTitleChange() {
   InputWorkTitle.addEventListener('change', () => {
-    title = InputWorkTitle.value;
+    const title = InputWorkTitle.value;
   });
 }
 
 function handleInputWorkSelectChange() {
   InputWorkSelect.addEventListener('change', () => {
-    categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].id;
+    let categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].id;
   });
 }
 // InputBoxForWork.appendChild(InputWorkSelect);
@@ -452,8 +449,7 @@ buttonSendWork.addEventListener('click', handleFormSubmit);
 
 function handleFormSubmit(event) {
   event.preventDefault();
-
-  formData.append('imageUrl', blob);
+  formData.append('imageUrl', image);
   formData.append('title', title);
   formData.append('categoryId', categoryData);
 
