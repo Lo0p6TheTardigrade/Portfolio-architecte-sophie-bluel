@@ -188,14 +188,16 @@ function arrowBackFunction(element) {
   for (let i = 0; i < modalArray.length; i++) {
     modal.appendChild(modalArray[i]);
   }
-  modalTitleBox.appendChild(modalTitle);
-  resetElement(buttonBox);
-  resetElement(imageBox);
-  modalTitle.textContent = 'Galerie photo';
+  // modalTitleBox.appendChild(modalTitle);
+  // resetElement(buttonBox);
+  // resetElement(imageBox);
+  // modalTitle.textContent = 'Galerie photo';
+  modalDeleteWork.classList.remove('displayElementFalse');
 }
 
 arrowBack.addEventListener('click', () => {
-  arrowBackFunction(modal, fetchWorks());
+  arrowBackFunction(modal);
+  fetchWorks();
 });
 // buttonAddWork.addEventListener('click', () => {
 //   arrowBack.style.visibility = 'visible';
@@ -351,14 +353,21 @@ let categoryData;
 const ImagePreview = document.getElementById('image__preview');
 ImagePreview.classList.add('displayElementFalse');
 function handleImageInputChange() {
-  const imagePreviewPath = InputFileById.value;
+  // const imagePreviewPath = InputFileById.value;
+  const imageFile = InputFileById.files[0];
 
-  const imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
+  const [file] = InputFileById.files;
+  if (file) {
+    imagePreview.src = URL.createObjectURL(file);
+    // addImgButton.classList.add('modalHide');
+  }
+
+  // const imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
   ImagePreview.classList.remove('displayElementFalse');
-  imageUrl = api + '/images/' + imagePreviewCleanPath;
+  imageUrl = imageFile;
   console.log(imageUrl);
 
-  ImagePreview.setAttribute('src', '/Frontend/assets/images/' + imagePreviewCleanPath);
+  // ImagePreview.setAttribute('src', '/Frontend/assets/images/' + imagePreviewCleanPath);
   InputFileById.classList.add('displayElementFalse');
 
   const InputFileText = document.getElementById('input__file__text');
@@ -381,56 +390,17 @@ function handleInputWorkTitleChange() {
 
 function handleInputWorkSelectChange() {
   InputWorkSelect.addEventListener('change', () => {
-    categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].id;
+    categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].value;
   });
 }
 // InputBoxForWork.appendChild(InputWorkSelect);
 
 const imageBox = document.getElementById('image_box');
 
-imageBox.addEventListener('click', handleImageInputChange);
+buttonSendWork.addEventListener('click', handleImageInputChange);
 handleInputWorkTitleChange();
 handleInputWorkSelectChange();
 
-// function handleButtonSendClick() {
-//   console.log(ButtonSend);
-//   ButtonSend.addEventListener('submit', async (e) => {
-//     e.preventDefault();
-//     const form = e.target;
-
-//     console.log(form);
-//     const formDataToSend = new FormData(form);
-
-//     // formDataToSend.append('imageUrl', imageUrl);
-//     // formDataToSend.append('title', InputWorkTitle.value);
-//     // formDataToSend.append('categoryId', InputWorkSelect.options[InputWorkSelect.selectedIndex].id);
-
-//     // console.log(formDataToSend.get('title'));
-//     // console.log(formDataToSend.get('imageUrl'));
-//     // console.log(formDataToSend.get('categoryId'));
-//     const userToken = sessionStorage.getItem('token');
-//     const headers = new Headers();
-//     headers.append('Authorization', tokenWithoutQuotes);
-//     // console.log(tokenWithoutQuotes);
-//     try {
-//       const response = await fetch('http://localhost:5678/api/works', {
-//         method: 'POST',
-//         headers: headers,
-//         body: formDataToSend,
-//       });
-
-//       if (response.ok) {
-//         alert('Travail envoyé avec succès !');
-//       } else {
-//         alert("Erreur lors de l'envoi du travail " + '(Code erreur = ' + response.status + ')');
-//       }
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   });
-// }
-
-// handleButtonSendClick();
 buttonSendWork.addEventListener('click', handleFormSubmit);
 
 function handleFormSubmit(event) {
@@ -449,6 +419,7 @@ function handleFormSubmit(event) {
     method: 'POST',
     headers: {
       Authorization: tokenWithoutQuotes,
+      accept: 'application/json',
     },
     body: formData,
   })
@@ -456,7 +427,7 @@ function handleFormSubmit(event) {
       if (response.ok) {
         alert('Le travail a été ajouté avec succès !');
       } else {
-        alert("Erreur lors de l'ajout du travail");
+        alert("Erreur lors de l'ajout du travail " + '(Code erreur = ' + response.status + ')');
       }
     })
     .catch((error) => {
