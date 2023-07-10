@@ -1,6 +1,7 @@
 const token = 'Bearer ' + sessionStorage.getItem('token');
 const tokenWithoutQuotes = token.replace(/"/g, '');
 let api = 'http://localhost:5678/api/works';
+let apiCategories = 'http://localhost:5678/api/categories';
 
 function createElement(element) {
   return document.createElement('' + element);
@@ -212,8 +213,6 @@ let TrashElement = createElement('i');
 let SelectedBox = createElement('div');
 let SelectedElement = createElement('i');
 
-const figuresSet = new Set();
-
 adminToolButton.addEventListener('click', fetchWorks);
 
 function fetchWorks() {
@@ -226,6 +225,8 @@ function fetchWorks() {
     });
 }
 
+const imageBox = document.getElementById('image_box');
+
 function createFigureElements(imageUrl, id) {
   FigureElement = document.createElement('figure');
   ImgElement = document.createElement('img');
@@ -237,7 +238,6 @@ function createFigureElements(imageUrl, id) {
   SelectedElement = createElement('i');
 
   imageBox.appendChild(FigureElement);
-  addToSet(figuresSet, FigureElement);
 
   setElementAttributes(ImgElement, ['src', imageUrl], ['id', id], ['class', 'ImageElement cursorPointer']);
   FigureElement.appendChild(ImgElement);
@@ -262,14 +262,6 @@ function createFigureElements(imageUrl, id) {
   SelectedBox.appendChild(SelectedElement);
 }
 
-// // Array avoid multiple icon + Event listener mouse events (Enter and Leave)
-const SelectedElementArray = [];
-// hideElement(SelectedBox);
-
-// FigureElement.addEventListener('mouseenter', showElement(SelectedBox));
-
-// FigureElement.addEventListener('mouseleave', hideElement(SelectedBox));
-
 // Event click for trash work
 TrashBox.addEventListener('click', deleteWork);
 
@@ -293,13 +285,18 @@ async function deleteWork() {
   }
 }
 
+const InputFileById = document.getElementById('image__file');
+const ImagePreview = document.getElementById('image__preview');
+
+ImagePreview.classList.add('displayElementFalse');
+
 const InputBoxForWork = createElement('div');
 const InputWorkSelect = document.getElementById('select');
 const InputWorkOption = document.createElement('option');
 
 let LabelElement = document.createElement('label');
 let InputFile = document.getElementById('image__file');
-let InputFileText = createElement('span');
+const InputFileText = document.getElementById('input__file__text');
 let InputFileType = document.getElementById('input__file__type');
 let imagePreview = document.getElementById('image__preview');
 let InputWorkTitle = document.getElementById('work__title');
@@ -308,129 +305,61 @@ let InputWorkTitle = document.getElementById('work__title');
 buttonAddWork.addEventListener('click', handleAddWork);
 
 function handleAddWork() {
-  // resetElement(buttonBox);
-  const uniqueCategories = new Set();
-  const addedOptions = new Set();
   modalDeleteWork.classList.add('displayElementFalse');
   modalAddWork.classList.remove('displayElementFalse');
   arrowBackAdd();
-
-  // fetch(api)
-  //   .then((response) => response.json())
-  //   .then((works) => {
-  //     works.forEach((work) => {
-  //       works.forEach((work) => {
-  //         uniqueCategories.add(work.categoryId);
-  //       });
-
-  //       let matchingWork;
-  //       let option;
-
-  //       uniqueCategories.forEach((categoryId) => {
-  //         matchingWork = works.find((work) => work.categoryId === categoryId);
-  //         if (!addedOptions.has(categoryId)) {
-  //           option = InputWorkOption.cloneNode();
-  //           option.setAttribute('id', matchingWork.categoryId);
-  //           option.textContent = matchingWork.category.name;
-
-  //           InputWorkSelect.appendChild(option);
-
-  //           addedOptions.add(categoryId);
-  //         }
-  //       });
-  //     });
-  //   });
 }
 
-let imagePreviewPath;
-let imagePreviewCleanPath;
-
-const formData = new FormData();
-let imageUrl;
-let title;
-let categoryData;
-
-const ImagePreview = document.getElementById('image__preview');
-ImagePreview.classList.add('displayElementFalse');
-function handleImageInputChange() {
-  // const imagePreviewPath = InputFileById.value;
-  const imageFile = InputFileById.files[0];
-
+async function handleImageInputChange(InputFileById) {
   const [file] = InputFileById.files;
   if (file) {
     imagePreview.src = URL.createObjectURL(file);
-    // addImgButton.classList.add('modalHide');
   }
 
-  // const imagePreviewCleanPath = imagePreviewPath.split('\\').pop();
   ImagePreview.classList.remove('displayElementFalse');
-  imageUrl = imageFile;
-  console.log(imageUrl);
 
-  // ImagePreview.setAttribute('src', '/Frontend/assets/images/' + imagePreviewCleanPath);
   InputFileById.classList.add('displayElementFalse');
 
-  const InputFileText = document.getElementById('input__file__text');
   InputFileText.textContent = '';
   InputFileText.classList.add('displayElementFalse');
 
   InputFileType.classList.add('displayElementFalse');
 }
 
-const InputFileById = document.getElementById('image__file');
 InputFileById.addEventListener('change', () => {
-  handleImageInputChange();
+  handleImageInputChange(InputFileById);
 });
 
-function handleInputWorkTitleChange() {
-  InputWorkTitle.addEventListener('change', () => {
-    title = InputWorkTitle.value;
-  });
-}
+buttonSendWork.addEventListener('click', (e) => {
+  handleFormSubmit(e, InputFileById, InputWorkTitle, InputWorkSelect);
+});
 
-function handleInputWorkSelectChange() {
-  InputWorkSelect.addEventListener('change', () => {
-    categoryData = InputWorkSelect.options[InputWorkSelect.selectedIndex].value;
-  });
-}
-// InputBoxForWork.appendChild(InputWorkSelect);
-
-const imageBox = document.getElementById('image_box');
-
-buttonSendWork.addEventListener('click', handleImageInputChange);
-handleInputWorkTitleChange();
-handleInputWorkSelectChange();
-
-buttonSendWork.addEventListener('click', handleFormSubmit);
-
-function handleFormSubmit(event) {
+async function handleFormSubmit(event, InputFileById, InputWorkTitle, InputWorkSelect) {
   event.preventDefault();
-  formData.append('imageUrl', imageUrl);
-  formData.append('title', title);
-  formData.append('categoryId', categoryData);
+  const formData = new FormData();
+  const newImage = InputFileById.files[0];
+  const newTitle = InputWorkTitle.value;
+  const newCategory = InputWorkSelect.value;
+  formData.append('imageUrl', newImage);
+  formData.append('title', newTitle);
+  formData.append('categoryId', newCategory);
 
   console.log(formData.get('imageUrl'));
   console.log(formData.get('title'));
   console.log(formData.get('categoryId'));
 
-  // const formData = new FormData(event.target);
-
-  fetch('http://localhost:5678/api/works', {
+  const response = await fetch('http://localhost:5678/api/works', {
     method: 'POST',
     headers: {
       Authorization: tokenWithoutQuotes,
       accept: 'application/json',
     },
     body: formData,
-  })
-    .then((response) => {
-      if (response.ok) {
-        alert('Le travail a été ajouté avec succès !');
-      } else {
-        alert("Erreur lors de l'ajout du travail " + '(Code erreur = ' + response.status + ')');
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  });
+  if (response.ok) {
+    alert('Le travail a été ajouté avec succès !');
+    fetchWorks();
+  } else {
+    alert("Erreur lors de l'ajout du travail " + '(Code erreur = ' + response.status + ')');
+  }
 }
