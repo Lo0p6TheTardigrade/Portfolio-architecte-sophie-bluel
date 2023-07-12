@@ -224,6 +224,20 @@ function fetchWorks() {
       });
     });
 }
+let getCategory;
+let getCategoryID;
+function fetchCategories() {
+  fetch(apiCategories)
+    .then((response) => response.json())
+    .then((categories) => {
+      categories.forEach((category) => {
+        console.log(category.id);
+        getCategory = category;
+        getCategoryID = category.id;
+      });
+    });
+}
+fetchCategories();
 
 const imageBox = document.getElementById('image_box');
 
