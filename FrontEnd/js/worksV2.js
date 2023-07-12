@@ -344,9 +344,7 @@ async function handleFormSubmit(event, InputFileById, InputWorkTitle, InputWorkS
   formData.append('title', newTitle);
   formData.append('categoryId', newCategory);
 
-  console.log(formData.get('imageUrl'));
-  console.log(formData.get('title'));
-  console.log(formData.get('categoryId'));
+  console.log(newImage, newTitle, newCategory);
 
   const response = await fetch('http://localhost:5678/api/works', {
     method: 'POST',
