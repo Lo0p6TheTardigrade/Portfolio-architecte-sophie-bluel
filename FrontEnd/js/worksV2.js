@@ -293,7 +293,7 @@ function createFigureElements(imageUrl, id) {
 
 async function deleteWork() {
   const workId = parseInt(TrashBox.getAttribute('data-id'));
-  console.log(workId);
+
   try {
     const response = await fetch(api + `/${workId}`, {
       method: 'DELETE',
@@ -355,7 +355,7 @@ async function handleImageInputChange(InputFileById) {
   InputFileText.classList.add('displayElementFalse');
 
   InputFileType.classList.add('displayElementFalse');
-  // validateForm();
+  validateForm();
 }
 
 InputFileById.addEventListener('change', () => {
@@ -383,11 +383,6 @@ InputFileById.addEventListener('change', () => {
 //     InputWorkSelect.required = true;
 //   }
 // }
-buttonSendWork.addEventListener('click', (e) => {
-  // handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect);
-  e.preventDefault();
-  console.log('ok');
-});
 
 async function handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect) {
   const formData = new FormData();

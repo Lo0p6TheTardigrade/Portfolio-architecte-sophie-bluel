@@ -71,8 +71,6 @@ fetch('http://localhost:5678/api/works')
     allWorksSpan.textContent = 'Tout';
     allWorksSpan.classList.add('span__filter__global');
     objectsCategoryDiv.appendChild(allWorksSpan);
-    let objectsCategorySpan = document.createElement('span');
-    objectsCategorySpan.id = 0;
     works.forEach((work) => {
       const category = work.category;
       const categoryName = category.name;
@@ -89,10 +87,7 @@ fetch('http://localhost:5678/api/works')
         objectsCategoryDiv.appendChild(objectsCategorySpan);
         objectsCategorySpan.setAttribute('id', categoryId);
         objectsCategorySpan.setAttribute('data-id', categoryId);
-        if (category) {
-          console.log(categoryName);
-          objectsCategorySpan.classList.add('fiter__active');
-        }
+
         // Get the category by click
         objectsCategorySpan.addEventListener('click', () => {
           // const categoryId = parseInt(objectsCategorySpan.getAttribute('data-id'));

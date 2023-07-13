@@ -634,9 +634,6 @@ li:hover {
   column-gap: 9px;
   font-weight: 700;
 }
-.fiter__active {
-  background: #1d6154;
-}
 
 .span__filter__global {
   border: 2px solid #1d6154;
