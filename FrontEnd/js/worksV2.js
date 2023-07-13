@@ -193,7 +193,8 @@ function arrowBackFunction(element) {
   // resetElement(buttonBox);
   // resetElement(imageBox);
   // modalTitle.textContent = 'Galerie photo';
-  modalDeleteWork.classList.remove('displayElementFalse');
+  modalDeleteWork.classList.replace('displayElementFalse', 'displayElementTrue');
+  // modalDeleteWork.classList.add('displayElementTrue');
 }
 
 arrowBack.addEventListener('click', () => {
@@ -256,11 +257,11 @@ function createFigureElements(imageUrl, id) {
   FigureElement = document.createElement('figure');
   ImgElement = document.createElement('img');
   FigureText = document.createElement('p');
-  IconBox = createElement('div');
-  TrashBox = createElement('div');
-  TrashElement = createElement('i');
-  SelectedBox = createElement('div');
-  SelectedElement = createElement('i');
+  IconBox = document.createElement('div');
+  TrashBox = document.createElement('div');
+  TrashElement = document.createElement('i');
+  const FigureSelectedBox = document.createElement('div');
+  const FigureSelectedElement = document.createElement('i');
 
   imageBox.appendChild(FigureElement);
 
@@ -280,18 +281,32 @@ function createFigureElements(imageUrl, id) {
   setElementAttributes(TrashElement, ['id', 'trash__element'], ['class', 'fa-solid fa-trash-can cursorPointer']);
   TrashBox.appendChild(TrashElement);
 
+  const SelectedBox = document.createElement('div');
+  const SelectedElement = document.createElement('i');
   IconBox.appendChild(SelectedBox);
   setElementAttributes(SelectedBox, ['id', 'selected__box'], ['data-id', ImgElement.id], ['class', 'selected__box']);
 
   setElementAttributes(SelectedElement, ['id', 'selected__element'], ['class', 'fa-solid fa-maximize cursorPointer']);
+  addClass(SelectedBox, 'displayElementFalse');
   SelectedBox.appendChild(SelectedElement);
+
+  FigureElement.addEventListener('mouseenter', () => {
+    SelectedBox.classList.remove('displayElementFalse');
+  });
+  FigureElement.addEventListener('mouseleave', () => {
+    SelectedBox.classList.add('displayElementFalse');
+  });
+
+  TrashBox.addEventListener('click', () => {
+    console.log(TrashBox);
+    console.log('trash clicked');
+    deleteWork();
+    console.log(TrashElement);
+  });
 }
 
-// Event click for trash work
-TrashBox.addEventListener('click', deleteWork);
-
 async function deleteWork() {
-  const workId = parseInt(TrashBox.id);
+  const workId = parseInt(TrashBox.getAttribute('data-id'));
 
   try {
     const response = await fetch(api + `/${workId}`, {
