@@ -4,7 +4,6 @@ const sectionPortfolioH2 = document.querySelector('#portfolio > h2');
 
 // Get gallery by css class
 const sectionPortfolioDivGallery = document.querySelector('.gallery');
-sectionPortfolioDivGallery.setAttribute('id', 'projetsGallery');
 
 // Get section introduction tag from ID attribute
 const sectionIntroduction = document.getElementById('introduction');
@@ -12,6 +11,22 @@ const sectionIntroduction = document.getElementById('introduction');
 sectionIntroduction.querySelector('figure').setAttribute('id', 'introductionFigure');
 const introductionFigure = document.getElementById('introductionFigure');
 
+if (document.getElementById('main__section') === false) {
+} else {
+  // Find the list item with the following text fields
+  let getProjectNavLink = document.getElementsByTagName('*');
+  // console.log(getProjectNavLink);
+  for (let index = 0; index < getProjectNavLink.length; index++) {
+    if (getProjectNavLink[index].textContent === 'projets') {
+      let project = getProjectNavLink[index];
+      // console.log(project);
+      project.setAttribute('id', 'projets');
+      project.addEventListener('click', () => {
+        window.location.href = '/FrontEnd';
+      });
+    }
+  }
+}
 function ifPreviouslyConnected() {
   sessionStorage.getItem('token');
 

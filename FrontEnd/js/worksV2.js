@@ -152,6 +152,9 @@ ifLogged(
   })
 );
 const modal = document.getElementById('modal');
+// function modalCondition() {
+
+// }
 
 const arrowBack = createElement('i');
 setElementAttributes(arrowBack, ['id', 'modal__arrow__back'], ['class', 'fa-solid fa-arrow-left cursorPointer']);
@@ -164,17 +167,32 @@ function imageBoxChange() {
   imageBox.classList.replace('ImgBox__ChangeToSendWork', 'imageBox');
 }
 
-modal.classList.add('displayElementFalse');
+// function arrowBackAdd() {
+//   modalCrossArrowBox.appendChild(arrowBack);
+//   modalCrossArrowBox.appendChild(modalCross);
+// }
+
 modalCross.addEventListener('click', () => redirectToFrontEnd());
 adminToolButton.addEventListener('click', () => ifLogged);
 
 // Arrow function for go back
 function arrowBackFunction() {
+  // modal.appendChild(modalCrossBox);
+  // addClass(modalCrossBox, 'modalCrossBox');
   imageBoxChange();
+  // modalCrossBox.classList.replace('modalCrossBoxAndArrow', 'modalCrossBox');
 
   const hiddenInputs = document.querySelector('input');
   setElementAttributes(hiddenInputs, ['class', 'displayElementFalse']);
-
+  // const modalArray = Array.from(arrowBackModalSet);
+  // for (let i = 0; i < modalArray.length; i++) {
+  //   modal.appendChild(modalArray[i]);
+  // }
+  // modalTitleBox.appendChild(modalTitle);
+  // resetElement(buttonBox);
+  // resetElement(imageBox);
+  // modalTitle.textContent = 'Galerie photo';
+  // modalDeleteWork.classList.replace('displayElementFalse', 'displayElementTrue');
   modalDeleteWork.classList.remove('displayElementFalse');
   modalAddWork.classList.add('displayElementFalse');
   modalCrossBox.appendChild(modalCross);
@@ -183,6 +201,9 @@ function arrowBackFunction() {
 arrowBack.addEventListener('click', () => {
   arrowBackFunction();
 });
+// buttonAddWork.addEventListener('click', () => {
+//   arrowBack.style.visibility = 'visible';
+// });
 
 let FigureElement = document.createElement('figure');
 let ImgElement = document.createElement('img');
@@ -195,10 +216,6 @@ let SelectedElement = createElement('i');
 let worksData;
 
 adminToolButton.addEventListener('click', fetchWorks);
-adminToolButton.addEventListener('click', () => {
-  modal.classList.remove('displayElementFalse');
-  modal.classList.add('displayElementTrue');
-});
 
 async function fetchWorks() {
   fetch(api)
@@ -211,11 +228,6 @@ async function fetchWorks() {
 }
 const InputWorkOption = document.createElement('option');
 const InputWorkSelect = document.getElementById('select');
-
-const InputWorkSelectInfo = document.createElement('option');
-InputWorkSelectInfo.id = '0';
-InputWorkSelectInfo.textContent = 'Sélectionner une catégorie';
-InputWorkSelect.appendChild(InputWorkSelectInfo);
 let getCategoryID;
 let getCategoryName;
 const categorySet = new Set();
@@ -248,6 +260,8 @@ function createFigureElements(imageUrl, id) {
   IconBox = document.createElement('div');
   TrashBox = document.createElement('div');
   TrashElement = document.createElement('i');
+  const FigureSelectedBox = document.createElement('div');
+  const FigureSelectedElement = document.createElement('i');
 
   imageBox.appendChild(FigureElement);
 
@@ -331,12 +345,9 @@ buttonAddWork.addEventListener('click', handleAddWork);
 function handleAddWork() {
   modalDeleteWork.classList.add('displayElementFalse');
   modalAddWork.classList.remove('displayElementFalse');
-
+  // arrowBackAdd();
   modalCrossArrowBox.appendChild(arrowBack);
   modalCrossArrowBox.appendChild(modalCross);
-
-  InputFileById.classList.remove('displayElementFalse');
-  InputFileById.setAttribute('class', 'fa-image fa-regular');
 }
 
 async function handleImageInputChange(InputFileById) {
@@ -355,34 +366,16 @@ async function handleImageInputChange(InputFileById) {
   InputFileText.classList.add('displayElementFalse');
 
   InputFileType.classList.add('displayElementFalse');
-  validateForm();
 }
 
 InputFileById.addEventListener('change', () => {
   handleImageInputChange(InputFileById);
 });
-// InputWorkTitle.addEventListener('input', validateForm());
-// InputWorkSelect.addEventListener('change', validateForm());
 
-// function validateForm() {
-//   if (InputFileById.value !== '' && InputWorkTitle.value !== '' && InputWorkSelect.value !== '0') {
-//     buttonSendWork.disabled = false;
-//     buttonSendWork.style.background = '#1D6154';
-//     InputFileById.required = false;
-//     InputWorkTitle.required = false;
-//     InputWorkSelect.required = false;
-//     buttonSendWork.addEventListener('click', (e) => {
-//       handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect);
-//       e.preventDefault();
-//     });
-//   } else {
-//     buttonSendWork.disabled = true;
-//     buttonSendWork.style.background = '#A7A7A7';
-//     InputFileById.required = true;
-//     InputWorkTitle.required = true;
-//     InputWorkSelect.required = true;
-//   }
-// }
+buttonSendWork.addEventListener('click', (e) => {
+  handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect);
+  e.preventDefault();
+});
 
 async function handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect) {
   const formData = new FormData();
