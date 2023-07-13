@@ -48,7 +48,9 @@
         <div id="modal__add__title__box">
           <h2>Ajout photo</h2>
         </div>
-        <form id="form">
+        <form
+          id="form"
+          method="post">
           <label
             for="image__file"
             class="label__element">
@@ -69,27 +71,10 @@
               type="text"
               name="work__title"
               id="work__title"
-              class="input__add__work"
-              multiple />
+              class="input__add__work" />
             <select
               id="select"
-              class="input__add__work">
-              <option
-                value="2"
-                id="2">
-                Appartement
-              </option>
-              <option
-                value="3"
-                id="3">
-                Hotel et restaurant
-              </option>
-              <option
-                value="1"
-                id="1">
-                Objets
-              </option>
-            </select>
+              class="input__add__work"></select>
             <div id="modal__separator"></div>
             <div id="button__send_box">
               <button
@@ -250,7 +235,7 @@
       </nav>
     </footer>
     <script src="./js/login.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/home.js"></script>
     <script src="./js/nav.js"></script>
     <!-- <script src="js/modal.js"></script> -->
     <!-- <script src="js/modal2.js"></script> -->

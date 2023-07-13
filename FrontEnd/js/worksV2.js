@@ -212,10 +212,11 @@ let TrashBox = createElement('div');
 let TrashElement = createElement('i');
 let SelectedBox = createElement('div');
 let SelectedElement = createElement('i');
+let worksData;
 
 adminToolButton.addEventListener('click', fetchWorks);
 
-function fetchWorks() {
+async function fetchWorks() {
   fetch(api)
     .then((response) => response.json())
     .then((works) => {
@@ -224,20 +225,30 @@ function fetchWorks() {
       });
     });
 }
-let getCategory;
+const InputWorkOption = document.createElement('option');
+const InputWorkSelect = document.getElementById('select');
 let getCategoryID;
-function fetchCategories() {
-  fetch(apiCategories)
-    .then((response) => response.json())
-    .then((categories) => {
-      categories.forEach((category) => {
-        console.log(category.id);
-        getCategory = category;
+let getCategoryName;
+const categorySet = new Set();
+
+fetch(apiCategories)
+  .then((response) => response.json())
+  .then((categories) => {
+    categorySet.add(categories);
+    console.log(categorySet);
+    Array.from(categorySet).forEach((categoryItem) => {
+      for (let i = 0; i < categoryItem.length; i++) {
+        const category = categoryItem[i];
+        console.log(category);
         getCategoryID = category.id;
-      });
+        getCategoryName = category.name;
+        const option = InputWorkOption.cloneNode(); // Clone the option element
+        option.value = getCategoryID;
+        option.textContent = getCategoryName;
+        InputWorkSelect.appendChild(option);
+      }
     });
-}
-fetchCategories();
+  });
 
 const imageBox = document.getElementById('image_box');
 
@@ -253,7 +264,7 @@ function createFigureElements(imageUrl, id) {
 
   imageBox.appendChild(FigureElement);
 
-  setElementAttributes(ImgElement, ['src', imageUrl], ['id', id], ['class', 'ImageElement cursorPointer']);
+  setElementAttributes(ImgElement, ['src', imageUrl], ['id', id], ['class', 'ImageElement cursorPointer'], ['value', getCategoryID]);
   FigureElement.appendChild(ImgElement);
 
   setElementAttributes(FigureText, ['class', 'FigureText cursorPointer']);
@@ -305,8 +316,6 @@ const ImagePreview = document.getElementById('image__preview');
 ImagePreview.classList.add('displayElementFalse');
 
 const InputBoxForWork = createElement('div');
-const InputWorkSelect = document.getElementById('select');
-const InputWorkOption = document.createElement('option');
 
 let LabelElement = document.createElement('label');
 let InputFile = document.getElementById('image__file');
@@ -333,6 +342,8 @@ async function handleImageInputChange(InputFileById) {
   ImagePreview.classList.remove('displayElementFalse');
 
   InputFileById.classList.add('displayElementFalse');
+  InputFileById.name = 'image';
+  InputFileById.accept = '.jpg, .png, .jpeg, .webp';
 
   InputFileText.textContent = '';
   InputFileText.classList.add('displayElementFalse');
@@ -345,32 +356,32 @@ InputFileById.addEventListener('change', () => {
 });
 
 buttonSendWork.addEventListener('click', (e) => {
-  handleFormSubmit(e, InputFileById, InputWorkTitle, InputWorkSelect);
+  handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect);
+  e.preventDefault();
 });
 
-async function handleFormSubmit(event, InputFileById, InputWorkTitle, InputWorkSelect) {
-  event.preventDefault();
+async function handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect) {
   const formData = new FormData();
   const newImage = InputFileById.files[0];
   const newTitle = InputWorkTitle.value;
   const newCategory = InputWorkSelect.value;
-  formData.append('imageUrl', newImage);
+  formData.append('image', newImage);
   formData.append('title', newTitle);
-  formData.append('categoryId', newCategory);
+  formData.append('category', newCategory);
 
   console.log(newImage, newTitle, newCategory);
 
   const response = await fetch('http://localhost:5678/api/works', {
     method: 'POST',
     headers: {
-      Authorization: tokenWithoutQuotes,
       accept: 'application/json',
+      Authorization: tokenWithoutQuotes,
     },
     body: formData,
   });
   if (response.ok) {
     alert('Le travail a été ajouté avec succès !');
-    fetchWorks();
+    worksData = await fetchWorks();
   } else {
     alert("Erreur lors de l'ajout du travail " + '(Code erreur = ' + response.status + ')');
   }
