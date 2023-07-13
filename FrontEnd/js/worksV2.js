@@ -167,39 +167,39 @@ function imageBoxChange() {
   imageBox.classList.replace('ImgBox__ChangeToSendWork', 'imageBox');
 }
 
-function arrowBackAdd() {
-  modalCrossArrowBox.appendChild(arrowBack);
-  modalCrossArrowBox.appendChild(modalCross);
-}
+// function arrowBackAdd() {
+//   modalCrossArrowBox.appendChild(arrowBack);
+//   modalCrossArrowBox.appendChild(modalCross);
+// }
 
 modalCross.addEventListener('click', () => redirectToFrontEnd());
 adminToolButton.addEventListener('click', () => ifLogged);
 
 // Arrow function for go back
-function arrowBackFunction(element) {
-  resetElement(element);
-  modal.appendChild(modalCrossBox);
-  addClass(modalCrossBox, 'modalCrossBox');
+function arrowBackFunction() {
+  // modal.appendChild(modalCrossBox);
+  // addClass(modalCrossBox, 'modalCrossBox');
   imageBoxChange();
-  modalCrossBox.classList.replace('modalCrossBoxAndArrow', 'modalCrossBox');
+  // modalCrossBox.classList.replace('modalCrossBoxAndArrow', 'modalCrossBox');
 
   const hiddenInputs = document.querySelector('input');
   setElementAttributes(hiddenInputs, ['class', 'displayElementFalse']);
-  const modalArray = Array.from(arrowBackModalSet);
-  for (let i = 0; i < modalArray.length; i++) {
-    modal.appendChild(modalArray[i]);
-  }
+  // const modalArray = Array.from(arrowBackModalSet);
+  // for (let i = 0; i < modalArray.length; i++) {
+  //   modal.appendChild(modalArray[i]);
+  // }
   // modalTitleBox.appendChild(modalTitle);
   // resetElement(buttonBox);
   // resetElement(imageBox);
   // modalTitle.textContent = 'Galerie photo';
-  modalDeleteWork.classList.replace('displayElementFalse', 'displayElementTrue');
-  // modalDeleteWork.classList.add('displayElementTrue');
+  // modalDeleteWork.classList.replace('displayElementFalse', 'displayElementTrue');
+  modalDeleteWork.classList.remove('displayElementFalse');
+  modalAddWork.classList.add('displayElementFalse');
+  modalCrossBox.appendChild(modalCross);
 }
 
 arrowBack.addEventListener('click', () => {
-  arrowBackFunction(modal);
-  fetchWorks();
+  arrowBackFunction();
 });
 // buttonAddWork.addEventListener('click', () => {
 //   arrowBack.style.visibility = 'visible';
@@ -345,7 +345,9 @@ buttonAddWork.addEventListener('click', handleAddWork);
 function handleAddWork() {
   modalDeleteWork.classList.add('displayElementFalse');
   modalAddWork.classList.remove('displayElementFalse');
-  arrowBackAdd();
+  // arrowBackAdd();
+  modalCrossArrowBox.appendChild(arrowBack);
+  modalCrossArrowBox.appendChild(modalCross);
 }
 
 async function handleImageInputChange(InputFileById) {
