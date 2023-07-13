@@ -401,3 +401,4 @@ async function handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect) 
     alert("Erreur lors de l'ajout du travail " + '(Code erreur = ' + response.status + ')');
   }
 }
+// need to revert
