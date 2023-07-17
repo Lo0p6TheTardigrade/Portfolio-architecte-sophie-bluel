@@ -84,7 +84,6 @@ function buttonLogin() {
   const buttonLoginSectionTitle = document.getElementById('login__section__title');
   buttonLoginSectionTitle.addEventListener('click', () => ifLogged);
   adminToolBox.classList.remove('displayElementFalse');
-  console.log(buttonLoginSectionTitle);
 }
 function ifLogged() {
   for (let i = 0; i < sessionStorage.length; i++) {
@@ -143,7 +142,7 @@ ifLogged(
   modalCrossBox.appendChild(modalCross),
   adminToolButton.addEventListener('click', () => {
     if (!modalCreated) {
-      addClass(modalCrossBox, 'modalCrossBox');
+      // addClass(modalCrossBox, 'modalCrossBox');
       addClass(modal, 'modalBoxModal');
       setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid fa-xmark cursorPointer']);
     }
@@ -176,12 +175,8 @@ modalCross.addEventListener('click', () => redirectToFrontEnd());
 adminToolButton.addEventListener('click', () => ifLogged);
 
 // Arrow function for go back
-function arrowBackFunction(element) {
-  resetElement(element);
-  modal.appendChild(modalCrossBox);
-  addClass(modalCrossBox, 'modalCrossBox');
+function arrowBackFunction() {
   imageBoxChange();
-  modalCrossBox.classList.replace('modalCrossBoxAndArrow', 'modalCrossBox');
 
   const hiddenInputs = document.querySelector('input');
   setElementAttributes(hiddenInputs, ['class', 'displayElementFalse']);
@@ -189,21 +184,15 @@ function arrowBackFunction(element) {
   for (let i = 0; i < modalArray.length; i++) {
     modal.appendChild(modalArray[i]);
   }
-  // modalTitleBox.appendChild(modalTitle);
-  // resetElement(buttonBox);
-  // resetElement(imageBox);
-  // modalTitle.textContent = 'Galerie photo';
-  modalDeleteWork.classList.replace('displayElementFalse', 'displayElementTrue');
-  // modalDeleteWork.classList.add('displayElementTrue');
+  modalDeleteWork.classList.remove('displayElementFalse');
+  modalAddWork.classList.remove('displayElementTrue');
+  modalAddWork.classList.add('displayElementFalse');
 }
 
 arrowBack.addEventListener('click', () => {
-  arrowBackFunction(modal);
-  fetchWorks();
+  arrowBackFunction();
+  modalCrossBox.appendChild(modalCross);
 });
-// buttonAddWork.addEventListener('click', () => {
-//   arrowBack.style.visibility = 'visible';
-// });
 
 let FigureElement = document.createElement('figure');
 let ImgElement = document.createElement('img');
@@ -236,11 +225,9 @@ fetch(apiCategories)
   .then((response) => response.json())
   .then((categories) => {
     categorySet.add(categories);
-    console.log(categorySet);
     Array.from(categorySet).forEach((categoryItem) => {
       for (let i = 0; i < categoryItem.length; i++) {
         const category = categoryItem[i];
-        console.log(category);
         getCategoryID = category.id;
         getCategoryName = category.name;
         const option = InputWorkOption.cloneNode(); // Clone the option element
@@ -260,8 +247,6 @@ function createFigureElements(imageUrl, id) {
   IconBox = document.createElement('div');
   TrashBox = document.createElement('div');
   TrashElement = document.createElement('i');
-  const FigureSelectedBox = document.createElement('div');
-  const FigureSelectedElement = document.createElement('i');
 
   imageBox.appendChild(FigureElement);
 
@@ -275,7 +260,7 @@ function createFigureElements(imageUrl, id) {
   setElementAttributes(IconBox, ['id', 'icon__box']);
   FigureElement.appendChild(IconBox);
 
-  setElementAttributes(TrashBox, ['id', 'trash__box'], ['data-id', ImgElement.id], ['class', 'trash__box']);
+  setElementAttributes(TrashBox, ['id', 'trash__box'], ['data-id', ImgElement.id], ['class', 'trash__box'], ['onclick', 'deleteWork(this)']);
   IconBox.appendChild(TrashBox);
 
   setElementAttributes(TrashElement, ['id', 'trash__element'], ['class', 'fa-solid fa-trash-can cursorPointer']);
@@ -298,30 +283,29 @@ function createFigureElements(imageUrl, id) {
   });
 
   TrashBox.addEventListener('click', () => {
-    console.log(TrashBox);
-    console.log('trash clicked');
     deleteWork();
-    console.log(TrashElement);
   });
 }
 
-async function deleteWork() {
-  const workId = parseInt(TrashBox.getAttribute('data-id'));
-
-  try {
-    const response = await fetch(api + `/${workId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: tokenWithoutQuotes,
-      },
-    });
-    if (response.ok) {
-      alert('Travail supprimé avec succès !');
-    } else {
-      alert('Erreur lors de la suppression du travail');
+async function deleteWork(TrashBox) {
+  const workId = parseInt(TrashBox.dataset.id);
+  console.log(workId);
+  if (workId) {
+    try {
+      const response = await fetch(api + `/${workId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: tokenWithoutQuotes,
+        },
+      });
+      if (response.ok) {
+        alert('Travail supprimé avec succès !');
+      } else {
+        alert('Erreur lors de la suppression du travail');
+      }
+    } catch (error) {
+      console.error(error);
     }
-  } catch (error) {
-    console.error(error);
   }
 }
 
@@ -401,4 +385,3 @@ async function handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect) 
     alert("Erreur lors de l'ajout du travail " + '(Code erreur = ' + response.status + ')');
   }
 }
-// need to revert

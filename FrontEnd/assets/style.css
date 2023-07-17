@@ -272,10 +272,6 @@ li:hover {
 /* End login */
 
 /* Modal element */
-.fa-regular,
-.fa-pen-to-square {
-  color: #ffff;
-}
 #admin__tool__box {
   display: flex;
   justify-content: center;
@@ -320,11 +316,11 @@ li:hover {
 #portraitButton {
   margin-top: 10px;
   color: #000000;
-  order: 1;
+  order: 2;
 }
 #portraitButtonIcon {
   margin-top: 10px;
-  order: 2;
+  order: 1;
 }
 #admin__publish__button {
   display: flex;
@@ -383,30 +379,30 @@ li:hover {
   width: 78px;
   height: 104px;
 }
-#modal__cross__box,
-.modalCrossBox {
-  display: flex;
+#modal__cross__box {
   justify-content: end;
-  padding: 6px;
-  margin-top: 22px;
-  margin-right: 30px;
-  margin-left: 30px;
 }
 #modal__cross__and__arrow__box {
-  display: flex;
   justify-content: space-between;
+  width: 92%;
+}
+#modal__cross__box,
+#modal__cross__and__arrow__box {
+  display: flex;
   padding: 6px;
   margin-top: 22px;
   margin-right: 30px;
   margin-left: 30px;
+  width: 570px;
 }
 #modal__arrow__back {
   order: 1;
-  width: 12px;
-  height: 12px;
 }
-#modal__cross__close {
+#modalCross {
   order: 2;
+}
+#modal__arrow__back,
+#modalCross {
   width: 12px;
   height: 12px;
 }
@@ -469,7 +465,6 @@ li:hover {
   justify-content: center;
   align-items: center;
   gap: 23px;
-  /* margin-top: 38px; */
 }
 #button__add__work,
 #button__delete__work,
@@ -515,21 +510,14 @@ li:hover {
   background: #cbd6dc;
   border-radius: 50px;
 }
-/* .modalFigureImgDownloadText {
-  margin: 0;
-  height: 0;
-} */
 #input__file__text {
   color: #306685;
 }
 #input__file__type {
   color: #444444;
 }
-/* .InputFileType {
-  height: 0;
-} */
 #image__preview {
-  height: 193px;
+  height: 169px;
   width: 129px;
   object-fit: cover;
 }
@@ -542,8 +530,20 @@ li:hover {
 .input__add__work {
   height: 51px;
 }
+#select,
 #work__title {
-  padding: 0;
+  padding: 0 13px;
+  appearance: none;
+  border: none;
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
+}
+.label__input__post {
+  display: flex;
+  flex-flow: column;
+  gap: 10px;
+}
+#label__input__post__title {
+  margin-top: 30px;
 }
 #button__delete__all__work {
   color: red;
@@ -601,6 +601,7 @@ li:hover {
 .gallery img {
   object-fit: cover;
   width: 100%;
+  height: 490px;
 }
 
 /* Add CSS for filters works */

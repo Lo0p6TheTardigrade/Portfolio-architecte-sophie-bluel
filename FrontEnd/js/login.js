@@ -97,7 +97,6 @@ loginNavLink.addEventListener('click', () => {
           password: inputPasswordLogin,
         }),
       });
-      console.log(response);
 
       if (response.ok) {
         let data = await response.json();
@@ -107,7 +106,6 @@ loginNavLink.addEventListener('click', () => {
 
         buttonLogin();
 
-        console.log(getTokenResponse);
         alert('Vous êtes connecté !');
 
         if (buttonLoginSectionTitle) {
@@ -116,11 +114,6 @@ loginNavLink.addEventListener('click', () => {
 
           window.location.href = '/FrontEnd/';
           cookieSessionCreate();
-          // if (document.cookie === 'session') {
-          //   const categoryHidden = document.querySelector('.category');
-          //   console.log(categoryHidden);
-          //   categoryHidden.classList.add('displayElementFalse');
-          // }
         }
       } else {
         alert('Identifiant ou mot de passe incorrect.');

@@ -19,8 +19,7 @@ if (document.getElementById('main__section') === false) {
   for (let index = 0; index < getProjectNavLink.length; index++) {
     if (getProjectNavLink[index].textContent === 'projets') {
       let project = getProjectNavLink[index];
-      // console.log(project);
-      project.setAttribute('id', 'projets');
+      project.id = 'projets';
       project.addEventListener('click', () => {
         window.location.href = '/FrontEnd';
       });
@@ -36,11 +35,11 @@ for (let i = 0; i < sessionStorage.length; i++) {
   if (sessionStorage.key(i) === 'token') {
     ifPreviouslyConnected();
     const logoutNavigation = document.getElementById('loginNavigation');
-    logoutNavigation.setAttribute('id', 'logoutNavigation');
+    logoutNavigation.id = 'logoutNavigation';
 
     logoutNavigation.addEventListener('click', () => {
       sessionStorage.clear();
-      logoutNavigation.setAttribute('id', 'loginNavigation');
+      logoutNavigation.id = 'loginNavigation';
       logoutNavigation.textContent = 'login';
       window.location.reload();
     });
@@ -74,11 +73,12 @@ fetch('http://localhost:5678/api/works')
       sectionPortfolioFigure.appendChild(sectionPortfolioFigcaption);
 
       // Set the src attribute and set the figcaption text
-      sectionPortfolioFigureImg.setAttribute('src', getImageUrl);
-      sectionPortfolioFigureImg.setAttribute('alt', getTitleForAlt);
+      sectionPortfolioFigureImg.src = getImageUrl;
+      sectionPortfolioFigureImg.alt = getTitleForAlt;
       sectionPortfolioFigcaption.innerText = getTitleForFigcaption;
     });
     objectsCategoryDiv.classList.add('category');
+    objectsCategoryDiv.id = 'categoryFilter';
 
     // Create category elements and append to category div
     // const categories = [];
@@ -100,7 +100,7 @@ fetch('http://localhost:5678/api/works')
         objectsCategorySpan.textContent = categoryName;
         objectsCategorySpan.classList.add('span__filter__global');
         objectsCategoryDiv.appendChild(objectsCategorySpan);
-        objectsCategorySpan.setAttribute('id', categoryId);
+        objectsCategorySpan.id = categoryId;
         objectsCategorySpan.setAttribute('data-id', categoryId);
 
         // Get the category by click
@@ -119,8 +119,8 @@ fetch('http://localhost:5678/api/works')
             const sectionPortfolioFigcaption = document.createElement('figcaption');
 
             // Set attributes and text content
-            sectionPortfolioFigureImg.setAttribute('src', work.imageUrl);
-            sectionPortfolioFigureImg.setAttribute('alt', work.title);
+            sectionPortfolioFigureImg.src = work.imageUrl;
+            sectionPortfolioFigureImg.alt = work.title;
             sectionPortfolioFigureImg.setAttribute('data-id', work.id);
             sectionPortfolioFigcaption.textContent = work.title;
 
@@ -142,8 +142,8 @@ fetch('http://localhost:5678/api/works')
             const sectionPortfolioFigcaption = document.createElement('figcaption');
 
             // Set attributes and text content
-            sectionPortfolioFigureImg.setAttribute('src', work.imageUrl);
-            sectionPortfolioFigureImg.setAttribute('alt', work.title);
+            sectionPortfolioFigureImg.src = work.imageUrl;
+            sectionPortfolioFigureImg.alt = work.title;
             sectionPortfolioFigureImg.setAttribute('data-id', work.id);
             sectionPortfolioFigcaption.textContent = work.title;
 
@@ -159,4 +159,7 @@ fetch('http://localhost:5678/api/works')
     // Insert the section category div
     sectionPortfolio.appendChild(objectsCategoryDiv);
     sectionPortfolio.insertBefore(objectsCategoryDiv, sectionPortfolioDivGallery);
+    if (sessionStorage.getItem('token')) {
+      sectionPortfolio.removeChild(objectsCategoryDiv);
+    }
   });
