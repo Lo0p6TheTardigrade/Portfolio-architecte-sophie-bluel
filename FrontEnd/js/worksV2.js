@@ -158,8 +158,9 @@ const modal = document.getElementById('modal');
 const arrowBack = createElement('i');
 setElementAttributes(arrowBack, ['id', 'modal__arrow__back'], ['class', 'fa-solid fa-arrow-left cursorPointer']);
 
-function redirectToFrontEnd() {
-  window.location.href = '/FrontEnd';
+function redirectToFrontEnd(event) {
+  event.preventDefault();
+  window.location.href = '/Users/kwys/Desktop/DEV-WEB/Github/Portfolio-architecte-sophie-bluel/FrontEnd/index.html';
 }
 
 function imageBoxChange() {
@@ -171,8 +172,17 @@ function arrowBackAdd() {
   modalCrossArrowBox.appendChild(modalCross);
 }
 
-modalCross.addEventListener('click', () => redirectToFrontEnd());
-adminToolButton.addEventListener('click', () => ifLogged);
+modalCross.addEventListener('click', (e) => {
+  modalDeleteWork.classList.remove('displayElementTrue');
+  modalDeleteWork.classList.add('displayElementFalse');
+  modalAddWork.classList.remove('displayElementTrue');
+  modalAddWork.classList.add('displayElementFalse');
+  modal.classList.add('displayElementFalse');
+});
+// modalCross.addEventListener('click', (e) => redirectToFrontEnd(e));
+adminToolButton.addEventListener('click', () => {
+  ifLogged, modal.classList.remove('displayElementFalse');
+});
 
 // Arrow function for go back
 function arrowBackFunction() {
@@ -204,7 +214,61 @@ let SelectedBox = createElement('div');
 let SelectedElement = createElement('i');
 let worksData;
 
-adminToolButton.addEventListener('click', fetchWorks);
+adminToolButton.addEventListener('click', (e) => {
+  if (modalDeleteWork.classList.contains('displayElementFalse')) {
+    console.log('true');
+  } else {
+    imageBox.innerHTML = '';
+    fetchWorks();
+    modalCrossBox.appendChild(modalCross);
+    console.log('fetched');
+  }
+});
+window.addEventListener('click', function (event) {
+  var clickedElement = event.target;
+  var isInsideModalDeleteWork = clickedElement.closest('#modal__delete_work') || clickedElement.closest('#modal__delete_work *');
+  var isInsideModalAddWork = clickedElement.closest('#modal__add_work') || clickedElement.closest('#modal__add_work *');
+  var isInsideModal = clickedElement.closest('#modal');
+
+  console.log('Clicked Element:', clickedElement);
+  console.log('Is Inside ModalDeleteWork:', isInsideModalDeleteWork);
+  console.log('Is Inside ModalAddWork:', isInsideModalAddWork);
+  console.log('Is Inside Modal:', isInsideModal);
+
+  if (!isInsideModalDeleteWork && !isInsideModalAddWork && !isInsideModal && !clickedElement.closest('#admin__tool__button')) {
+    console.log('Closing Modal');
+    closeModal();
+  }
+});
+
+function closeModal() {
+  console.log('Closing Modal');
+  modalDeleteWork.classList.add('displayElementFalse');
+  modalAddWork.classList.add('displayElementFalse');
+  modal.classList.add('displayElementFalse');
+}
+
+adminToolButton.addEventListener('click', function () {
+  console.log('Opening Modal');
+  modal.classList.remove('displayElementFalse');
+  modalDeleteWork.classList.remove('displayElementFalse');
+  modalAddWork.classList.add('displayElementFalse');
+});
+
+modal.addEventListener('click', function (event) {
+  var clickedElement = event.target;
+  var isInsideModalDeleteWork = clickedElement.closest('#modal__delete_work') || clickedElement.closest('#modal__delete_work *');
+  var isInsideModalAddWork = clickedElement.closest('#modal__add_work') || clickedElement.closest('#modal__add_work *');
+
+  console.log('Clicked Element:', clickedElement);
+  console.log('Is Inside ModalDeleteWork:', isInsideModalDeleteWork);
+  console.log('Is Inside ModalAddWork:', isInsideModalAddWork);
+
+  if (!isInsideModalDeleteWork && !isInsideModalAddWork) {
+    console.log('Closing Modal');
+    closeModal();
+  }
+});
 
 async function fetchWorks() {
   fetch(api)
@@ -283,7 +347,7 @@ function createFigureElements(imageUrl, id) {
   });
 
   TrashBox.addEventListener('click', () => {
-    deleteWork();
+    deleteWork;
   });
 }
 
@@ -300,6 +364,10 @@ async function deleteWork(TrashBox) {
       });
       if (response.ok) {
         alert('Travail supprimé avec succès !');
+        sectionPortfolioDivGallery.innerHTML = '';
+        fetchHomeGallery();
+        closeModal();
+        // window.location.href = '/Users/kwys/Desktop/DEV-WEB/Github/Portfolio-architecte-sophie-bluel/FrontEnd/index.html';
       } else {
         alert('Erreur lors de la suppression du travail');
       }
@@ -355,11 +423,11 @@ InputFileById.addEventListener('change', () => {
 });
 
 buttonSendWork.addEventListener('click', (e) => {
-  handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect);
+  handleFormSubmit(e, InputFileById, InputWorkTitle, InputWorkSelect);
   e.preventDefault();
 });
 
-async function handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect) {
+async function handleFormSubmit(event, InputFileById, InputWorkTitle, InputWorkSelect) {
   const formData = new FormData();
   const newImage = InputFileById.files[0];
   const newTitle = InputWorkTitle.value;
@@ -367,6 +435,7 @@ async function handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect) 
   formData.append('image', newImage);
   formData.append('title', newTitle);
   formData.append('category', newCategory);
+  event.preventDefault();
 
   console.log(newImage, newTitle, newCategory);
 
@@ -380,7 +449,11 @@ async function handleFormSubmit(InputFileById, InputWorkTitle, InputWorkSelect) 
   });
   if (response.ok) {
     alert('Le travail a été ajouté avec succès !');
-    worksData = await fetchWorks();
+    // worksData = await fetchWorks();
+    closeModal();
+    sectionPortfolioDivGallery.innerHTML = '';
+    fetchHomeGallery();
+    // window.location.href = '/Users/kwys/Desktop/DEV-WEB/Github/Portfolio-architecte-sophie-bluel/FrontEnd/index.html';
   } else {
     alert("Erreur lors de l'ajout du travail " + '(Code erreur = ' + response.status + ')');
   }

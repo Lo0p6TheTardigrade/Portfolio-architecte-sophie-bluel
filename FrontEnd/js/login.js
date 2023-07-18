@@ -81,8 +81,7 @@ loginNavLink.addEventListener('click', () => {
   buttonLoginSectionTitle.style.cursor = 'pointer';
   formLoginSectionTitle.appendChild(buttonLoginSectionTitle);
 
-  // Click event for fetch login section
-  buttonLoginSectionTitle.addEventListener('click', async () => {
+  async function login(parameters) {
     try {
       let inputUserLogin = inputUserLoginSectionTitle.value;
       let inputPasswordLogin = inputPasswordLoginSectionTitle.value;
@@ -112,7 +111,7 @@ loginNavLink.addEventListener('click', () => {
           sessionStorage.setItem('email', inputUserLogin);
           sessionStorage.setItem('password', inputPasswordLogin);
 
-          window.location.href = '/FrontEnd/';
+          window.location.href = '/Users/kwys/Desktop/DEV-WEB/Github/Portfolio-architecte-sophie-bluel/FrontEnd/index.html';
           cookieSessionCreate();
         }
       } else {
@@ -121,6 +120,12 @@ loginNavLink.addEventListener('click', () => {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  // Click event for fetch login section
+  buttonLoginSectionTitle.addEventListener('click', async (e) => {
+    e.preventDefault();
+    login();
   });
 
   // Create the missing link
