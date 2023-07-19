@@ -490,14 +490,16 @@ li:hover {
   width: 420px;
   height: 169px;
 }
+.fa-image {
+  color: #b9c5cc;
+}
 #image__file {
   display: flex;
   margin-bottom: 21px;
-  background: #b9c5cc;
+  background: transparent;
   font-size: 58px;
-  line-height: 45px;
   width: 58px;
-  height: 45px;
+  height: 58px;
 }
 #input__file__text {
   display: flex;
@@ -530,11 +532,18 @@ li:hover {
 .input__add__work {
   height: 51px;
 }
+.fa-chevron-down {
+  position: absolute;
+  right: 120px;
+  top: 495px;
+  z-index: -1;
+}
 #select,
 #work__title {
   padding: 0 13px;
   appearance: none;
   border: none;
+  background: transparent;
   box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.09);
 }
 .label__input__post {
@@ -614,14 +623,14 @@ li:hover {
   font-weight: 700;
 }
 
-.span__filter__global {
+.objects__category__span {
   border: 2px solid #1d6154;
   border-radius: 18px;
   color: #1d6154;
   width: fit-content;
   cursor: pointer;
 }
-.span__filter__global:hover {
+.span__filter__global {
   color: white;
   background-color: #1d6154;
 }

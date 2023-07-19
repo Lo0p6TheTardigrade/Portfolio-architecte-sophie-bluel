@@ -81,7 +81,7 @@ loginNavLink.addEventListener('click', () => {
   buttonLoginSectionTitle.style.cursor = 'pointer';
   formLoginSectionTitle.appendChild(buttonLoginSectionTitle);
 
-  async function login(parameters) {
+  async function login() {
     try {
       let inputUserLogin = inputUserLoginSectionTitle.value;
       let inputPasswordLogin = inputPasswordLoginSectionTitle.value;

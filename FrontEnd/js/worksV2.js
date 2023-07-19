@@ -170,6 +170,12 @@ function imageBoxChange() {
 function arrowBackAdd() {
   modalCrossArrowBox.appendChild(arrowBack);
   modalCrossArrowBox.appendChild(modalCross);
+  InputFileById.setAttribute('class', 'fa-image fa-regular');
+  if (!imagePreview.classList.contains('displayElementFalse')) {
+    InputFileById.classList.add('displayElementFalse');
+  }
+  // InputFileText.classList.remove('displayElementFalse');
+  // InputFileType.classList.remove('displayElementFalse');
 }
 
 modalCross.addEventListener('click', (e) => {
@@ -216,12 +222,10 @@ let worksData;
 
 adminToolButton.addEventListener('click', (e) => {
   if (modalDeleteWork.classList.contains('displayElementFalse')) {
-    console.log('true');
   } else {
     imageBox.innerHTML = '';
     fetchWorks();
     modalCrossBox.appendChild(modalCross);
-    console.log('fetched');
   }
 });
 window.addEventListener('click', function (event) {
@@ -230,26 +234,18 @@ window.addEventListener('click', function (event) {
   var isInsideModalAddWork = clickedElement.closest('#modal__add_work') || clickedElement.closest('#modal__add_work *');
   var isInsideModal = clickedElement.closest('#modal');
 
-  console.log('Clicked Element:', clickedElement);
-  console.log('Is Inside ModalDeleteWork:', isInsideModalDeleteWork);
-  console.log('Is Inside ModalAddWork:', isInsideModalAddWork);
-  console.log('Is Inside Modal:', isInsideModal);
-
   if (!isInsideModalDeleteWork && !isInsideModalAddWork && !isInsideModal && !clickedElement.closest('#admin__tool__button')) {
-    console.log('Closing Modal');
     closeModal();
   }
 });
 
 function closeModal() {
-  console.log('Closing Modal');
   modalDeleteWork.classList.add('displayElementFalse');
   modalAddWork.classList.add('displayElementFalse');
   modal.classList.add('displayElementFalse');
 }
 
 adminToolButton.addEventListener('click', function () {
-  console.log('Opening Modal');
   modal.classList.remove('displayElementFalse');
   modalDeleteWork.classList.remove('displayElementFalse');
   modalAddWork.classList.add('displayElementFalse');
@@ -260,12 +256,7 @@ modal.addEventListener('click', function (event) {
   var isInsideModalDeleteWork = clickedElement.closest('#modal__delete_work') || clickedElement.closest('#modal__delete_work *');
   var isInsideModalAddWork = clickedElement.closest('#modal__add_work') || clickedElement.closest('#modal__add_work *');
 
-  console.log('Clicked Element:', clickedElement);
-  console.log('Is Inside ModalDeleteWork:', isInsideModalDeleteWork);
-  console.log('Is Inside ModalAddWork:', isInsideModalAddWork);
-
   if (!isInsideModalDeleteWork && !isInsideModalAddWork) {
-    console.log('Closing Modal');
     closeModal();
   }
 });
@@ -367,7 +358,13 @@ async function deleteWork(TrashBox) {
         sectionPortfolioDivGallery.innerHTML = '';
         fetchHomeGallery();
         closeModal();
-        // window.location.href = '/Users/kwys/Desktop/DEV-WEB/Github/Portfolio-architecte-sophie-bluel/FrontEnd/index.html';
+        if (!imagePreview.classList.contains('displayElementFalse')) {
+          imagePreview.classList.add('displayElementFalse');
+          InputFileText.classList.remove('displayElementFalse');
+          InputFileType.classList.remove('displayElementFalse');
+          InputWorkTitle.value = '';
+          InputWorkSelect.value = '';
+        }
       } else {
         alert('Erreur lors de la suppression du travail');
       }
@@ -378,6 +375,7 @@ async function deleteWork(TrashBox) {
 }
 
 const InputFileById = document.getElementById('image__file');
+
 const ImagePreview = document.getElementById('image__preview');
 
 ImagePreview.classList.add('displayElementFalse');
@@ -412,7 +410,6 @@ async function handleImageInputChange(InputFileById) {
   InputFileById.name = 'image';
   InputFileById.accept = '.jpg, .png, .jpeg, .webp';
 
-  InputFileText.textContent = '';
   InputFileText.classList.add('displayElementFalse');
 
   InputFileType.classList.add('displayElementFalse');
@@ -453,6 +450,13 @@ async function handleFormSubmit(event, InputFileById, InputWorkTitle, InputWorkS
     closeModal();
     sectionPortfolioDivGallery.innerHTML = '';
     fetchHomeGallery();
+    imagePreview.src = '#';
+    InputWorkTitle.value = '';
+    InputFileById.classList.remove('displayElementFalse');
+    InputFileById.setAttribute('class', 'fa-image fa-regular');
+    InputFileText.classList.remove('displayElementFalse');
+    InputFileType.classList.remove('displayElementFalse');
+    ImagePreview.classList.add('displayElementFalse');
     // window.location.href = '/Users/kwys/Desktop/DEV-WEB/Github/Portfolio-architecte-sophie-bluel/FrontEnd/index.html';
   } else {
     alert("Erreur lors de l'ajout du travail " + '(Code erreur = ' + response.status + ')');

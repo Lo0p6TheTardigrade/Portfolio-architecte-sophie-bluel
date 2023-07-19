@@ -48,7 +48,7 @@ for (let i = 0; i < sessionStorage.length; i++) {
 }
 const categories = [];
 // Fetch works
-function fetchHomeGallery(parameters) {
+function fetchHomeGallery() {
   fetch('http://localhost:5678/api/works')
     .then((response) => response.json())
     .then((works) => {
@@ -85,8 +85,14 @@ function fetchHomeGallery(parameters) {
       // const categories = [];
       const allWorksSpan = document.createElement('span');
       allWorksSpan.textContent = 'Tout';
+      allWorksSpan.id = 0;
       allWorksSpan.classList.add('span__filter__global');
+      allWorksSpan.addEventListener('click', () => {
+        allWorksSpan.classList.add('span__filter__global');
+      });
+      allWorksSpan.classList.add('objects__category__span');
       objectsCategoryDiv.appendChild(allWorksSpan);
+
       works.forEach((work) => {
         const category = work.category;
         const categoryName = category.name;
@@ -98,15 +104,31 @@ function fetchHomeGallery(parameters) {
 
           // Create the category section
           const objectsCategorySpan = document.createElement('span');
+
+          objectsCategoryDiv.addEventListener('click', (e) => {
+            const clickedSpan = e.target;
+
+            if (clickedSpan.classList.contains('objects__category__span')) {
+              const categorySpans = objectsCategoryDiv.querySelectorAll('.objects__category__span');
+
+              categorySpans.forEach((span) => {
+                if (span === clickedSpan) {
+                  span.classList.add('span__filter__global');
+                } else {
+                  span.classList.remove('span__filter__global');
+                }
+              });
+            }
+          });
+
           objectsCategorySpan.textContent = categoryName;
-          objectsCategorySpan.classList.add('span__filter__global');
+          objectsCategorySpan.classList.add('objects__category__span');
           objectsCategoryDiv.appendChild(objectsCategorySpan);
           objectsCategorySpan.id = categoryId;
           objectsCategorySpan.setAttribute('data-id', categoryId);
 
           // Get the category by click
           objectsCategorySpan.addEventListener('click', () => {
-            // const categoryId = parseInt(objectsCategorySpan.getAttribute('data-id'));
             const filteredWorks = works.filter((work) => work.category.name === categoryName);
 
             // Reset portfolio
@@ -161,7 +183,12 @@ function fetchHomeGallery(parameters) {
       sectionPortfolio.appendChild(objectsCategoryDiv);
       sectionPortfolio.insertBefore(objectsCategoryDiv, sectionPortfolioDivGallery);
       if (sessionStorage.getItem('token')) {
-        sectionPortfolio.removeChild(objectsCategoryDiv);
+        const objectsCategorySpan = document.querySelector('.objects__category__span');
+        objectsCategoryDiv.remove(objectsCategorySpan);
+        // sectionPortfolioH2.style.marginBottom = '0';
+        // objectsCategorySpan.forEach((span) => {
+        //   span.classList.add('displayElementFalse');
+        // });
       }
     });
 }
