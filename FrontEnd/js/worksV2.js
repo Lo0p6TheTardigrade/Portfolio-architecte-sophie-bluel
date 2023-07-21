@@ -142,7 +142,6 @@ ifLogged(
   modalCrossBox.appendChild(modalCross),
   adminToolButton.addEventListener('click', () => {
     if (!modalCreated) {
-      // addClass(modalCrossBox, 'modalCrossBox');
       addClass(modal, 'modalBoxModal');
       setElementAttributes(modalCross, ['id', 'modalCross'], ['class', 'fa-solid fa-xmark cursorPointer']);
     }
@@ -151,9 +150,6 @@ ifLogged(
   })
 );
 const modal = document.getElementById('modal');
-// function modalCondition() {
-
-// }
 
 const arrowBack = createElement('i');
 setElementAttributes(arrowBack, ['id', 'modal__arrow__back'], ['class', 'fa-solid fa-arrow-left cursorPointer']);
@@ -170,12 +166,6 @@ function imageBoxChange() {
 function arrowBackAdd() {
   modalCrossArrowBox.appendChild(arrowBack);
   modalCrossArrowBox.appendChild(modalCross);
-  InputFileById.setAttribute('class', 'fa-image fa-regular');
-  if (!imagePreview.classList.contains('displayElementFalse')) {
-    InputFileById.classList.add('displayElementFalse');
-  }
-  // InputFileText.classList.remove('displayElementFalse');
-  // InputFileType.classList.remove('displayElementFalse');
 }
 
 modalCross.addEventListener('click', (e) => {
@@ -185,7 +175,7 @@ modalCross.addEventListener('click', (e) => {
   modalAddWork.classList.add('displayElementFalse');
   modal.classList.add('displayElementFalse');
 });
-// modalCross.addEventListener('click', (e) => redirectToFrontEnd(e));
+
 adminToolButton.addEventListener('click', () => {
   ifLogged, modal.classList.remove('displayElementFalse');
 });
@@ -355,16 +345,9 @@ async function deleteWork(TrashBox) {
       });
       if (response.ok) {
         alert('Travail supprimé avec succès !');
-        sectionPortfolioDivGallery.innerHTML = '';
         fetchHomeGallery();
-        closeModal();
-        if (!imagePreview.classList.contains('displayElementFalse')) {
-          imagePreview.classList.add('displayElementFalse');
-          InputFileText.classList.remove('displayElementFalse');
-          InputFileType.classList.remove('displayElementFalse');
-          InputWorkTitle.value = '';
-          InputWorkSelect.value = '';
-        }
+        fetchWorks();
+        resetAfterPostDelete();
       } else {
         alert('Erreur lors de la suppression du travail');
       }
@@ -446,19 +429,24 @@ async function handleFormSubmit(event, InputFileById, InputWorkTitle, InputWorkS
   });
   if (response.ok) {
     alert('Le travail a été ajouté avec succès !');
-    // worksData = await fetchWorks();
-    closeModal();
-    sectionPortfolioDivGallery.innerHTML = '';
+
     fetchHomeGallery();
-    imagePreview.src = '#';
-    InputWorkTitle.value = '';
-    InputFileById.classList.remove('displayElementFalse');
-    InputFileById.setAttribute('class', 'fa-image fa-regular');
-    InputFileText.classList.remove('displayElementFalse');
-    InputFileType.classList.remove('displayElementFalse');
-    ImagePreview.classList.add('displayElementFalse');
-    // window.location.href = '/Users/kwys/Desktop/DEV-WEB/Github/Portfolio-architecte-sophie-bluel/FrontEnd/index.html';
+    fetchWorks();
+    resetAfterPostDelete();
   } else {
     alert("Erreur lors de l'ajout du travail " + '(Code erreur = ' + response.status + ')');
   }
+}
+function resetAfterPostDelete() {
+  sectionPortfolioDivGallery.innerHTML = '';
+  imageBox.innerHTML = '';
+  imagePreview.src = '#';
+  InputWorkTitle.value = '';
+  InputFileById.classList.remove('displayElementFalse');
+  InputFileById.setAttribute('class', 'fa-image fa-regular');
+  InputFileText.classList.remove('displayElementFalse');
+  InputFileType.classList.remove('displayElementFalse');
+  ImagePreview.classList.add('displayElementFalse');
+  InputWorkTitle.value = null;
+  InputWorkSelect.selectedIndex = 0;
 }

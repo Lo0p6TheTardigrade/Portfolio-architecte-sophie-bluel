@@ -15,7 +15,7 @@ if (document.getElementById('main__section') === false) {
 } else {
   // Find the list item with the following text fields
   let getProjectNavLink = document.getElementsByTagName('*');
-  // console.log(getProjectNavLink);
+
   for (let index = 0; index < getProjectNavLink.length; index++) {
     if (getProjectNavLink[index].textContent === 'projets') {
       let project = getProjectNavLink[index];
@@ -60,8 +60,6 @@ function fetchHomeGallery() {
         const getImageUrl = work.imageUrl;
         const getTitleForFigcaption = work.title;
         const getTitleForAlt = work.title;
-        // const getCategoryId = work.categoryId;
-        // console.log(getCategoryId);
 
         // Create new elements for section portfolio
         const sectionPortfolioFigure = document.createElement('figure');
@@ -82,7 +80,6 @@ function fetchHomeGallery() {
       objectsCategoryDiv.id = 'categoryFilter';
 
       // Create category elements and append to category div
-      // const categories = [];
       const allWorksSpan = document.createElement('span');
       allWorksSpan.textContent = 'Tout';
       allWorksSpan.id = 0;
@@ -185,9 +182,6 @@ function fetchHomeGallery() {
       if (sessionStorage.getItem('token')) {
         const objectsCategorySpan = document.querySelector('.objects__category__span');
         objectsCategoryDiv.remove(objectsCategorySpan);
-        // sectionPortfolioH2.style.marginBottom = '0';
-        // objectsCategorySpan.forEach((span) => {
-        //   span.classList.add('displayElementFalse');
         // });
       }
     });

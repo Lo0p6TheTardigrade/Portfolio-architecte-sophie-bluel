@@ -222,19 +222,15 @@ li:hover {
   grid-row: 2/3;
 }
 #main__section form #label__id__username {
-  /* grid-row: 1/2; */
   margin-bottom: 7px;
 }
 #main__section form #username {
-  /* grid-row: 2/3; */
   margin-bottom: 30px;
 }
 #main__section form #label__id__password {
-  /* grid-row: 3/4; */
   margin-bottom: 7px;
 }
 #main__section form #password {
-  /* grid-row: 4/5; */
   margin-bottom: 30px;
 }
 #main__section form span {
@@ -366,10 +362,7 @@ li:hover {
 #modal__add_work {
   display: flex;
   flex-flow: column;
-  /* justify-content: center; */
   align-items: center;
-  /* margin-left: 105px; */
-  /* margin-right: 105px; */
   margin-bottom: 42px;
 }
 #form {

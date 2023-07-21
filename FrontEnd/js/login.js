@@ -1,23 +1,22 @@
 // Find the list item with the following text fields
 let getLoginNavLink = document.getElementsByTagName('*');
-// console.log(getLoginNavLink);
+
 for (let index = 0; index < getLoginNavLink.length; index++) {
   if (getLoginNavLink[index].textContent === 'login') {
     let loginNavigation = getLoginNavLink[index];
-    // console.log(loginNavigation);
+
     loginNavigation.setAttribute('id', 'loginNavigation');
   }
 }
 
-function cookieSessionCreate() {
-  document.cookie = 'session=getTokenResponse; path=/';
-}
+// function cookieSessionCreate() {
+//   document.cookie = 'session=getTokenResponse; path=/';
+// }
 const h1Tile = document.querySelector('h1');
 
 // Select the list item login
 let loginNavLink = document.getElementById('loginNavigation');
 const mainTag = document.querySelector('main');
-// console.log(loginNavLink);
 
 // Add event listener on login nav link click
 loginNavLink.addEventListener('click', () => {
@@ -77,7 +76,7 @@ loginNavLink.addEventListener('click', () => {
   const buttonLoginSectionTitle = document.createElement('span');
   buttonLoginSectionTitle.textContent = 'Se connecter';
   buttonLoginSectionTitle.setAttribute('id', 'login__section__title');
-  // buttonLoginSectionTitle.type = 'submit';
+
   buttonLoginSectionTitle.style.cursor = 'pointer';
   formLoginSectionTitle.appendChild(buttonLoginSectionTitle);
 
@@ -112,7 +111,7 @@ loginNavLink.addEventListener('click', () => {
           sessionStorage.setItem('password', inputPasswordLogin);
 
           window.location.href = '/Users/kwys/Desktop/DEV-WEB/Github/Portfolio-architecte-sophie-bluel/FrontEnd/index.html';
-          cookieSessionCreate();
+          // cookieSessionCreate();
         }
       } else {
         alert('Identifiant ou mot de passe incorrect.');
