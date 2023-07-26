@@ -332,7 +332,7 @@ function createFigureElements(imageUrl, id) {
   });
 }
 
-async function deleteWork(TrashBox) {
+async function deleteWork(TrashBox, e) {
   const workId = parseInt(TrashBox.dataset.id);
   console.log(workId);
   if (workId) {
@@ -344,12 +344,9 @@ async function deleteWork(TrashBox) {
         },
       });
       if (response.ok) {
-        alert('Travail supprimé avec succès !');
         fetchHomeGallery();
         fetchWorks();
         resetAfterPostDelete();
-      } else {
-        alert('Erreur lors de la suppression du travail');
       }
     } catch (error) {
       console.error(error);
@@ -448,13 +445,9 @@ async function handleFormSubmit(event, InputFileById, InputWorkTitle, InputWorkS
     body: formData,
   });
   if (response.ok) {
-    alert('Le travail a été ajouté avec succès !');
-
     fetchHomeGallery();
     fetchWorks();
     resetAfterPostDelete();
-  } else {
-    alert("Erreur lors de l'ajout du travail " + '(Code erreur = ' + response.status + ')');
   }
 }
 function resetAfterPostDelete() {
