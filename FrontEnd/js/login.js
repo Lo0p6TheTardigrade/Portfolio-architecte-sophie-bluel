@@ -75,6 +75,10 @@ loginNavLink.addEventListener('click', () => {
   buttonLoginSectionTitle.style.cursor = 'pointer';
   formLoginSectionTitle.appendChild(buttonLoginSectionTitle);
 
+  const errorMessage = document.createElement('p');
+  errorMessage.style.color = 'red';
+  errorMessage.style.marginBottom = '9px';
+
   async function login() {
     try {
       let inputUserLogin = inputUserLoginSectionTitle.value;
@@ -105,6 +109,7 @@ loginNavLink.addEventListener('click', () => {
       } else {
         inputUserLoginSectionTitle.style.outline = '1px solid red';
         inputPasswordLoginSectionTitle.style.outline = '1px solid red';
+        errorMessage.textContent = 'Erreur dans l’identifiant ou le mot de passe';
       }
     } catch (error) {
       console.error(error);
@@ -122,4 +127,5 @@ loginNavLink.addEventListener('click', () => {
   linkMissingLoginSectionTitle.textContent = 'Mot de passe oublié';
   linkMissingLoginSectionTitle.style.cursor = 'pointer';
   formLoginSectionTitle.appendChild(linkMissingLoginSectionTitle);
+  formLoginSectionTitle.appendChild(errorMessage);
 });
