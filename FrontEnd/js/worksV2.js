@@ -210,7 +210,7 @@ let SelectedBox = createElement('div');
 let SelectedElement = createElement('i');
 let worksData;
 
-adminToolButton.addEventListener('click', (e) => {
+adminToolButton.addEventListener('click', () => {
   if (modalDeleteWork.classList.contains('displayElementFalse')) {
   } else {
     imageBox.innerHTML = '';
@@ -402,10 +402,30 @@ InputFileById.addEventListener('change', () => {
   handleImageInputChange(InputFileById);
 });
 
-buttonSendWork.addEventListener('click', (e) => {
-  handleFormSubmit(e, InputFileById, InputWorkTitle, InputWorkSelect);
-  e.preventDefault();
-});
+InputFileById.addEventListener('change', waitValidation);
+InputWorkTitle.addEventListener('change', waitValidation);
+InputWorkSelect.addEventListener('change', waitValidation);
+
+function waitValidation() {
+  const selectedFiles = InputFileById.files;
+  const workTitleValue = InputWorkTitle.value.trim();
+  const workSelectValue = InputWorkSelect.value;
+
+  if (selectedFiles.length !== 0 && workTitleValue !== '' && workSelectValue !== '0') {
+    buttonSendWork.style.background = '#1D6154';
+    buttonSendWork.disabled = false;
+    buttonSendWork.addEventListener('click', (e) => {
+      handleFormSubmit(e, InputFileById, InputWorkTitle, InputWorkSelect);
+      e.preventDefault();
+    });
+  } else {
+    buttonSendWork.style.background = '#A7A7A7';
+    buttonSendWork.disabled = true;
+    buttonSendWork.removeEventListener('click', handleFormSubmit);
+  }
+}
+
+waitValidation();
 
 async function handleFormSubmit(event, InputFileById, InputWorkTitle, InputWorkSelect) {
   const formData = new FormData();

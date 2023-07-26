@@ -9,9 +9,6 @@ for (let index = 0; index < getLoginNavLink.length; index++) {
   }
 }
 
-// function cookieSessionCreate() {
-//   document.cookie = 'session=getTokenResponse; path=/';
-// }
 const h1Tile = document.querySelector('h1');
 
 // Select the list item login
@@ -53,7 +50,6 @@ loginNavLink.addEventListener('click', () => {
   inputUserLoginSectionTitle.type = 'email';
   inputUserLoginSectionTitle.classList.add('input__style');
   inputUserLoginSectionTitle.setAttribute('id', 'username');
-  // inputUserLoginSectionTitle.setAttribute('autocomplete');
   divLabelInputUser.appendChild(inputUserLoginSectionTitle);
 
   // Password field elements
@@ -69,7 +65,6 @@ loginNavLink.addEventListener('click', () => {
   inputPasswordLoginSectionTitle.type = 'password';
   inputPasswordLoginSectionTitle.classList.add('input__style');
   inputPasswordLoginSectionTitle.setAttribute('id', 'password');
-  // inputPasswordLoginSectionTitle.setAttribute('autocomplete');
   divLabelInputPasswords.appendChild(inputPasswordLoginSectionTitle);
 
   // Create the button for the form
@@ -104,17 +99,12 @@ loginNavLink.addEventListener('click', () => {
 
         buttonLogin();
 
-        alert('Vous êtes connecté !');
-
         if (buttonLoginSectionTitle) {
-          sessionStorage.setItem('email', inputUserLogin);
-          sessionStorage.setItem('password', inputPasswordLogin);
-
-          window.location.href = '/Users/kwys/Desktop/DEV-WEB/Github/Portfolio-architecte-sophie-bluel/FrontEnd/index.html';
-          // cookieSessionCreate();
+          window.location.href = 'index.html';
         }
       } else {
-        alert('Identifiant ou mot de passe incorrect.');
+        inputUserLoginSectionTitle.style.outline = '1px solid red';
+        inputPasswordLoginSectionTitle.style.outline = '1px solid red';
       }
     } catch (error) {
       console.error(error);
