@@ -11,21 +11,6 @@ const sectionIntroduction = document.getElementById('introduction');
 sectionIntroduction.querySelector('figure').setAttribute('id', 'introductionFigure');
 const introductionFigure = document.getElementById('introductionFigure');
 
-if (document.getElementById('main__section') === false) {
-} else {
-  // Find the list item with the following text fields
-  let getProjectNavLink = document.getElementsByTagName('*');
-
-  for (let index = 0; index < getProjectNavLink.length; index++) {
-    if (getProjectNavLink[index].textContent === 'projets') {
-      let project = getProjectNavLink[index];
-      project.id = 'projets';
-      project.addEventListener('click', () => {
-        window.location.href = '/FrontEnd';
-      });
-    }
-  }
-}
 function ifPreviouslyConnected() {
   sessionStorage.getItem('token');
 

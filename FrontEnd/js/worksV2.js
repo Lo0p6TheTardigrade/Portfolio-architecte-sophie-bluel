@@ -156,7 +156,7 @@ setElementAttributes(arrowBack, ['id', 'modal__arrow__back'], ['class', 'fa-soli
 
 function redirectToFrontEnd(event) {
   event.preventDefault();
-  window.location.href = '/Users/kwys/Desktop/DEV-WEB/Github/Portfolio-architecte-sophie-bluel/FrontEnd/index.html';
+  window.location.href = 'index.html';
 }
 
 function imageBoxChange() {
@@ -332,9 +332,8 @@ function createFigureElements(imageUrl, id) {
   });
 }
 
-async function deleteWork(TrashBox, e) {
+async function deleteWork(TrashBox) {
   const workId = parseInt(TrashBox.dataset.id);
-  console.log(workId);
   if (workId) {
     try {
       const response = await fetch(api + `/${workId}`, {
@@ -433,8 +432,6 @@ async function handleFormSubmit(event, InputFileById, InputWorkTitle, InputWorkS
   formData.append('title', newTitle);
   formData.append('category', newCategory);
   event.preventDefault();
-
-  console.log(newImage, newTitle, newCategory);
 
   const response = await fetch('http://localhost:5678/api/works', {
     method: 'POST',
