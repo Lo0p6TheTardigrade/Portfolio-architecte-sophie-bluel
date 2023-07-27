@@ -198,6 +198,8 @@ function arrowBackFunction() {
 arrowBack.addEventListener('click', () => {
   arrowBackFunction();
   modalCrossBox.appendChild(modalCross);
+  fetchWorks();
+  imageBox.innerHTML = '';
 });
 
 let FigureElement = document.createElement('figure');
